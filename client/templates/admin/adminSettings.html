@@ -1,0 +1,144 @@
+<template name="adminSettings">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+              <h5>Жаңа мектеп қосу</h5>
+              <div class="form-inline">
+                <div class="form-group">
+                  <label for="schoolId">ID:</label>
+                  <input type="text" class="form-control" placeholder="3 таңбалы ID" name="schoolId">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Мектеп аты:</label>
+                  <input type="text" class="form-control" placeholder="Мектеп атауы" name="schoolName">
+                </div>
+                <button id="addNew" class="btn btn-default">Қосу</button>
+              </div>
+            </div>
+        </div>
+        <div style="padding-top: 30pt" class="row">
+          <div class="col-md-8">
+            <h4 style="text-align: center;" >Құпиясөзін жаңарту</h4>
+            {{#if Template.subscriptionsReady}}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Мектеп аты</th>
+                        <th>Құпиясөз</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each schools}}
+                    <tr>
+                        <td>{{schoolId}}</td>
+                        <td>{{shortName}}</td>
+                        <td id="resetpassword"><button class="btn btn-warning">Жаңарту</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>Loading...</p>
+            {{/if}}
+        </div>
+        
+        <div class="col-md-3">
+            <h4 style="text-align: center;">Жүктеу</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Емтихан</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>БТС-1</td>
+                            <td>
+                                <select style="width: 100pt; float: right;" class="form-control" name="bts1" id="bts1">
+                                    <option value="enabled" {{selected "btsUpload" "1" "enabled"}}>Ашық</option>
+                                    <option value="disabled" {{selected "btsUpload" "1" "disabled"}}>Жабық</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>БТС-2</td>
+                            <td>
+                                <select style="width: 100pt; float: right;" class="form-control" name="bts2" id="bts2">
+                                    <option value="enabled" {{selected "btsUpload" "2" "enabled"}}>Ашық</option>
+                                    <option value="disabled" {{selected "btsUpload" "2" "disabled"}}>Жабық</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>БТС-3</td>
+                            <td>
+                                <select style="width: 100pt; float: right;" class="form-control" name="bts3" id="bts3">
+                                    <option value="enabled" {{selected "btsUpload" "3" "enabled"}}>Ашық</option>
+                                    <option value="disabled" {{selected "btsUpload" "3" "disabled"}}>Жабық</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>БТС-4</td>
+                            <td>
+                                <select style="width: 100pt; float: right;" class="form-control" name="bts4" id="bts4">
+                                    <option value="enabled" {{selected "btsUpload" "4" "enabled"}}>Ашық</option>
+                                    <option value="disabled" {{selected "btsUpload" "4" "disabled"}}>Жабық</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td></td><td></td></tr>
+                        <tr>
+                            <td>КБО-1</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="kbo1" id="kbo1">
+                                <option value="enabled" {{selected "kboUpload" "1" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "kboUpload" "1" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>КБО-2</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="kbo2" id="kbo2">
+                                <option value="enabled" {{selected "kboUpload" "2" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "kboUpload" "2" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>КБО-3</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="kbo3" id="kbo3">
+                                <option value="enabled" {{selected "kboUpload" "3" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "kboUpload" "3" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr><td></td><td></td></tr>
+                        <tr>
+                            <td>TAT-1</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="tat1" id="tat1">
+                                <option value="enabled" {{selected "tatUpload" "1" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "tatUpload" "1" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TAT-2</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="tat2" id="tat2">
+                                <option value="enabled" {{selected "tatUpload" "2" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "tatUpload" "2" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    </div> <!-- /container -->
+</template>

@@ -1,0 +1,149 @@
+<template name="btsAllResults">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>БТС-{{btsNo}} Нәтижелері</h4>
+            <div class="form-inline">
+                    {{> academicYear}}
+                    <label for="">Сынып</label>
+                    <select class="form-control" name='grade' id='select'>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <label for="">Мектеп</label>
+                    <select class="form-control" name='schoolId_select' id='select' style="width:150pt">
+                        <option value="">Select school</option>
+                    {{#each schools}}
+                        <option value="{{schoolId}}">{{shortName}}</option>
+                    {{/each}}
+                    </select>
+            </div>
+            {{#if Template.subscriptionsReady}}
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bts-header">
+                        <th>#</th>
+                        <th>Мектеп</th>
+                        <th>Сынып</th>
+                        <th>ID</th>
+                        <th>Аты</th>
+                        <th>Жөні</th>
+                        <th>Физика</th>
+                        <th>Химия</th>
+                        <th>Биология</th>
+                        <th>Ағылшын тілі</th>
+                        <th>Қазақ тілі</th>
+                        <th>Қазақ әдебиеті</th>
+                        <th>Орыс тілі</th>
+                        <th>Алгебра</th>
+                        <th>Геометрия</th>
+                        <th>Информатика</th>
+                        <th>Жалпы тарих</th>
+                        <th>Тарих</th>
+                        <th>География</th>
+                        <th>Жалпы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each results}}
+
+                    <tr>
+                        <td>{{math @index "+" 1}}</td>
+                        <td>{{schoolName schoolId}}</td>
+                        <td>{{grade}}{{division}}</td>
+                        <td>{{studentId}}</td>
+                        <td>{{name}}</td>
+                        <td>{{surname}}</td>
+                        <td>{{physics}}</td>
+                        <td>{{chemistry}}</td>
+                        <td>{{biology}}</td>
+                        <td>{{english}}</td>
+                        <td>{{kazakh}}</td>
+                        <td>{{kazakh_literature}}</td>
+                        <td>{{russian}}</td>
+                        <td>{{algebra}}</td>
+                        <td>{{geometry}}</td>
+                        <td>{{computer}}</td>
+                        <td>{{world_history}}</td>
+                        <td>{{kazakh_history}}</td>
+                        <td>{{geography}}</td>
+                        <td>{{total}}</td>
+                    </tr>
+                    <tr>
+                        <td>A</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{round 2 physicsA}}</td>
+                        <td>{{round 2 chemistryA}}</td>
+                        <td>{{round 2 biologyA}}</td>
+                        <td>{{round 2 englishA}}</td>
+                        <td>{{round 2 kazakhA}}</td>
+                        <td>{{round 2 kazakh_literatureA}}</td>
+                        <td></td>
+                        <td>{{round 2 algebraA}}</td>
+                        <td>{{round 2 geometryA}}</td>
+                        <td>{{round 2 computerA}}</td>
+                        <td>{{round 2 world_historyA}}</td>
+                        <td>{{round 2 kazakh_historyA}}</td>
+                        <td>{{round 2 geographyA}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{round 2 physicsB}}</td>
+                        <td>{{round 2 chemistryB}}</td>
+                        <td>{{round 2 biologyB}}</td>
+                        <td>{{round 2 englishB}}</td>
+                        <td>{{round 2 kazakhB}}</td>
+                        <td>{{round 2 kazakh_literatureB}}</td>
+                        <td></td>
+                        <td>{{round 2 algebraB}}</td>
+                        <td>{{round 2 geometryB}}</td>
+                        <td>{{round 2 computerB}}</td>
+                        <td>{{round 2 world_historyB}}</td>
+                        <td>{{round 2 kazakh_historyB}}</td>
+                        <td>{{round 2 geographyB}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{round 2 physicsC}}</td>
+                        <td>{{round 2 chemistryC}}</td>
+                        <td>{{round 2 biologyC}}</td>
+                        <td>{{round 2 englishC}}</td>
+                        <td>{{round 2 kazakhC}}</td>
+                        <td>{{round 2 kazakh_literatureC}}</td>
+                        <td></td>
+                        <td>{{round 2 algebraC}}</td>
+                        <td>{{round 2 geometryC}}</td>
+                        <td>{{round 2 computerC}}</td>
+                        <td>{{round 2 world_historyC}}</td>
+                        <td>{{round 2 kazakh_historyC}}</td>
+                        <td>{{round 2 geographyC}}</td>
+                        <td></td>
+                    </tr>
+
+
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>Loading...</p>
+            {{/if}}
+        </div>
+    </div>
+</template>

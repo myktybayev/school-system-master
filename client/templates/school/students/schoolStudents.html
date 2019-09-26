@@ -1,0 +1,96 @@
+<template name="schoolStudents">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Оқушы тізімі</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-inline">
+                        <div class="col-md-10">
+                            <label for="schoolId">Іздеу:</label>
+                            <input type="text" class="form-control" id="search" placeholder="Аты" name="name_search">
+                            <input type="text" class="form-control" id="search" placeholder="Жөні" name="surname_search">
+                            <input type="text" class="form-control" id="search" placeholder="Cыныбы" name="grade_search">
+                            <input type="text" class="form-control" id="search" placeholder="Бөлімі" name="division_search">
+                        </div>
+                        <div style="float: right;">
+                            <a href="#" class="btn btn-success" id='addMultipleUsers' data-toggle="tooltip" title="Парақшалар қосу">
+                              <span class="glyphicon glyphicon-th"></span> Қосу 
+                            </a>
+                            <a href="#" class="btn btn-danger" id='deleteMultipleUsers' data-toggle="tooltip" title="Парақшалар жою">
+                              <span class="glyphicon glyphicon-th"></span> Жою 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            {{#if Template.subscriptionsReady}}
+            <table class="table table-striped">
+                <thead>
+                    <tr class="bts-header">
+                        <th>#</th>
+                        <th>Оқушы ID</th>
+                        <th>Сыныбы</th>
+                        <th>Аты-жөні</th>
+                        <th>Toбы</th>
+                        <th>Олимпиада пәні</th>
+                        <th>Жоба пәні</th>
+                        <th>Парақшасы<br/>бар ма</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each students}}
+                    <tr>
+                        <td>{{math @index "+" 1}}</td>
+                        <td>{{studentId}}</td>
+                        <td>{{grade}}{{division}}</td>
+                        <td>{{surname}} {{name}}</td>
+                        <td>{{languageGroup}}</td>
+                        <td>
+                            <select class="form-control" style="width: 120pt" name="subjectId" id="kboSubject">
+                                <option value="free">---</option>
+                                {{#each subjects}}
+                                    <option value="{{subjectId}}" {{isOlympiadStudent ../studentId subjectId}}>
+                                        {{name}}
+                                    </option>
+                                {{/each}}
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" style="width: 120pt" name="subjectId" id="kboSubject1">
+                                <option value="free">---</option>
+                                {{#each subjects}}
+                                    <option value="{{subjectId}}" {{isJobaStudent ../studentId subjectId}}>
+                                        {{name}}
+                                    </option>
+                                {{/each}}
+                            </select>
+                        </td>
+                        <td>{{hasProfile}}</td>
+                        <!--<td><a class="btn btn-primary btn-sm" href="/school/student/edit/{{_id}}">Өзгерту</a></td> 
+                        <td><a class="btn btn-success" id='addUser' style="float: right" href="#">Парақша қосу</a></td> -->
+                        
+                        <td class="btn-group" role="group" style="width: 80pt">
+                        <a href="#" for="btn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span style="font-size: 30px" class="glyphicon glyphicon-option-horizontal"></span>
+                        </a>
+                            <ul class="dropdown-menu" id="btn1">
+                              <li><a href="/school/student/edit/{{_id}}">Өзгерту</a></li>
+                              <li><a href="#" id='transfer'>Трансферге қосу</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#" id='addUser'>Парақша қосу</a></li>
+                              <li><a href="#" id="resetStudentPassword">Құпиясөзін жаңарту</a></li>
+                              <li><a href="#" id='deleteAccount'>Парақшаны жою</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>Loading...</p>
+            {{/if}}
+        </div>
+    </div>
+</template>

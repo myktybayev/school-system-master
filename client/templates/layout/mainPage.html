@@ -1,0 +1,11 @@
+<template name="mainPage">
+    {{#onlyIfLoggedIn}}
+    {{#if isAdmin}}
+      {{> adminMainPage}}
+    {{else if isSchool}}
+      {{> schoolMainPage}}
+    {{else}}
+   	  {{> studentMainPage}}
+    {{/if}}
+    {{/onlyIfLoggedIn}}
+</template>
