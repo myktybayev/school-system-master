@@ -33,3 +33,4 @@ cfs:standard-packages
 cfs:gridfs
 themeteorchef:bert
 meteorhacks:cluster
+msavin:mongol

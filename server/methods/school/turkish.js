@@ -3,7 +3,7 @@ import { calculateRating } from "../../modules/turkish/rating";
 
 Meteor.methods({
     'TurkishResults.Upload':function(academicYear,results) {
-        
+
         /*exam = Configs.findOne({
             _id: 'turkishUpload'
         });

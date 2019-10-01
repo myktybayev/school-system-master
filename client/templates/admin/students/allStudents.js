@@ -10,14 +10,14 @@ Template.allStudents.onCreated(function() {
     template.schoolId_select = new ReactiveVar("")
 
     template.autorun(()=>{
-        template.subscribe("allStudents",FlowRouter.getParam("grade")) 
+        template.subscribe("allStudents",FlowRouter.getParam("grade"))
     })
     template.subscribe("schools")
     template.subscribe("kboSubjects")
 })
 
 Template.allStudents.helpers({
-    
+
     getGrade() {
         return FlowRouter.getParam('grade')
     },
@@ -55,5 +55,6 @@ Template.allStudents.events({
         template.schoolId_select.set(template.find('[name=schoolId_select]').value)
 
         let schoolId_select = FlowRouter.getParam('_id')
+
     }
 })
