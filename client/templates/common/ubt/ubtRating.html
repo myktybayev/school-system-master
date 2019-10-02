@@ -2,21 +2,23 @@
     <div class="row">
         <div class="col-md-12">
             <h4 style="text-align: center;">ҰБТ Рейтинг</h4>
-            <div class="row">
-                <div class="form-inline"> 
-                    <div class="form-group">  
+                <div class="form-inline" style="padding-bottom: 10pt">
+                    <div class="form-group" style="margin-right: 10pt">
                     {{> academicYear}}
                     </div>
+
+                    <div class="form-group" style="float: right">
+                        <a class="btn btn-success" id="export">Export</a>
+                    </div>
                 </div>
-            </div>
             {{#if Template.subscriptionsReady}}
-            <div class="table-responsive" style="padding-top: 15pt">
-            <table class="table table-striped table-bordered table-hover table-condensed"> 
+            <div class="table-responsive" id="out">
+            <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
-                    <tr class="bts-header">
-                        
+                    <tr class="bts-header" style="background-color: white;">
                         <th style="position: absolute; width: 300pt; background-color: white; text-align: center;">Мектеп аты</th>
-                        <th style="padding-left: 305pt; text-align: center;">ҰБТ1</th>
+                        <th style="padding-left: 305pt; text-align: center;">Жалпы</th>
+                        <th style="text-align: center;">ҰБТ1</th>
                         <th style="text-align: center;">ҰБТ2</th>
                         <th style="text-align: center;">ҰБТ3</th>
                         <th style="text-align: center;">ҰБТ4</th>
@@ -50,15 +52,16 @@
                         <th style="text-align: center;">ҰБТ32</th>
                         <th style="text-align: center;">ҰБТ33</th>
                         <th style="text-align: center;">ҰБТ34</th>
-                        <th>Жалпы</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each results}}
                     <tr>
-                        
+
                         <td style="position: absolute; width: 300pt; background-color: white;">{{math @index "+" 1}}. {{schoolName schoolId}}</td>
-                        <td style="text-align: center; padding-left: 305pt">{{ubt1}}</td>
+
+                        <td style="text-align: center; padding-left: 305pt">{{total}}</td>
+                        <td style="text-align: center;">{{ubt1}}</td>
                         <td style="text-align: center;">{{ubt2}}</td>
                         <td style="text-align: center;">{{ubt3}}</td>
                         <td style="text-align: center;">{{ubt4}}</td>
@@ -92,7 +95,6 @@
                         <td style="text-align: center;">{{ubt32}}</td>
                         <td style="text-align: center;">{{ubt33}}</td>
                         <td style="text-align: center;">{{ubt34}}</td>
-                        <td style="text-align: center;">{{total}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

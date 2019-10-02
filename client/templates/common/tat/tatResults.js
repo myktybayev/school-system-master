@@ -54,7 +54,7 @@ Template.tatResults.events({
       data.push(headers);
 
       var resultStore = TatResults.find({},{sort:{percent:-1}}).fetch();
-      console.log(resultStore.length);
+      // console.log(resultStore.length);
 
       let mektepAty;
       if(resultStore.length > 0) {
