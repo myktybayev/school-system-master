@@ -8,6 +8,7 @@ import XLSX from 'xlsx';
 Template.ubtRating.onCreated(function(){
     let template = this
 
+    document.title = "ҰБТ Рейтинг";
     template.subscribe("schools")
     template.autorun(()=>{
         template.subscribe("uhdSchoolRatings",academicYear.get())

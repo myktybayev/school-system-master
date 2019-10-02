@@ -6,6 +6,7 @@ import XLSX from 'xlsx';
 
 Template.ubtResults.onCreated(function(){
     let template = this
+    document.title = "ҰБТ Нәтижелері";
     template.state = new ReactiveVar("results")
     template.subscribe("schools")
     template.subscribe('school')
