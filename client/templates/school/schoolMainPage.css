@@ -1,3 +1,9 @@
 .center{
   text-align: center;
 }
+
+.absolute-style {
+  position: absolute;
+  white-space: nowrap;
+  background-color: white;
+}
