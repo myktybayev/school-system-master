@@ -4,6 +4,7 @@ import './schoolTeachers.html';
 
 Template.schoolTeachers.onCreated(function() {
     let template = this
+    document.title = "Мұғалімдер тізімі";
     template.name_search = new ReactiveVar("")
     template.surname_search = new ReactiveVar("")
     template.subscribe("teachers")
@@ -33,7 +34,7 @@ Template.schoolTeachers.events({
             Meteor.call("Teacher.transfer", this._id, function(err) {
                 if(err){
                     alert(err.reason)
-                } 
+                }
             })
         }
     }

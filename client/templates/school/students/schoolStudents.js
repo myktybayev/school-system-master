@@ -4,6 +4,7 @@ import './schoolStudents.html';
 
 Template.schoolStudents.onCreated(function() {
     let template = this
+    document.title = "Оқушылар тізімі";
     template.name_search = new ReactiveVar("")
     template.surname_search = new ReactiveVar("")
     template.grade_search = new ReactiveVar("")
@@ -82,7 +83,7 @@ Template.schoolStudents.events({
             Meteor.call("Student.deleteAccount", this._id, function(err) {
                 if(err){
                     alert(err.reason)
-                } 
+                }
             })
             alert("Оқушының парақшасы жойылды")
         }
@@ -115,7 +116,7 @@ Template.schoolStudents.events({
             Meteor.call("Student.transfer", this._id, function(err) {
                 if(err){
                     alert(err.reason)
-                } 
+                }
             })
         }
     }

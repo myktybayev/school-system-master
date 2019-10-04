@@ -2,9 +2,12 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
 import './kboRating.html';
+import { Meteor } from 'meteor/meteor';
+import XLSX from 'xlsx';
 
 Template.kboRating.onCreated(function(){
     let template = this
+    document.title = "КБО Рейтинг";
     Session.setDefault('Sort',{total:-1});
     template.grade = new ReactiveVar('all')
     template.subscribe('schools')
@@ -31,9 +34,83 @@ Template.kboRating.helpers({
 })
 
 Template.kboRating.events({
-    'change .grade'(event,template) {
+    'change #grade'(event,template) {
         template.grade.set(event.target.value)
     },
+    "click #export"(event,template) {
+      document.getElementById('out').innerHTML;
+      var data = [];
+      let kboNo = FlowRouter.getParam('kboNo');
+      var selectedGrade = "Жалпы";
+
+      if(template.grade.get() != "all"){
+        let grades = ["7 cынып", "8 cынып", "9 cынып", "10 cынып", "11 cынып"];
+        selectedGrade= grades[parseInt(template.grade.get()) - 7]
+      }
+
+      var headers = ["#", "Оқу жылы", "Мектеп аты", "Сынып",
+      "Жалпы", "Физика", "Химия", "Биология", "Ағылшын тілі","География",
+      "Қазақ тілі(Қазақ тобы)", "Қазақ тілі (Орыс тобы)", "Орыс тілі", "Алгебра",
+      "Түрік тілі", "Тарих", "Құқық"];
+
+      data.push(headers);
+      var kboStore = KboRatings.find({},{sort: Session.get('Sort')}).fetch();
+      let okuJyly = academicYear.get();
+      // console.log(kboStore);
+
+      for(var i = 0; i < kboStore.length; i++){
+        let idN = i+1;
+        let mektepAty  = Schools.findOne({schoolId: kboStore[i].schoolId}) ? Schools.findOne({schoolId: kboStore[i].schoolId}).shortName : undefined;
+        let total = kboStore[i].total;
+        let algebra = kboStore[i]["01"];
+        let physics = kboStore[i]["02"];
+        let chemistry = kboStore[i]["03"];
+        let biology = kboStore[i]["04"];
+        let english = kboStore[i]["05"];
+        let geography = kboStore[i]["06"];
+
+        let kazakh_kz = kboStore[i]["07"];
+        let kazakh_rus = kboStore[i]["08"];
+        let turkish = kboStore[i]["10"];
+        let russian = kboStore[i]["11"];
+
+        let history = kboStore[i]["12"];
+        let kukik = kboStore[i]["15"];
+
+        let content = [idN, okuJyly, mektepAty, selectedGrade,
+          total,
+          physics,
+          chemistry,
+          biology,
+          english,
+          geography,
+          kazakh_kz,
+          kazakh_rus,
+          russian,
+          algebra,
+          turkish,
+          history,
+          kukik];
+
+        data.push(content);
+
+      }
+
+      // console.log(data);
+
+      if(data.length == 1){
+          alert("Keep calm, there is no data to export");
+      }else{
+        Meteor.call('download', data, (err, wb) => {
+          if (err) throw err;
+
+          let sName = 'KBO-'+kboNo+' rating '+selectedGrade+' '+okuJyly+'.xlsx';
+          XLSX.writeFile(wb, sName);
+        });
+      }
+
+    },
+
     'click #sortAlgebra'(event,template) {
         Session.set('Sort',{'01':-1});
     },

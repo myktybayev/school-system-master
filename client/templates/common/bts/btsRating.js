@@ -39,7 +39,7 @@ Template.btsRating.events({
 
       if(template.grade.get() != "all"){
         let lessons = ["7 cынып", "8 cынып", "9 cынып", "10 cынып"];
-          selectedLesson = lessons[parseInt(template.subjectId.get()) - 7]
+          selectedLesson = lessons[parseInt(template.grade.get()) - 7]
       }
 
       var headers = ["#", "Оқу жылы", "Мектеп аты",

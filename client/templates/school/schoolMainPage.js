@@ -5,6 +5,7 @@ Template.schoolMainPage.onCreated(function() {
     let template = this
     template.month_select = new ReactiveVar('annual')
     //template.month_select_general = new ReactiveVar('annual')
+    document.title = "Басты бет";
 
     template.subscribe("subjects")
     template.subscribe('school')
