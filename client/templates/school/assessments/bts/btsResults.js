@@ -14,6 +14,7 @@ Template.btsResults.onCreated(function(){
 
     })
 })
+
 Template.btsResults.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
@@ -117,7 +118,7 @@ Template.btsResults.events({
 
         data.push(content);
       }
-      
+
       if(data.length == 1){
           alert("Keep calm, there is no data to export");
       }else{
