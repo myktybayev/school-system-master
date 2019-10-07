@@ -3,8 +3,15 @@ export const upload = (academicYear,schoolId,results) => {
     _.each(results,(studentObj) => {
         let student = Students.findOne({studentId:parseInt(studentObj.studentId)});
 
-        if (!student || student.schoolId != schoolId)
+
+        if (!student || student.schoolId != schoolId){
+
+            console.log("can not find student");
             return;
+        }
+
+
+        console.log(student.name);
 
         let studentRecord = {
             academicYear: academicYear,
@@ -13,16 +20,18 @@ export const upload = (academicYear,schoolId,results) => {
             name: student.name,
             surname: student.surname,
             grade: student.grade + student.division,
-            
+
             total: 0,
         }
+
+        console.log("studentRecord: "+studentRecord);
 
         var totalPoints = 0;
         var totalAmount = 0;
 
         for (var i = 1; i <= 34; i++) {
             var n = 'ubt' + i;
-            
+
             studentRecord[n] = studentObj[n] || 0;
             totalPoints += parseInt(studentObj[n] || 0)
 

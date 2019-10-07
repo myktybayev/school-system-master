@@ -44,5 +44,8 @@ Blaze.registerHelper("round", function(value,number) {
 Blaze.registerHelper("divide", function(value,number) {
     return value/number
 })
+let date = new Date();
+let year = date.getFullYear();
+let nextYear = year+1;
 
-academicYear = new ReactiveVar('2018-2019')
+academicYear = new ReactiveVar(year+'-'+nextYear)

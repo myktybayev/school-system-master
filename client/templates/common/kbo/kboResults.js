@@ -6,6 +6,7 @@ import XLSX from 'xlsx';
 
 Template.kboResults.onCreated(function(){
     let template = this
+    document.title = "КБО Нәтиже";
     template.grade = new ReactiveVar('7')
     template.subjectId = new ReactiveVar('01')
     template.subscribe('schools')
