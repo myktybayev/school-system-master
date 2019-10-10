@@ -119,6 +119,24 @@ Template.schoolStudents.events({
                 }
             })
         }
+    },
+    "click #deleteStudent"(event,template) {
+        event.preventDefault()
+
+        bootbox.confirm("Оқушыны өшіргіңіз келеді ме?"+this._id, function(result){
+            if(result){
+
+            }
+        });
+
+
+            // Meteor.call("Student.transfer", this._id, function(err) {
+            //     if(err){
+            //         alert(err.reason)
+            //     }
+            // })
+
+
     }
 })
 

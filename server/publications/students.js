@@ -4,7 +4,7 @@ Meteor.publish('students', function(){
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
         if(school) {
-            let cursor = Students.find({schoolId:school.schoolId})
+            let cursor = Students.find({schoolId:school.schoolId, grade: { $in: [ "7","8","9","10","11"] }}) //$in: [ "7","8","9","10","11"] 
             return cursor
         }
     } else {
@@ -14,6 +14,14 @@ Meteor.publish('students', function(){
 
 Meteor.publish('allStudents', function(grade){
         return Students.find({grade:grade})
+})
+
+Meteor.publish('graduatedStudentList', function(academicYear){
+        if (this.userId) {
+            return Students.find({grade:academicYear})
+        } else {
+            return this.ready()
+        }
 })
 
 Meteor.publish("student",function(student_id) {
@@ -70,4 +78,3 @@ Meteor.publish('btsStudentObjectivesResults',function(academicYear,quarter) {
     }
     return this.ready()
 })
-

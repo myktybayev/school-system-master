@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { uploadStudents } from "../../modules/student/uploadStudents";
+
 Meteor.methods({
     "Student.updateOlympiadSubject": function(student_id,subjectId) {
         if(Roles.userIsInRole(this.userId,'school')) {
@@ -10,6 +12,21 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
+  	"Student.Upload":function(academicYear,results) {
+
+          if (!Roles.userIsInRole(this.userId,"school"))
+              throw new Meteor.Error('access-denied', 'Access denied!')
+
+          let school = Schools.findOne({
+              userId: this.userId
+          })
+
+          if (school) {
+              uploadStudents(academicYear,school.schoolId,results)
+              // calculateRating(academicYear,school.schoolId)
+          }
+    },
+
     "Student.updateJobaSubject": function(student_id,subjectId) {
         if(Roles.userIsInRole(this.userId,'school')) {
             let student = Students.findOne({_id:student_id})
@@ -74,14 +91,24 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
-    "Student.upgrade": function() {
+    "Student.upgrade": function(academicYear) {
         if(Roles.userIsInRole(this.userId,'school')) {
             let school = Schools.findOne({userId:this.userId})
-            Students.remove({grade:"11",schoolId:school.schoolId})
+
+            let years = academicYear.split('-')
+            let prev = +years[0]
+            prev--
+            let previousAcademicYear =  prev+'-'+years[0];
+
             let students = Students.find({schoolId:school.schoolId}).fetch()
             _.each(students,(student) => {
-                let grade = +student.grade+1+""
-                Students.update({_id:student._id},{$set:{grade:grade}})
+                if(student.grade == "11"){
+                  Students.update({_id:student._id},{$set:{grade:previousAcademicYear}})
+                }else{
+                  // let grade = +student.grade+1+""
+                  // Students.update({_id:student._id},{$set:{grade:grade}})
+                }
+
             })
         } else {
             throw new Meteor.Error('auth-error','School rights required.')

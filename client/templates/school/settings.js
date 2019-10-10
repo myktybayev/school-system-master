@@ -29,7 +29,7 @@ Template.schoolSettings.events({
         if (pass) {
             if (confirm("Өзгеріс енгізілгеннен кейін қайта калпына келмейді!")) {
                 $('#upgrade').prop('disabled', true);
-                Meteor.call("Student.upgrade",function(err) {
+                Meteor.call("Student.upgrade",academicYear.get(),function(err) {
                     if (err) {
                         alert(err.reason)
                     } else {

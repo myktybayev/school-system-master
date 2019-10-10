@@ -56,7 +56,7 @@ Template.ubtUpload.events({
       let students = Students.find({grade: "11"}, {sort:{division: 1}}).fetch()
 
       students.forEach(student =>{
-        let content = [ student.studentId, student.grade+student.division, student.surname, student.name, "50", "50", "80" ];
+        let content = [ student.studentId, student.grade+student.division, student.surname, student.name];
         data.push(content);
       });
 

@@ -1,13 +1,34 @@
 
-export const upload = (academicYear,schoolId,results) => {
-    _.each(results,(studentObj) => {
-        let student = Students.findOne({studentId:parseInt(studentObj.studentId)});
+export const uploadStudents = (academicYear,schoolId,results) => {
 
+    _.each(results,(studentObj) => {
+
+      let name          = studentObj.name
+      let surname       = studentObj.surname
+      let grade         = studentObj.grade
+      let division      = studentObj.division
+      let olympiad      = studentObj.olympiad
+      let joba          = studentObj.joba
+      let languageGroup = studentObj.languageGroup
+
+      if (name && surname && grade && division) {
+          Meteor.call('Student.insert',{
+              name:name,
+              surname:surname,
+              grade:grade,
+              division:division,
+              olympiad:olympiad,
+              joba:joba,
+              languageGroup:languageGroup
+          })
+      }
+      // FlowRouter.redirect('/school/students')
+      /*
+        let student = Students.findOne({studentId:parseInt(studentObj.studentId)});
 
         if (!student || student.schoolId != schoolId){
             return;
         }
-
 
         console.log(student.name);
 
@@ -45,6 +66,7 @@ export const upload = (academicYear,schoolId,results) => {
             UhdResults.update({_id:recordInDb._id},{$set:studentRecord})
         } else {
             UhdResults.insert(studentRecord)
-        }
+        }*/
     })
+
 }
