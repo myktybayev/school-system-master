@@ -48,6 +48,25 @@ Template.schoolStudents.events({
         template.surname_search.set(template.find('[name=surname_search]').value)
         template.division_search.set(template.find('[name=division_search]').value)
     },
+    "click #exitFromSchoolStudent"(event,template) {
+        event.preventDefault()
+        let sFind = Students.findOne({_id:this._id});
+        let sInfo = sFind.surname+" "+sFind.name;
+        bootbox.confirm("Оқушыны өшіргіңіз келеді ме?\n"+sInfo, function(result){
+            if(result){
+                Meteor.call('Student.deleteStudent',this._id)
+            }
+        });
+
+            // Meteor.call("Student.transfer", this._id, function(err) {
+            //     if(err){
+            //         alert(err.reason)
+            //     }
+            // })
+
+
+    },
+
     "change #kboSubject"(event,template) {
         Meteor.call('Student.updateOlympiadSubject',this._id,event.target.value)
     },
@@ -119,24 +138,6 @@ Template.schoolStudents.events({
                 }
             })
         }
-    },
-    "click #deleteStudent"(event,template) {
-        event.preventDefault()
-
-        bootbox.confirm("Оқушыны өшіргіңіз келеді ме?"+this._id, function(result){
-            if(result){
-
-            }
-        });
-
-
-            // Meteor.call("Student.transfer", this._id, function(err) {
-            //     if(err){
-            //         alert(err.reason)
-            //     }
-            // })
-
-
     }
 })
 

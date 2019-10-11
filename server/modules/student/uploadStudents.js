@@ -7,8 +7,6 @@ export const uploadStudents = (academicYear,schoolId,results) => {
       let surname       = studentObj.surname
       let grade         = studentObj.grade
       let division      = studentObj.division
-      let olympiad      = studentObj.olympiad
-      let joba          = studentObj.joba
       let languageGroup = studentObj.languageGroup
 
       if (name && surname && grade && division) {
@@ -17,8 +15,8 @@ export const uploadStudents = (academicYear,schoolId,results) => {
               surname:surname,
               grade:grade,
               division:division,
-              olympiad:olympiad,
-              joba:joba,
+              olympiad:'free',
+              joba:'free',
               languageGroup:languageGroup
           })
       }

@@ -32,18 +32,15 @@
                         <th>#</th>
                         <th>Оқушы ID</th>
                         <th>Сыныбы</th>
-                        <th>Аты-жөні</th>
+                        <th name="sInfo">Аты-жөні</th>
                         <th>Toбы</th>
                         <th>Олимпиада пәні</th>
                         <th>Жоба пәні</th>
                         <th>Парақшасы<br/>бар ма</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each students}}
-
-                    {{#if math @index "<" 10}}
 
                     <tr>
                         <td>{{math @index "+" 1}}</td>
@@ -80,9 +77,6 @@
                         aria-expanded="false">
                         <span style="font-size: 30px" class="glyphicon glyphicon-option-horizontal">
                         </span></a>
-
-
-
                             <ul class="dropdown-menu" id="btn1">
                               <li><a href="/school/student/edit/{{_id}}">Өзгерту</a></li>
                               <li><a href="#" id='transfer'>Трансферге қосу</a></li>
@@ -93,14 +87,13 @@
                             </ul>
                         </td>
 
-                        <td>
-                          <a href="#" class="btn btn-danger" id='deleteStudent' data-toggle="tooltip"
+                        <!-- <td>
+                          <a href="#" class="btn btn-danger" id='exitFromSchoolStudent' data-toggle="tooltip"
                           title="Оқушы өшіру">
                             Өшіру</a>
                         </td>
+                         -->
                     </tr>
-
-                    {{/if}}
                     {{/each}}
                 </tbody>
               </table>

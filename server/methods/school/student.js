@@ -104,9 +104,11 @@ Meteor.methods({
             _.each(students,(student) => {
                 if(student.grade == "11"){
                   Students.update({_id:student._id},{$set:{grade:previousAcademicYear}})
-                }else{
-                  // let grade = +student.grade+1+""
-                  // Students.update({_id:student._id},{$set:{grade:grade}})
+                }
+                else if(student.grade == "7" || student.grade == "8"
+                || student.grade == "9" || student.grade == "10"){
+                  let grade = +student.grade+1+""
+                  Students.update({_id:student._id},{$set:{grade:grade}})
                 }
 
             })
@@ -121,8 +123,11 @@ Meteor.methods({
             Students.remove({grade:"7",schoolId:school.schoolId})
             let students = Students.find({schoolId:school.schoolId}).fetch()
             _.each(students,(student) => {
+              if(student.grade == "7" || student.grade == "8" || student.grade == "9" || student.grade == "10" || student.grade == "11"){
+                
                 let grade = +student.grade-1+""
                 Students.update({_id:student._id},{$set:{grade:grade}})
+              }
             })
         } else {
             throw new Meteor.Error('auth-error','School rights required.')
@@ -189,6 +194,11 @@ Meteor.methods({
             student.hasProfile = 'no';
             Students.update({_id:student_id},{$set:student});
             //console.log("student deleted:" + student.name + student.surname)
-            }
+          }
     },
+    "Student.deleteStudent": function(student_id) {
+        if(Roles.userIsInRole(this.userId,'school')) {
+            Students.remove({_id:this._id});
+        }
+    }
 })

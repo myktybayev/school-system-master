@@ -63,8 +63,6 @@ Template.ubtUpload.events({
       let splited = schoolName.split(' ');
       let shortN = splited[0];
 
-      console.log(shortN);
-
       Meteor.call('download', data, (err, wb) => {
         if (err) throw err;
 
@@ -72,46 +70,23 @@ Template.ubtUpload.events({
         XLSX.writeFile(wb, sName);
       });
 
-        /*
-        address: "Бегалиева Балнұр Болатовна"
-        birthDate: "11/26/2002"
-        division: "A"
-        elective1: "04"
-        elective2: "03"
-        fatherName: "Бегалиева Балнұр Болатовна"
-        gender: "male"
-        grade: "11"
-        hasProfile: "yes"
-        languageGroup: "kaz"
-        motherName: "Егембердиевич Нурлан Елтанович"
-        name: "Тамерлан"
-        oldSchoolId: "014"
-        olympiad: "free"
-        phone: "87016454772"
-        prev_grade: "7"
-        schoolId: "020"
-        studentId: 18968
-        surname: "Егембердиев"
-        userId: "ZcdH3Sy66AWAf3LRv"
-        _id: "AAnRgcBXJMkbZcfKP"
-        */
-
   },
-
-    "click #save"(event,template) {
+  "click #save"(event,template) {
         event.preventDefault()
         if(template.results.get().length > 0) {
             SUIBlock.block('Жүктелуде...');
+            console.log(academicYear.get());
             Meteor.call("UbtResults.Upload", academicYear.get(), template.results.get(),function (err) {
-                if (err) {
-                    alert(err.reason)
+                if (err) {                    
+                    bootbox.alert(err.reason);
                     SUIBlock.unblock();
                 } else {
                     template.results.set([])
                     SUIBlock.unblock();
-                    alert("Сақталды")
+                    bootbox.alert("Сақталды");
                 }
             });
+
             return
         }
         alert("Файл таңдалмады немесе қателер табылды")

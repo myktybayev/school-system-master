@@ -10,7 +10,7 @@ Meteor.methods({
 	},
 
 	'UbtResults.Upload':function(academicYear,results) {
-		    
+
         if (!Roles.userIsInRole(this.userId,"school"))
             throw new Meteor.Error('access-denied', 'Access denied!')
 

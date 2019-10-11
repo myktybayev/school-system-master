@@ -8,9 +8,6 @@ export const upload = (academicYear,schoolId,results) => {
             return;
         }
 
-
-        console.log(student.name);
-
         let studentRecord = {
             academicYear: academicYear,
             studentId: student.studentId,

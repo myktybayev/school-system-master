@@ -22,8 +22,20 @@ Template.newStudent.helpers({
 });
 
 Template.newStudent.events({
+    "click .btn"(event,template){
+      if(template.find("[name = dropdown-icon]").className == 'fa fa-caret-square-o-down'){
+        template.find("[name = dropdown-icon]").className = 'fa fa-caret-square-o-up'
+      }else{
+        template.find("[name = dropdown-icon]").className = 'fa fa-caret-square-o-down'
+      }
+    },
+
     "click #save"(event,template) {
         event.preventDefault()
+        var dictLang = {
+          "kaz": "Қазақ тобы",
+          "rus": "Орыс тобы",
+        };
 
         let name = template.find("[name=name]").value
         let surname = template.find("[name=surname]").value
@@ -31,7 +43,8 @@ Template.newStudent.events({
         let division = template.find("[name=division]").value
         let olympiad = template.find("[name = olympiadSubject]").value
         let joba = template.find("[name=jobaSubject]").value
-        let languageGroup = template.find("[name=languageGroup]").value
+        let languageGroup = dictLang[template.find("[name=languageGroup]").value];
+        console.log(languageGroup);
 
         if (name && surname && grade && division) {
             Meteor.call('Student.insert',{
@@ -58,7 +71,7 @@ Template.newStudent.events({
                   template.find("[name=division]").style.background = 'White';
           });
         }
-
+        
     },
     "click .collapsible"(event,template) {
         event.preventDefault()
@@ -80,7 +93,9 @@ Template.newStudent.events({
                 } else {
                     template.results.set([])
                     SUIBlock.unblock();
-                    alert("Сақталды")
+                    bootbox.alert("Сақталды", function(result){
+                      FlowRouter.redirect('/school/students')
+                    });
                 }
             });
             return
@@ -88,7 +103,6 @@ Template.newStudent.events({
         alert("Файл таңдалмады немесе қателер табылды")
     },
     'change #uploadS' (event,template) {
-
         const file = event.currentTarget.files[0];
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -109,15 +123,23 @@ Template.newStudent.events({
         const html = document.getElementById('out').innerHTML;
 
         var data = [];
-        var headers = ['name', 'surname', 'grade', 'division', 'olympiad','joba','languageGroup']
+        var headers = ['grade','division', 'surname', 'name', 'languageGroup']
 
         listDivision = ['A','B','C','D','E','F'];
         listLang = ['Қазақ тобы','Орыс тобы'];
 
-
         data.push(headers);
+        count = 0;
+        listDivision.forEach(item =>{
+          let divItem = listDivision[count]
+          let langItem = listLang[count]
+          let content = [ '', divItem, '', '', langItem];
+          data.push(content);
 
+          count++;
+        });
 
+        /*
         let subjects = KboCourses.find({},{sort:{subjectId:1}}).fetch();
         count = 0;
         subjects.forEach(item =>{
@@ -130,7 +152,7 @@ Template.newStudent.events({
         });
 
         console.log(data);
-
+        */
 
         // var tempContent = ['Vasya', 'Pupkin', '7', 'C', 'Info','Algebra','kaz']
         // var tempContent1 = ['Vasya1', 'Pupkin1', '8', 'A', 'Info1','Geomatrya','rus']
