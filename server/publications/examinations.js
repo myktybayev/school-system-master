@@ -1,5 +1,15 @@
 import { Meteor } from 'meteor/meteor'
 
+Meteor.publish('opeResults',function(subjectId, grade) {
+    if (this.userId) {
+        let school = Schools.findOne({userId:this.userId})
+        let cursor = Students.find({olympiad:subjectId, grade:grade, schoolId:school.schoolId})
+        // let cursor = OpeResults.find()
+        return cursor
+    }
+    return this.ready()
+})
+
 Meteor.publish('btsResults',function(academicYear,grade,btsNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
@@ -95,7 +105,7 @@ Meteor.publish('kboResults',function(academicYear,grade,subjectId,kboNo) {
         let school = Schools.findOne({userId:this.userId})
         let cursor = KboResults.find({academicYear:academicYear,grade:RegExp(grade),subjectId:RegExp(subjectId),kboNo:kboNo,schoolId:school.schoolId})
         return cursor
-    } 
+    }
     return this.ready()
 })
 

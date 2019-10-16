@@ -138,5 +138,3 @@ Meteor.publish('jobaRatings',function(academicYear) {
         return this.ready()
     }
 })
-
-

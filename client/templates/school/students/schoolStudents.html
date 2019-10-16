@@ -29,14 +29,14 @@
             <table class="table table-striped table-hover table-condensed">
                   <thead>
                     <tr class="bts-header " style="text-align: center;">
-                        <th>#</th>
-                        <th>Оқушы ID</th>
-                        <th>Сыныбы</th>
-                        <th name="sInfo">Аты-жөні</th>
-                        <th>Toбы</th>
-                        <th>Олимпиада пәні</th>
-                        <th>Жоба пәні</th>
-                        <th>Парақшасы<br/>бар ма</th>
+                        <th style="width: 30pt">#</th>
+                        <th style="width: 60pt">Оқушы ID</th>
+                        <th style="width: 60pt">Сыныбы</th>
+                        <th name="sInfo" style="width: 150pt">Аты-жөні</th>
+                        <th style="width: 80pt">Toбы</th>
+                        <th style="width: 120pt">Олимпиада пәні</th>
+                        <th style="width: 120pt">Жоба пәні</th>
+                        <th style="width: 100pt">Парақшасы<br/>бар ма</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,9 +47,9 @@
                         <td>{{studentId}}</td>
                         <td>{{grade}}{{division}}</td>
                         <td>{{surname}} {{name}}</td>
-                        <td>{{languageGroup}}</td>
+                        <td style="width: 30pt">{{languageGroup}}</td>
                         <td>
-                            <select class="form-control" style="width: 120pt" name="subjectId" id="kboSubject">
+                            <select class="form-control" style="width: 100pt" name="subjectId" id="kboSubject">
                                 <option value="free">---</option>
                                 {{#each subjects}}
                                     <option value="{{subjectId}}" {{isOlympiadStudent ../studentId subjectId}}>
@@ -59,7 +59,7 @@
                             </select>
                         </td>
                         <td>
-                            <select class="form-control" style="width: 120pt" name="subjectId" id="kboSubject1">
+                            <select class="form-control" style="width: 100pt" name="subjectId" id="kboSubject1">
                                 <option value="free">---</option>
                                 {{#each subjects}}
                                     <option value="{{subjectId}}" {{isJobaStudent ../studentId subjectId}}>
@@ -73,18 +73,19 @@
                         <td><a class="btn btn-success" id='addUser' style="float: right" href="#">Парақша қосу</a></td> -->
 
                         <td class="btn-group" role="group" style="width: 30pt">
-                        <a href="#" for="btn1" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <span style="font-size: 30px" class="glyphicon glyphicon-option-horizontal">
-                        </span></a>
-                            <ul class="dropdown-menu" id="btn1">
-                              <li><a href="/school/student/edit/{{_id}}">Өзгерту</a></li>
-                              <li><a href="#" id='transfer'>Трансферге қосу</a></li>
-                              <li role="separator" class="divider"></li>
-                              <li><a href="#" id='addUser'>Парақша қосу</a></li>
-                              <li><a href="#" id="resetStudentPassword">Құпиясөзін жаңарту</a></li>
-                              <li><a href="#" id='deleteAccount'>Парақшаны жою</a></li>
-                            </ul>
+                          <a href="#" for="btn1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                            <span style="font-size: 30px" class="glyphicon glyphicon-option-horizontal">
+                            </span>
+                          </a>
+                              <ul class="dropdown-menu" id="btn1" style="margin-right: 50pt">
+                                <li><a href="/school/student/edit/{{_id}}">Өзгерту</a></li>
+                                <li><a href="#" id='transfer'>Трансферге қосу</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" id='addUser'>Парақша қосу</a></li>
+                                <li><a href="#" id="resetStudentPassword">Құпиясөзін жаңарту</a></li>
+                                <li><a href="#" id='deleteAccount'>Парақшаны жою</a></li>
+                              </ul>
                         </td>
 
                         <!-- <td>
