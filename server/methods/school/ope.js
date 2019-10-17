@@ -28,8 +28,6 @@ Meteor.methods({
 
                 }})
 
-            console.log("updated");
-
             }else{
 
               let student = Students.findOne({_id:student_id})
@@ -53,7 +51,6 @@ Meteor.methods({
               };
               OpeResults.insert(studentOpeResults)
 
-              console.log("inserted");
 
             }
 

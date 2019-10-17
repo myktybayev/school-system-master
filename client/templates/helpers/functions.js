@@ -10,6 +10,10 @@ Blaze.registerHelper("ope2", function(studentId) {
     return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope2 : undefined
 })
 
+Blaze.registerHelper("average", function(studentId) {
+    return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).average : undefined
+})
+
 Blaze.registerHelper("subjectName", function(subjectId) {
     return Subjects.findOne({subjectId:subjectId}) ? Subjects.findOne({subjectId:subjectId}).name_kz : undefined
 })

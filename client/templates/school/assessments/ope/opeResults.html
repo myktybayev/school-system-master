@@ -49,7 +49,7 @@
                         <th>Аты-жөні</th>
                         <th>OPE1</th>
                         <th>OPE2</th>
-                        <th></th>
+                        <th>Average</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,16 +62,7 @@
 
                     {{#if editing}}
 
-                        <td style="width:100pt">
-
-                          {{#if ope1}}
-                            <input type="text" id="editOpe1">
-
-                          {{else}}
-                            <input type="text" id="editOpe1" value="{{ope1 studentId}}">
-
-                          {{/if}}
-                        </td>
+                        <td><input type="text" id="editOpe1" value="{{ope1 studentId}}"></td>
                         <td><input type="text" id="editOpe2" value="{{ope2 studentId}}"></td>
                         <td>
                           <button class="saveItem btn btn-success">Save</button>
@@ -82,6 +73,7 @@
 
                         <td>{{ope1 studentId}}</td>
                         <td>{{ope2 studentId}}</td>
+                        <td>{{average studentId}}</td>
                         <!-- <td>{{ope1 studentId}}</td> -->
                         <td><button class="editItem btn btn-primary">Edit</button>
                         </td>
