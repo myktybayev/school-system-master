@@ -42,6 +42,7 @@ Template.studentDetail.events({
           alert("You cannot choose same subjects!")
         }
 
+
         if (name && surname && grade && division && (elective1 != elective2)) {
             Meteor.call('Student.update',{
                 name:name,
@@ -61,6 +62,7 @@ Template.studentDetail.events({
                 }
             })
         }
+
     },
     "click #transfer"(event,template) {
         event.preventDefault()

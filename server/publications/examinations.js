@@ -1,10 +1,29 @@
 import { Meteor } from 'meteor/meteor'
 
+Meteor.publish('opes',function() {
+      return OpeResults.find()
+})
+
+Meteor.publish('adminOpeResults',function(subjectId, grade) {
+    if (this.userId) {
+      return OpeResults.find({olympiad:subjectId, grade:grade})
+    }
+    return this.ready()
+})
+
 Meteor.publish('opeResults',function(subjectId, grade) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
         let cursor = Students.find({olympiad:subjectId, grade:grade, schoolId:school.schoolId})
         // let cursor = OpeResults.find()
+        return cursor
+    }
+    return this.ready()
+})
+
+Meteor.publish('tatRating',function(academicYear,subjectId,tatNo) {
+    if (this.userId) {
+        let cursor = TatRating.find({academicYear:academicYear,tatNo:tatNo,subjectId:subjectId})
         return cursor
     }
     return this.ready()
@@ -116,14 +135,6 @@ Meteor.publish('kboAllResults',function(academicYear,subjectId,grade) {
     } else {
         return this.ready()
     }
-})
-
-Meteor.publish('tatRating',function(academicYear,subjectId,tatNo) {
-    if (this.userId) {
-        let cursor = TatRating.find({academicYear:academicYear,tatNo:tatNo,subjectId:subjectId})
-        return cursor
-    }
-    return this.ready()
 })
 
 Meteor.publish('tatResults',function(academicYear,subjectId,tatNo) {

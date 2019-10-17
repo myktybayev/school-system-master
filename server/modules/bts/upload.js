@@ -50,9 +50,9 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
         }
 
 
-        if (student.grade == '7' || student.grade == '8') {              
-            if (btsNo == '2'){                
-                if(day == '1'){                    
+        if (student.grade == '7' || student.grade == '8') {
+            if (btsNo == '2'){
+                if(day == '1'){
                     studentRecord.variant_day_1 = answerKey.variant
                     studentRecord.day_1_keys = studentObj.keys
                     studentRecord["algebra"] = check(parseAnswerKey(answerKey.algebra), studentObj.keys.slice(0,100))
@@ -78,13 +78,13 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                         studentRecord["kazakh_literatureB"] = checkB(parseAnswerKey(answerKey.kazakh_literature_rus), studentObj.keys.slice(150,200),parseLevelKey(levelKey.kazakh_literature_rus))
                         studentRecord["kazakh_literatureC"] = checkC(parseAnswerKey(answerKey.kazakh_literature_rus), studentObj.keys.slice(150,200),parseLevelKey(levelKey.kazakh_literature_rus))
                     }
-                    studentRecord["russian"] = check(parseAnswerKey(answerKey.russian), studentObj.keys.slice(200,300))                                                                  
+                    studentRecord["russian"] = check(parseAnswerKey(answerKey.russian), studentObj.keys.slice(200,300))
                     studentRecord["kazakh_history"] = check(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400))
                     studentRecord["kazakh_historyA"] = checkA(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
                     studentRecord["kazakh_historyB"] = checkB(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
                     studentRecord["kazakh_historyC"] = checkC(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
-                           
-                    
+
+
                     studentRecord["day_1_total"] = studentRecord["kazakh"] + studentRecord["russian"] + studentRecord["algebra"] + studentRecord["kazakh_history"]
                     studentRecord["total"] += studentRecord["day_1_total"]
 
@@ -95,7 +95,7 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                     studentRecord["geometry"] = check(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(0,100));
                     studentRecord["geometryA"] = checkA(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.geometry));
                     studentRecord["geometryB"] = checkB(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.geometry));
-                    studentRecord["geometryC"] = checkC(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.geometry)); 
+                    studentRecord["geometryC"] = checkC(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.geometry));
                     studentRecord["computer"] = check(parseAnswerKey(answerKey.computer), studentObj.keys.slice(100,200));
                     studentRecord["computerA"] = checkA(parseAnswerKey(answerKey.computer), studentObj.keys.slice(100,200),parseLevelKey(levelKey.computer));
                     studentRecord["computerB"] = checkB(parseAnswerKey(answerKey.computer), studentObj.keys.slice(100,200),parseLevelKey(levelKey.computer));
@@ -109,13 +109,13 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                     studentRecord["world_historyB"] = checkB(parseAnswerKey(answerKey.world_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.world_history));
                     studentRecord["world_historyC"] = checkC(parseAnswerKey(answerKey.world_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.world_history));
 
-                    
+
                     studentRecord["day_2_total"] = studentRecord["geometry"] + studentRecord["computer"] + studentRecord["geography"] + studentRecord["world_history"]
                     studentRecord["total"] += studentRecord["day_2_total"]
                 }
             }
             else{
-                if(day == '1'){                    
+                if(day == '1'){
                     studentRecord.variant_day_1 = answerKey.variant
                     studentRecord.day_1_keys = studentObj.keys
                     studentRecord["algebra"] = check(parseAnswerKey(answerKey.algebra), studentObj.keys.slice(0,100))
@@ -141,13 +141,13 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                         studentRecord["kazakh_literatureB"] = checkB(parseAnswerKey(answerKey.kazakh_literature_rus), studentObj.keys.slice(150,200),parseLevelKey(levelKey.kazakh_literature_rus))
                         studentRecord["kazakh_literatureC"] = checkC(parseAnswerKey(answerKey.kazakh_literature_rus), studentObj.keys.slice(150,200),parseLevelKey(levelKey.kazakh_literature_rus))
                     }
-                    studentRecord["russian"] = check(parseAnswerKey(answerKey.russian), studentObj.keys.slice(200,300))                                                                  
+                    studentRecord["russian"] = check(parseAnswerKey(answerKey.russian), studentObj.keys.slice(200,300))
                     studentRecord["kazakh_history"] = check(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400))
                     studentRecord["kazakh_historyA"] = checkA(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
                     studentRecord["kazakh_historyB"] = checkB(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
                     studentRecord["kazakh_historyC"] = checkC(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400),parseLevelKey(levelKey.kazakh_history))
-                           
-                    
+
+
                     studentRecord["day_1_total"] = studentRecord["kazakh"] + studentRecord["russian"] + studentRecord["algebra"] + studentRecord["kazakh_history"]
                     studentRecord["total"] += studentRecord["day_1_total"]
 
@@ -168,20 +168,19 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                     studentRecord["biologyA"] = checkA(parseAnswerKey(answerKey.biology), studentObj.keys.slice(200,300),parseLevelKey(levelKey.biology));
                     studentRecord["biologyB"] = checkB(parseAnswerKey(answerKey.biology), studentObj.keys.slice(200,300),parseLevelKey(levelKey.biology));
                     studentRecord["biologyC"] = checkC(parseAnswerKey(answerKey.biology), studentObj.keys.slice(200,300),parseLevelKey(levelKey.biology));
-                    
+
                     studentRecord["day_2_total"] = studentRecord["chemistry"] + studentRecord["physics"] + studentRecord["biology"]
                     studentRecord["total"] += studentRecord["day_2_total"]
                 }
             }
-        
+
     }else {
 
             if (day == '2') {
                 if (btsNo == '3'){
                     studentRecord.variant_day_2 = answerKey.variant
                     studentRecord.day_2_keys = studentObj.keys
-
-                   
+                    
                     studentRecord["chemistry"] = check(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100));
                     studentRecord["chemistryA"] = checkA(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.chemistry));
                     studentRecord["chemistryB"] = checkB(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.chemistry));
@@ -253,7 +252,7 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
             } else {
                 studentRecord.variant_day_1 = answerKey.variant
                 studentRecord.day_1_keys = studentObj.keys
-                
+
                 studentRecord["algebra"] = check(parseAnswerKey(answerKey.algebra), studentObj.keys.slice(0,100));
                 studentRecord["algebraA"] = checkA(parseAnswerKey(answerKey.algebra), studentObj.keys.slice(0,100),parseLevelKey(levelKey.algebra));
                 studentRecord["algebraB"] = checkB(parseAnswerKey(answerKey.algebra), studentObj.keys.slice(0,100),parseLevelKey(levelKey.algebra));
@@ -261,7 +260,7 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                 // studentRecord["geometry"] = check(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(75,100));
                 // studentRecord["geometryA"] = checkA(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(75,100),parseLevelKey(levelKey.geometry));
                 // studentRecord["geometryB"] = checkB(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(75,100),parseLevelKey(levelKey.geometry));
-                // studentRecord["geometryC"] = checkC(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(75,100),parseLevelKey(levelKey.geometry));             
+                // studentRecord["geometryC"] = checkC(parseAnswerKey(answerKey.geometry), studentObj.keys.slice(75,100),parseLevelKey(levelKey.geometry));
                 if (studentRecord.languageGroup == "kaz") {
                     studentRecord["kazakh"] = check(parseAnswerKey(answerKey.kazakh_kaz), studentObj.keys.slice(100,150))
                     studentRecord["kazakhA"] = checkA(parseAnswerKey(answerKey.kazakh_kaz), studentObj.keys.slice(100,150),parseLevelKey(levelKey.kazakh_kaz))

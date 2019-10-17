@@ -1,4 +1,4 @@
-<template name="opeResults">
+<template name="adminOpeResults">
     <div class="row">
         <div class="col-md-12">
             <h4 style="text-align: center; padding-bottom: 15pt">OPE Нәтижелері</h4>
@@ -39,54 +39,34 @@
                     </div>
                 </div>
             </div>
+
             {{#if Template.subscriptionsReady}}
 
             <table style="margin-top: 15pt" class="table table-striped">
                 <thead>
                     <tr class="bts-header">
                         <th>#</th>
+                        <th>Мектеп</th>
                         <th>Сынып</th>
                         <th>Аты-жөні</th>
                         <th>OPE1</th>
                         <th>OPE2</th>
-                        <th></th>
+                        <th>Average</th>
                     </tr>
                 </thead>
                 <tbody>
-                  {{#each students}}
+                  {{#each opeList}}
 
                     <tr>
                       <td>{{math @index "+" 1}}</td>
-                      <td>{{grade}} {{division}}</td>
-                      <td>{{surname}} {{name}} </td>
-
-                    {{#if editing}}
-
-                        <td style="width:100pt">
-
-                          {{#if ope1}}
-                            <input type="text" id="editOpe1">
-
-                          {{else}}
-                            <input type="text" id="editOpe1" value="{{ope1 studentId}}">
-
-                          {{/if}}
-                        </td>
-                        <td><input type="text" id="editOpe2" value="{{ope2 studentId}}"></td>
-                        <td>
-                          <button class="saveItem btn btn-success">Save</button>
-                          <button class="cancelItem btn btn-default">Cancel</button>
-                        </td>
-
-                    {{else}}
-
-                        <td>{{ope1 studentId}}</td>
-                        <td>{{ope2 studentId}}</td>
+                      <td style="width:20%; text-align:center">{{schoolName schoolId}}</td>
+                      <td>{{grade}} сынып</td>
+                      <td>{{studentSurname}} {{studentName}}</td>
+                      <td>{{ope1 studentId}}</td>
+                      <td>{{ope2 studentId}}</td>
+                      <td>{{average}}</td>
                         <!-- <td>{{ope1 studentId}}</td> -->
-                        <td><button class="editItem btn btn-primary">Edit</button>
-                        </td>
 
-                    {{/if}}
                     </tr>
                   {{/each}}
 

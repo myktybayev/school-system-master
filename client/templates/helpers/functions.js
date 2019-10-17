@@ -2,6 +2,14 @@ Blaze.registerHelper("schoolName", function(schoolId) {
     return Schools.findOne({schoolId:schoolId}) ? Schools.findOne({schoolId:schoolId}).shortName : undefined
 })
 
+Blaze.registerHelper("ope1", function(studentId) {
+    return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope1 : undefined
+})
+
+Blaze.registerHelper("ope2", function(studentId) {
+    return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope2 : undefined
+})
+
 Blaze.registerHelper("subjectName", function(subjectId) {
     return Subjects.findOne({subjectId:subjectId}) ? Subjects.findOne({subjectId:subjectId}).name_kz : undefined
 })
