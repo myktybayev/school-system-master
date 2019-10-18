@@ -80,14 +80,14 @@ Template.kboUpload.events({
                     keys: txtlines[i].slice(39),
                     isValid: true
                 }
-
+                
                 let variant = KboKeys.findOne({variant: studObj.variant, academicYear:academicYear.get(), kboNo:kboNo});
                 if (!variant) {
                     studObj.isValid = false
                     template.errors.set(true)
                     alert("Келесі окушының варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
                 }
-                
+
                 let student = Students.findOne({studentId: parseInt(studObj.studentId)});
                 if (!student) {
                     studObj.isValid = false

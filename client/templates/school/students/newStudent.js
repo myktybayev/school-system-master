@@ -41,8 +41,6 @@ Template.newStudent.events({
         let surname = template.find("[name=surname]").value
         let grade = template.find("[name=grade]").value
         let division = template.find("[name=division]").value
-        let olympiad = template.find("[name = olympiadSubject]").value
-        let joba = template.find("[name=jobaSubject]").value
         let languageGroup = dictLang[template.find("[name=languageGroup]").value];
         console.log(languageGroup);
 
@@ -52,8 +50,6 @@ Template.newStudent.events({
                 surname:surname,
                 grade:grade,
                 division:division,
-                olympiad:olympiad,
-                joba:joba,
                 languageGroup:languageGroup
             })
             FlowRouter.redirect('/school/students')
@@ -71,7 +67,7 @@ Template.newStudent.events({
                   template.find("[name=division]").style.background = 'White';
           });
         }
-        
+
     },
     "click .collapsible"(event,template) {
         event.preventDefault()

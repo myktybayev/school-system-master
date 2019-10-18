@@ -12,7 +12,7 @@ export const calculateRating = (academicYear,kboNo,schoolId) => {
     };
     let subjects = KboCourses.find().fetch();
 
-    _.each(['7','8','9','10','11'],function(grade) {
+    _.each(['6','7','8','9','10','11'],function(grade) {
         var gradeRating = {
             academicYear:academicYear,
             schoolId:schoolId,

@@ -1,7 +1,7 @@
 <template name="allStudents">
     <div class="row">
         <div class="col-md-12">
-            <h4>{{getGrade}} сынып oқушылар тізімі</h4>
+            <h4>{{getGrade}} сынып oқушылар тізімі {{getText}}</h4>
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-inline">
@@ -9,7 +9,7 @@
                             <label for="schoolId">Іздеу:</label>
                             <input type="text" class="form-control" id="search" placeholder="Аты" name="name_search">
                             <input type="text" class="form-control" id="search" placeholder="Жөні" name="surname_search">
-                            
+
                             <select class="form-control" style="width:150pt" name="schoolId_select" id="select">
                                 <option value="">Select School</option>
                                 {{#each schools}}

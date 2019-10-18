@@ -50,6 +50,10 @@ Meteor.methods({
                 student.schoolId = school.schoolId
 
                 Students.insert(student)
+                console.log(student.name);
+                console.log(student.grade);
+                
+                console.log("Inserted");
             }
         } else {
             throw new Meteor.Error('auth-error','School rights required.')
@@ -124,7 +128,7 @@ Meteor.methods({
             let students = Students.find({schoolId:school.schoolId}).fetch()
             _.each(students,(student) => {
               if(student.grade == "7" || student.grade == "8" || student.grade == "9" || student.grade == "10" || student.grade == "11"){
-                
+
                 let grade = +student.grade-1+""
                 Students.update({_id:student._id},{$set:{grade:grade}})
               }

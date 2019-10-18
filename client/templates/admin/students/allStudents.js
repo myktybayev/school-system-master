@@ -10,7 +10,7 @@ Template.allStudents.onCreated(function() {
     template.schoolId_select = new ReactiveVar("")
 
     template.autorun(()=>{
-        template.subscribe("allStudents",FlowRouter.getParam("grade"))
+        template.subscribe("allStudents", FlowRouter.getParam("grade"))
     })
     template.subscribe("schools")
     template.subscribe("kboSubjects")
