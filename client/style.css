@@ -1,7 +1,12 @@
 .bts-header {
     font-size: 12px;
 }
-
+a:link {
+  text-decoration: none;
+}
+span.drop-icon {
+  float: right;
+}
 .main-container {
     padding-top: 3em;
 }
