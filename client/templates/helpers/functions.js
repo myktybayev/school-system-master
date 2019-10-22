@@ -61,4 +61,4 @@ let year = date.getFullYear();
 let nextYear = year+1;
 
 // academicYear = new ReactiveVar(year+'-'+nextYear)
-academicYear = new ReactiveVar('2018-2019')
+academicYear = new ReactiveVar('2019-2020')

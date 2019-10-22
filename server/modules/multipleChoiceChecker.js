@@ -52,21 +52,21 @@ export const parseLevelKey = (keys) => {
 }
 
 export const checkA = (ansKeys,studentKeys,levelKeys) => {
-    
+
     let s=0
     let percentA=0
     let countA=0
-    
+
     for(let i=0;i<levelKeys.length;i++){
-        
+
         if(levelKeys[i] == "A"){
-            countA++            
+            countA++
             let stKeys=studentKeys.slice(i*5,i*5+5)
             stKeys = stKeys.replace(/\s/g,'').split("")
-    
+
             let p=0
             let sum=0
-    
+
             if (ansKeys[i].length == 5) {
                 p=1
             } else if (stKeys.length <= ansKeys[i].length) {
@@ -85,7 +85,7 @@ export const checkA = (ansKeys,studentKeys,levelKeys) => {
                 } else {
                     p=0
                 }
-    
+
             }
             s+=p;
         }
@@ -96,21 +96,21 @@ export const checkA = (ansKeys,studentKeys,levelKeys) => {
 }
 
 export const checkB = (ansKeys,studentKeys,levelKeys) => {
-    
+
     let s=0
     let percentB=0
     let countB=0
-    
+
     for(let i=0;i<levelKeys.length;i++){
 
         if(levelKeys[i] == "B"){
-            countB++            
+            countB++
             let stKeys=studentKeys.slice(i*5,i*5+5)
             stKeys = stKeys.replace(/\s/g,'').split("")
-    
+
             let p=0
             let sum=0
-    
+
             if (ansKeys[i].length == 5) {
                 p=1
             } else if (stKeys.length <= ansKeys[i].length) {
@@ -129,7 +129,7 @@ export const checkB = (ansKeys,studentKeys,levelKeys) => {
                 } else {
                     p=0
                 }
-    
+
             }
             s+=p;
         }
@@ -140,20 +140,20 @@ export const checkB = (ansKeys,studentKeys,levelKeys) => {
 }
 
 export const checkC = (ansKeys,studentKeys,levelKeys) => {
-    
+
     let s=0
     let percentC=0
     let countC=0
     for(let i=0;i<levelKeys.length;i++){
-        
+
         if(levelKeys[i] == "C"){
-            countC++            
+            countC++
             let stKeys=studentKeys.slice(i*5,i*5+5)
             stKeys = stKeys.replace(/\s/g,'').split("")
-    
+
             let p=0
             let sum=0
-    
+
             if (ansKeys[i].length == 5) {
                 p=1
             } else if (stKeys.length <= ansKeys[i].length) {
@@ -172,7 +172,7 @@ export const checkC = (ansKeys,studentKeys,levelKeys) => {
                 } else {
                     p=0
                 }
-    
+
             }
             s+=p;
         }
@@ -184,7 +184,7 @@ export const checkC = (ansKeys,studentKeys,levelKeys) => {
 
 export const check = (ansKeys,studentKeys) => {
     let s=0;
-    for (let i=0;i<ansKeys.length;i++) {
+    for (let i = 0; i < ansKeys.length; i++) {
 
         let stKeys=studentKeys.slice(i*5,i*5+5)
         stKeys = stKeys.replace(/\s/g,'').split("")
@@ -196,8 +196,9 @@ export const check = (ansKeys,studentKeys) => {
             p=2
         } else if (stKeys.length <= ansKeys[i].length) {
             for(let j=0;j<stKeys.length;j++) {
-                if(ansKeys[i].includes(stKeys[j]))
+                if(ansKeys[i].includes(stKeys[j]) || ansKeys[i] == 'T'){
                     sum+=1
+                }
             }
             if(sum == ansKeys[i].length) {
                 p=2
@@ -267,7 +268,7 @@ export const checkTurkishEmpty = (ansKeys,studentKeys) => {
         if(stKeys.length == 0){
             empty+=1
         }
-        
+
 
     //     if (ansKeys[i].length == 5) {
     //         p=1
@@ -292,7 +293,7 @@ export const checkTurkishEmpty = (ansKeys,studentKeys) => {
     //         }
 
     //     }
-        
+
      }
      console.log(empty)
     return empty;

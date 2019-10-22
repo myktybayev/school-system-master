@@ -40,7 +40,7 @@ export const upload = (academicYear,kboNo,schoolId,rows) => {
             studentObj.kazLanguageGroup = 'rus'
             studentObj.subjectId = '09'
         }
-
+        
         let studentResult = KboResults.find({
             academicYear: studentObj.academicYear,
             kboNo: studentObj.kboNo,
