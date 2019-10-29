@@ -36,11 +36,12 @@ Meteor.methods({
             if (sameKey) {
                 KboKeys.update({_id:id},{$set:obj})
                 //re calculates results and rating for given key and kbo
-                recheck(sameKey.academicYear,sameKey.kboNo,sameKey.variant)
+                
+                recheck(sameKey.academicYear, sameKey.kboNo, sameKey.variant)
             }
         } else {
             throw new Meteor.Error(403, 'Access forbidden');
-        }  
+        }
     },
 
     "KboKeys.Delete": function(id) {
@@ -85,7 +86,7 @@ Meteor.methods({
             throw new Meteor.Error('access-denied','You do not have a permission.');
         }
     },
-    
+
     'KboFinalists.update': function(studentId,schoolId,grade,subjectId) {
         if (Roles.userIsInRole(this.userId,['admin'])) {
             let academicYear = AcademicYears.findOne({now:true}).academicYear;

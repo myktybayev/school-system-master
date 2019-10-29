@@ -2,43 +2,43 @@ import { Meteor } from 'meteor/meteor'
 
 Meteor.publish('btsKeys', function(academicYear, quarter){
 	if (this.userId) {
-		return BtsAnswerKeys.find({academicYear:academicYear,quarter:quarter})	
-	} 
+		return BtsAnswerKeys.find({academicYear:academicYear,quarter:quarter})
+	}
 	return this.ready()
 })
 
 Meteor.publish('turkishKeys', function(academicYear){
 	if (this.userId) {
-		return TurkishAnswerKeys.find({academicYear:academicYear})	
-	} 
+		return TurkishAnswerKeys.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 
 Meteor.publish('btsLevels', function(academicYear, quarter){
 	if (this.userId) {
-		return BtsLevels.find({academicYear:academicYear,quarter:quarter})	
-	} 
+		return BtsLevels.find({academicYear:academicYear,quarter:quarter})
+	}
 	return this.ready()
 })
 
 Meteor.publish('btsSchoolKeys', function(academicYear){
 	if (this.userId) {
-		return BtsAnswerKeys.find({academicYear:academicYear})	
-	} 
+		return BtsAnswerKeys.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 
 Meteor.publish('turkishSchoolKeys', function(academicYear){
 	if (this.userId) {
-		return TurkishAnswerKeys.find({academicYear:academicYear})	
-	} 
+		return TurkishAnswerKeys.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 
 Meteor.publish('btsSchoolLevels', function(academicYear){
 	if (this.userId) {
-		return BtsLevels.find({academicYear:academicYear})	
-	} 
+		return BtsLevels.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 
@@ -93,15 +93,15 @@ Meteor.publish("lessonObjective", function(objectiveId) {
 
 Meteor.publish('tatKeys', function(academicYear,tatNo){
 	if (this.userId) {
-		return TatAnswerKeys.find({academicYear:academicYear,tatNo:tatNo})	
-	} 
+		return TatAnswerKeys.find({academicYear:academicYear,tatNo:tatNo})
+	}
 	return this.ready()
 })
 
 Meteor.publish('tatSchoolKeys', function(academicYear){
 	if (this.userId) {
-		return TatAnswerKeys.find({academicYear:academicYear})	
-	} 
+		return TatAnswerKeys.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 
@@ -112,17 +112,24 @@ Meteor.publish("tatKey",function (id) {
 	return this.ready()
 })
 
+Meteor.publish('kboKeysGeneral', function(){
+	if (this.userId) {
+		return KboKeys.find()
+	}
+	return this.ready()
+})
+
 Meteor.publish('kboKeys', function(academicYear,kboNo){
 	if (this.userId) {
-		return KboKeys.find({academicYear:academicYear,kboNo:kboNo})	
-	} 
+		return KboKeys.find({academicYear:academicYear,kboNo:kboNo})
+	}
 	return this.ready()
 })
 
 Meteor.publish('kboSchoolKeys', function(academicYear){
 	if (this.userId) {
-		return KboKeys.find({academicYear:academicYear})	
-	} 
+		return KboKeys.find({academicYear:academicYear})
+	}
 	return this.ready()
 })
 

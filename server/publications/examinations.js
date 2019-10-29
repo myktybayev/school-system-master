@@ -128,6 +128,15 @@ Meteor.publish('kboResults',function(academicYear,grade,subjectId,kboNo) {
     return this.ready()
 })
 
+Meteor.publish('kboGenelResults',function(academicYear) {
+    if (this.userId) {
+        let cursor = KboResults.find({academicYear:academicYear})
+        return cursor
+    } else {
+        return this.ready()
+    }
+})
+
 Meteor.publish('kboAllResults',function(academicYear,subjectId,grade) {
     if (this.userId) {
         let cursor = KboResults.find({academicYear:academicYear,subjectId:RegExp(subjectId),grade:RegExp(grade)})

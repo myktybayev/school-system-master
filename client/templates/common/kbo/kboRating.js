@@ -11,18 +11,52 @@ Template.kboRating.onCreated(function(){
     Session.setDefault('Sort',{total:-1});
     template.grade = new ReactiveVar('all')
     template.subscribe('schools')
+    template.subscribe('KboKeys')
+
+
     template.autorun(()=>{
         template.subscribe('kboRating',academicYear.get(),template.grade.get(),FlowRouter.getParam('kboNo'))
     })
 })
+
+var schoolArray2 = [];
 Template.kboRating.helpers({
+
     kboNo() {
         return FlowRouter.getParam('kboNo')
     },
+
     results() {
-        //return KboRatings.find({},{sort:{total:-1}})
+
+        var schoolStore = new Map();
+        var schoolArray = [];
+
+        let schools = Schools.find().fetch()
+        let cursorKboRatings = KboRatings.find({academicYear:academicYear.get()},{sort: Session.get('Sort')}).fetch()
+
+        schools.forEach(school =>{
+          schoolStore.set(school.schoolId, school.shortName);
+        });
+
+        for(var i = 0; i < cursorKboRatings.length; i++){
+            schoolStore.delete(cursorKboRatings[i].schoolId);
+        }
+
+        console.log("After: ");
+        for (const [key, value] of schoolStore.entries()) {
+          // console.log(key);
+          schoolArray.push(value)
+        }
+
+        schoolArray2 = schoolArray;
+
         return KboRatings.find({},{sort: Session.get('Sort')});
     },
+
+    schoolNotUploaded(){
+      return schoolArray2;
+    },
+
     points(subjectId) {
         let result = KboRatings.findOne({schoolId:this.schoolId})
         if (result) {
@@ -37,6 +71,7 @@ Template.kboRating.events({
     'change #grade'(event,template) {
         template.grade.set(event.target.value)
     },
+
     "click #export"(event,template) {
       document.getElementById('out').innerHTML;
       var data = [];

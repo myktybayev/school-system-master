@@ -14,7 +14,6 @@ Template.kboResults.onCreated(function(){
     template.autorun(()=>{
         template.subscribe('kboResults',academicYear.get(),template.grade.get(),template.subjectId.get(),FlowRouter.getParam('kboNo'))
     })
-
 })
 
 Template.kboResults.helpers({

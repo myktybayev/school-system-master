@@ -6,6 +6,10 @@ Template.adminSettings.onCreated(function() {
     template.subscribe('subjects')
     template.subscribe('schools')
     template.subscribe("configs")
+    template.subscribe('kboKeysGeneral')
+    template.subscribe('kboGenelResults',academicYear.get())
+
+
 })
 
 Template.adminSettings.helpers({
@@ -33,11 +37,44 @@ Template.adminSettings.events({
             }
         })
     },
+
+    'click #calc_rating'(event,template) {
+      let kboKeysArray = KboKeys.find({academicYear:academicYear.get(),kboNo:'1'}).fetch();
+      let subjects = [];
+
+      _.each(kboKeysArray,(kboKey) => {
+        subjects.push(kboKey.subjectId)
+      })
+      subjects = Array.from(new Set(subjects))
+
+      let schools = Schools.find().fetch();
+
+      _.each(schools,(school) => {
+        _.each(subjects,(subject) => {
+          let kboResults = KboResults.find({schoolId:school.schoolId, subjectId:subject}).fetch();
+            if(kboResults.length > 0){
+              let totalResult = 0;
+              _.each(kboResults,(kboResult) => {
+                totalResult += kboResult.result;
+
+                console.log("subjectId: "+subject);
+                console.log("schoolId:  "+school.schoolId);
+                console.log("totalResult: "+totalResult);
+
+              })
+
+              console.log(kboResults);
+            }
+        })
+      })
+      // let kboResults = KboResults.find();
+    },
+
     'click #addNew'(event,template) {
         event.preventDefault()
-        
+
         if (confirm("Жаңа мектепті қосуыңыз келеді ме?")) {
-        
+
         let schoolId = template.find("[name=schoolId]").value
         let schoolName = template.find("[name=schoolName]").value
 

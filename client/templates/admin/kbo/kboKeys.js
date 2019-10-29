@@ -32,6 +32,7 @@ Template.kboKeys.events({
         template.kboNo.set(event.target.value)
         localStorage.setItem("kboNo", event.target.value)
     },
+    
     "click #save"(event,template) {
         event.preventDefault()
 

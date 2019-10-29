@@ -49,7 +49,6 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
             total: 0,
         }
 
-
         if (student.grade == '7' || student.grade == '8') {
             if (btsNo == '2'){
                 if(day == '1'){
@@ -174,13 +173,13 @@ export const upload = (academicYear,btsNo,day,schoolId,results) => {
                 }
             }
 
-    }else {
+    }else { // grade == 9 || 10 || 11
 
             if (day == '2') {
                 if (btsNo == '3'){
                     studentRecord.variant_day_2 = answerKey.variant
                     studentRecord.day_2_keys = studentObj.keys
-                    
+
                     studentRecord["chemistry"] = check(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100));
                     studentRecord["chemistryA"] = checkA(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.chemistry));
                     studentRecord["chemistryB"] = checkB(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(0,100),parseLevelKey(levelKey.chemistry));

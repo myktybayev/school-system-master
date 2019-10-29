@@ -38,6 +38,7 @@ export const calculateRating = (academicYear,kboNo,schoolId) => {
                 gradeRating[subject.subjectId] = 0;
             }
         });
+
         let gradeStudents = KboResults.find({academicYear:academicYear,schoolId:schoolId,kboNo:kboNo,grade:grade}).count();
         if (gradeStudents!==0) {
             gradeRating.total = (gradeRating.total/gradeStudents).toFixed(2);
@@ -71,10 +72,12 @@ export const calculateRating = (academicYear,kboNo,schoolId) => {
         //console.log("#####")
         generalRating.total = (generalRating.total/generalStudents).toFixed(2);
         let sameRating = KboRatings.findOne({academicYear:academicYear,schoolId:schoolId,kboNo:kboNo,grade:'all'});
-        if (sameRating===undefined)
+        if (sameRating===undefined){
             KboRatings.insert(generalRating);
-        else {
+            console.log("insert: "+generalRating.schoolId);
+        }else {
             KboRatings.update(sameRating,{$set:generalRating});
+            console.log("update: "+generalRating.schoolId);
         }
     }
 

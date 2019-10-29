@@ -11,10 +11,12 @@ export const recheck = (academicYear,kboNo,variant) => {
 
         let res = check(parseAnswerKey(answerKeys.keys),result.answers)
         KboResults.update({_id:result._id},{$set:{result:res}})
+
     })
 
     let schools = Schools.find().fetch()
     _.each(schools,(school) => {
+        
         calculateRating(academicYear,kboNo,school.schoolId)
     })
 }
