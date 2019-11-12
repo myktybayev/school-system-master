@@ -7,6 +7,7 @@ Template.btsResults.onCreated(function(){
     let template = this
     template.grade = new ReactiveVar("7")
     document.title = "БТС Мектеп Нәтижелері";
+
     template.subscribe("schools")
     template.autorun(()=>{
         // template.subscribe("btsResults","2017-2018",template.grade.get(),FlowRouter.getParam("btsNo"))
@@ -16,6 +17,18 @@ Template.btsResults.onCreated(function(){
 })
 
 Template.btsResults.helpers({
+    grade7(){
+        return "7" == Template.instance().grade.get()
+    },
+    grade10(){
+        return "10" == Template.instance().grade.get()
+    },
+    grade8_or_9(){
+        return "8" == Template.instance().grade.get() || "9" == Template.instance().grade.get()
+    },
+    btsNo1_or_2(){
+        return "2" == FlowRouter.getParam("btsNo") || "1" == FlowRouter.getParam("btsNo")
+    },
     btsNo() {
         return FlowRouter.getParam("btsNo")
     },

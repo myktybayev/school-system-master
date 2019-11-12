@@ -12,6 +12,7 @@
                             <input type="text" class="form-control" id="search" placeholder="Cыныбы" name="grade_search">
                             <input type="text" class="form-control" id="search" placeholder="Бөлімі" name="division_search">
                         </div>
+                        <!--
                         <div style="float: right;">
                             <a href="#" class="btn btn-success" id='addMultipleUsers' data-toggle="tooltip" title="Парақшалар қосу">
                               <span class="glyphicon glyphicon-th"></span>Парақша қосу
@@ -19,6 +20,12 @@
                             <a href="#" class="btn btn-danger" id='deleteMultipleUsers' data-toggle="tooltip" title="Парақшалар жою">
                               <span class="glyphicon glyphicon-remove"></span>Парақша жою
                             </a>
+                        </div>
+                        -->
+
+
+                        <div class="form-group" style="float: right">
+                            <a class="btn btn-success" id="export">Export</a>
                         </div>
                     </div>
                 </div>
@@ -35,13 +42,16 @@
                         <th name="sInfo" style="width: 150pt">Аты-жөні</th>
                         <th style="width: 80pt">Toбы</th>
                         <th style="width: 120pt">Олимпиада пәні</th>
+                        <th style="width: 220pt; text-align: center;">БТС таңдау пәндері</th>
+                        <!--  Student joba & cabinet part
                         <th style="width: 120pt">Жоба пәні</th>
-                        <th style="width: 100pt">Парақшасы<br/>бар ма</th>
+                        <th style="width: 100pt">Парақшасы<br/>бар ма</th> -->
+
                     </tr>
                 </thead>
                 <tbody>
                     {{#each students}}
-
+                    <!-- {{#if math @index "<" 10}} -->
                     <tr>
                         <td>{{math @index "+" 1}}</td>
                         <td>{{studentId}}</td>
@@ -58,9 +68,41 @@
                                 {{/each}}
                             </select>
                         </td>
+                        <!-- BTS таңдау жері -->
+
+                        <!-- {{#if grade "==" 10}} -->
+                        <td>
+                            <select class="form-control" style="width: 200pt" name="groupId" id="electiveGroup">
+                                <option value="free">---</option>
+                                {{#each electiveGroups}}
+                                    <option value="{{groupId}}" {{isSelectedBtsElectiveGroup ../studentId groupId}}>
+                                        {{name}}
+                                    </option>
+                                {{/each}}
+                            </select>
+                        </td>
+                        <!-- {{/if}} -->
+
+                        <!-- <td>
+                            <select class="form-control" style="width: 100pt" id="electiveGroup">
+                                  <option value="temp" {{selectorBts ../studentId "temp"}}>-.-.-</option>
+                                  <option value="01" {{selectorBts ../studentId "01"}}>География - Физика</option>
+                                  <option value="02" {{selectorBts ../studentId "02"}}>География - Химия</option>
+                                  <option value="04" {{selectorBts ../studentId "03"}}>География - Биология</option>
+                                  <option value="04" {{selectorBts ../studentId "04"}}>Физика - Химия</option>
+                                  <option value="05" {{selectorBts ../studentId "05"}}>Физика - Биология</option>
+                                  <option value="06" {{selectorBts ../studentId "06"}}>Химия - Биология</option>
+
+                                  groupId: "01"
+                                  name:"География - Физика"
+
+                            </select>
+                        </td> -->
+
+                        <!-- Student joba & cabinet part
                         <td>
                             <select class="form-control" style="width: 100pt" name="subjectId" id="kboSubject1">
-                                <option value="free">---</option>
+                                <option value="free">-.-.-</option>
                                 {{#each subjects}}
                                     <option value="{{subjectId}}" {{isJobaStudent ../studentId subjectId}}>
                                         {{name}}
@@ -68,8 +110,11 @@
                                 {{/each}}
                             </select>
                         </td>
+
+
                         <td>{{hasProfile}}</td>
-                        <!--<td><a class="btn btn-primary btn-sm" href="/school/student/edit/{{_id}}">Өзгерту</a></td>
+
+                        <td><a class="btn btn-primary btn-sm" href="/school/student/edit/{{_id}}">Өзгерту</a></td>
                         <td><a class="btn btn-success" id='addUser' style="float: right" href="#">Парақша қосу</a></td> -->
 
                         <td class="btn-group" role="group" style="width: 30pt">
@@ -78,7 +123,7 @@
                             <span style="font-size: 30px" class="glyphicon glyphicon-option-horizontal">
                             </span>
                           </a>
-                              <ul class="dropdown-menu" id="btn1" style="margin-right: 50pt">
+                              <ul class="dropdown-menu" id="btn1">
                                 <li><a href="/school/student/edit/{{_id}}">Өзгерту</a></li>
                                 <li><a href="#" id='transfer'>Трансферге қосу</a></li>
                                 <li role="separator" class="divider"></li>
@@ -95,6 +140,7 @@
                         </td>
                          -->
                     </tr>
+                    <!-- {{/if}} -->
                     {{/each}}
                 </tbody>
               </table>

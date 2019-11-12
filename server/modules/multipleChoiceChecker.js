@@ -56,7 +56,6 @@ export const checkA = (ansKeys,studentKeys,levelKeys) => {
     let s=0
     let percentA=0
     let countA=0
-
     for(let i=0;i<levelKeys.length;i++){
 
         if(levelKeys[i] == "A"){
@@ -201,7 +200,7 @@ export const check = (ansKeys,studentKeys) => {
                 }
             }
             if(sum == ansKeys[i].length) {
-                p=2
+                p=1
             } else if(sum < ansKeys[i].length) {
                 if (ansKeys[i].length == 2 && sum == 1) {
                     p=1
@@ -211,7 +210,6 @@ export const check = (ansKeys,studentKeys) => {
             } else {
                 p=0
             }
-
         }
         s+=p;
     }
@@ -295,6 +293,5 @@ export const checkTurkishEmpty = (ansKeys,studentKeys) => {
     //     }
 
      }
-     console.log(empty)
     return empty;
 }

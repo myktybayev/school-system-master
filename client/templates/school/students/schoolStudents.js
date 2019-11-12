@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import './schoolStudents.html';
+import XLSX from 'xlsx';
 
 Template.schoolStudents.onCreated(function() {
     let template = this
@@ -11,6 +12,7 @@ Template.schoolStudents.onCreated(function() {
     template.division_search = new ReactiveVar("")
     template.subscribe("students")
     template.subscribe("kboSubjects")
+    template.subscribe("btsElectiveGroup")
 })
 
 Template.schoolStudents.helpers({
@@ -29,7 +31,12 @@ Template.schoolStudents.helpers({
     subjects() {
         return KboCourses.find({},{sort:{subjectId:1}})
     },
-    isOlympiadStudent(studentId,subjectId) {
+
+    electiveGroups() {
+        return BtsElectiveGroup.find({},{sort:{subjectId:1}})
+    },
+
+    isOlympiadStudent(studentId, subjectId) {
         let student = Students.findOne({studentId:studentId})
         if (student && student.olympiad == subjectId)
             return 'selected'
@@ -38,6 +45,14 @@ Template.schoolStudents.helpers({
         let student = Students.findOne({studentId:studentId})
         if (student && student.joba == subjectId)
             return 'selected'
+    },
+
+    isSelectedBtsElectiveGroup(studentId, electiveGroupId) {
+        let student = Students.findOne({studentId:studentId})
+
+        if (student && student.electiveGroup == electiveGroupId) {
+            return "selected"
+        }
     }
 });
 
@@ -57,14 +72,65 @@ Template.schoolStudents.events({
                 Meteor.call('Student.deleteStudent',this._id)
             }
         });
+    },
 
-            // Meteor.call("Student.transfer", this._id, function(err) {
-            //     if(err){
-            //         alert(err.reason)
-            //     }
-            // })
+    "click #export"(event,template) {
+      document.getElementById('out').innerHTML;
+      var data = [];
+      var headers = ["#","Оқушы ID","Сыныбы","Аты-жөні","Toбы",
+      "Олимпиада пәні","БТС таңдау пәндері"];
+
+      data.push(headers);
+
+      let olympiadSubjectList = KboCourses.find({},{sort:{subjectId:1}}).fetch();
+      let btsElectiveList = BtsElectiveGroup.find({},{sort:{subjectId:1}}).fetch();
+      let studentList = Students.find({},{sort:{grade:1,division:1,surname:1,name:1}}).fetch();
+
+      // console.log("olympiadSubjectList:");
+      // console.log(olympiadSubjectList);
+      //
+      // console.log("btsElectiveList:");
+      // console.log(btsElectiveList);
+      //
+      // console.log("studentList:");
+      // console.log(studentList);
+
+      for(var i = 0; i < studentList.length; i++){
+        let idN = i+1;
+        let studentId = studentList[i].studentId;
+        let studentClass = studentList[i].grade + studentList[i].division;
+        let studentInfo = studentList[i].surname+" "+studentList[i].name.trim();
+        let studentLanguageGroup = studentList[i].languageGroup;
+
+        let studentBtsElective = btsElectiveList[parseInt(studentList[i].electiveGroup)]?btsElectiveList[parseInt(studentList[i].electiveGroup)].name:"---";
+        var studentOlympiad = "---";
+        for(var j = 0; j < olympiadSubjectList.length; j++){
+          if(olympiadSubjectList[j].subjectId == studentList[i].olympiad){
+            studentOlympiad = olympiadSubjectList[j].name;
+          }
+        }
 
 
+        let content = [idN, studentId, studentClass, studentInfo,
+          studentLanguageGroup,
+          studentOlympiad,
+          studentBtsElective];
+
+          // console.log(content);
+          data.push(content);
+      }
+
+
+      Meteor.call('download', data, (err, wb) => {
+        if (err) throw err;
+        let sName = 'Student list.xlsx';
+        XLSX.writeFile(wb, sName);
+      });
+
+
+    },
+    "change #electiveGroup"(event,template) {
+        Meteor.call('Student.updateBtsElectiveGroup',this._id, event.target.value)
     },
 
     "change #kboSubject"(event,template) {

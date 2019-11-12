@@ -41,8 +41,8 @@ Template.kboRating.helpers({
         for(var i = 0; i < cursorKboRatings.length; i++){
             schoolStore.delete(cursorKboRatings[i].schoolId);
         }
+        schoolStore.delete("042");
 
-        console.log("After: ");
         for (const [key, value] of schoolStore.entries()) {
           // console.log(key);
           schoolArray.push(value)

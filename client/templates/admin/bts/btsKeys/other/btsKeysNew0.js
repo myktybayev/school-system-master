@@ -1,6 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import './btsKeysNew.html';
+import './btsKeysNew0.html';
 Template.btsKeysNew.onCreated(function() {
     let template = this
 
@@ -28,6 +28,10 @@ Template.btsKeysNew.onCreated(function() {
 })
 
 Template.btsKeysNew.helpers({
+    dayOne() {
+      return "1"==Template.instance().day.get()
+    },
+    
     dayTwo() {
     	return "2"==Template.instance().day.get()
     },
@@ -43,8 +47,8 @@ Template.btsKeysNew.helpers({
     grade7(){
         return "7" == Template.instance().grade.get()
     },
-    grade8_and_9(){
-        return "8" == Template.instance().grade.get() || "9" == Template.instance().grade.get()
+    grade8(){
+        return "8" == Template.instance().grade.get()
     },
     btsNo2(){
         return "2" == Template.instance().btsNo.get()

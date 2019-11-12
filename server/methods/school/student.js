@@ -12,6 +12,17 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
+
+    "Student.updateBtsElectiveGroup": function(student_id, electiveGroupId) {
+        if(Roles.userIsInRole(this.userId,'school')) {
+            let student = Students.findOne({_id:student_id})
+            if (student) {
+                Students.update({_id:student._id},{$set:{electiveGroup:electiveGroupId}})
+            }
+        } else {
+            throw new Meteor.Error('auth-error','School rights required.')
+        }
+    },
   	"Student.Upload":function(academicYear,results) {
 
           if (!Roles.userIsInRole(this.userId,"school"))
@@ -52,7 +63,7 @@ Meteor.methods({
                 Students.insert(student)
                 console.log(student.name);
                 console.log(student.grade);
-                
+
                 console.log("Inserted");
             }
         } else {
@@ -63,8 +74,6 @@ Meteor.methods({
         if(Roles.userIsInRole(this.userId,'school')) {
             let student = Students.findOne({_id:student_id})
             if(student) {
-                console.log(studentObject)
-                console.log(student_id)
                 Students.update({_id:student_id},{$set:studentObject})
             }
         } else {

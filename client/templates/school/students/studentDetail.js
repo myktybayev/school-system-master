@@ -33,26 +33,26 @@ Template.studentDetail.events({
         let surname = template.find("[name=surname]").value
         let grade = template.find("[name=grade]").value
         let division = template.find("[name=division]").value
-        let olympiad = template.find("[name=olympiadSubject]").value
         let languageGroup = template.find("[name=languageGroup]").value
-        let elective1 = template.find("[name=elective1]").value
-        let elective2 = template.find("[name=elective2]").value
+        // let olympiad = template.find("[name=olympiadSubject]").value
+        // let elective1 = template.find("[name=elective1]").value
+        // let elective2 = template.find("[name=elective2]").value
 
-        if (elective1 === elective2) {
-          alert("You cannot choose same subjects!")
-        }
+        // if (elective1 === elective2) {
+        //   alert("You cannot choose same subjects!")
+        // }
 
 
-        if (name && surname && grade && division && (elective1 != elective2)) {
+        if (name && surname && grade && division){ // && (elective1 != elective2)) {
             Meteor.call('Student.update',{
                 name:name,
                 surname:surname,
                 grade:grade,
                 division:division,
-                olympiad:olympiad,
                 languageGroup:languageGroup,
-                elective1:elective1,
-                elective2:elective2
+                // olympiad:olympiad,
+                // elective1:elective1,
+                // elective2:elective2
             },student_id,function(err) {
                 if(err) {
                     alert(err.reason)

@@ -34,20 +34,49 @@
                         <th class="absolute-style" style="width: 50pt;  margin-left: 69pt;">Сынып</th>
                         <th class="absolute-style" style="width: 80pt;  margin-left: 109pt;">Аты</th>
                         <th class="absolute-style" style="width: 80pt;  margin-left: 180pt;">Жөні</th>
-                        <th style="white-space: nowrap; padding-left: 262pt;">Физика</th>
-                        <th>Химия</th>
-                        <th>Биология</th>
-                        <th>Ағылшын тілі</th>
-                        <th>Қазақ тілі</th>
-                        <th>Қазақ әдебиеті</th>
-                        <th>Орыс тілі</th>
-                        <th>Алгебра</th>
-                        <th>Геометрия</th>
-                        <th>Информатика</th>
-                        <th>Жалпы тарих</th>
-                        <th>Тарих</th>
-                        <th>География</th>
-                        <th>Жалпы</th>
+                        <th style="white-space: nowrap; padding-left: 262pt;">Жалпы</th>
+                        <th>Математика</th>
+
+                        {{#if grade7 }}
+                          {{#if btsNo1_or_2 }}
+                            <th>Қазақ тілі</th>
+                            <th>Түрік тілі</th>
+                            <th>Орыс тілі</th>
+                          {{else}}
+                            <th>Физика</th>
+                            <th>Химия</th>
+                            <th>Биология</th>
+                          {{/if}}
+                          <!-- <th>Ағылшын тілі</th>
+                          <th>Қазақ әдебиеті</th>
+                          <th>Орыс тілі</th>
+                          <th>Алгебра</th>
+                          <th>Геометрия</th>
+                          <th>Информатика</th>
+                          <th>Жалпы тарих</th>
+                          <th>Тарих</th>
+                          <th>География</th> -->
+                        {{else}}
+                          {{#if grade8_or_9 }}
+                            <th>Қазақ тілі</th>
+                            <th>Түрік тілі</th>
+                            <th>Қазақстан тарихы</th>
+                            <th>География</th>
+                            <th>Физика</th>
+                            <th>Химия</th>
+                            <th>Биология</th>
+
+                            {{else}} <!-- 10 grade -->
+                              {{#if grade10 }}
+                                <th>Қазақ тілі</th>
+                                <th>Қазақстан тарихы</th>
+                                <th>География</th>
+                                <th>Физика</th>
+                                <th>Химия</th>
+                                <th>Биология</th>
+                              {{/if}}
+                          {{/if}}
+                        {{/if}}
                     </tr>
                 </thead>
                 <tbody>
@@ -58,10 +87,46 @@
                         <td class="absolute-style" style="width: 50pt;  margin-left: 69pt;">{{grade}}{{division}}</td>
                         <td class="absolute-style" style="width: 80pt;  margin-left: 109pt;">{{name}}</td>
                         <td class="absolute-style" style="width: 80pt;  margin-left: 180pt;">{{surname}}</td>
-                        <td class="center" style="white-space: nowrap; padding-left: 262pt;">{{physics}}</td>
-                        <td class="center">{{chemistry}}</td>
-                        <td class="center">{{biology}}</td>
-                        <td class="center">{{english}}</td>
+                        <td class="center" style="white-space: nowrap; padding-left: 262pt;">{{total}}</td>
+                        <td class="center">{{mathematic}}</td>
+
+                        {{#if grade7 }}
+
+                          {{#if btsNo1_or_2 }}
+                            <td class="center">{{kazakh_lang}}</td>
+                            <td class="center">{{turkish_lang}}</td>
+                            <td class="center">{{russian_lang}}</td>
+                          {{else}}
+                            <td class="center">{{physics}}</td>
+                            <td class="center">{{chemistry}}</td>
+                            <td class="center">{{biology}}</td>
+                          {{/if}}
+
+
+                        {{else}}
+                          {{#if grade8_or_9 }}
+                            <td class="center">{{kazakh_lang}}</td>
+                            <td class="center">{{turkish_lang}}</td>
+                            <td class="center">{{kazakh_history}}</td>
+                            <td class="center">{{geography}}</td>
+                            <td class="center">{{physics}}</td>
+                            <td class="center">{{chemistry}}</td>
+                            <td class="center">{{biology}}</td>
+
+                          {{else}} <!-- 10 grade -->
+                              {{#if grade10 }}
+                                <td class="center">{{kazakh_lang}}</td>
+                                <td class="center">{{kazakh_history}}</td>
+                                <td class="center">{{geography}}</td>
+                                <td class="center">{{physics}}</td>
+                                <td class="center">{{chemistry}}</td>
+                                <td class="center">{{biology}}</td>
+                              {{/if}}
+
+                          {{/if}}
+                        {{/if}}
+
+                        <!-- <td class="center">{{english}}</td>
                         <td class="center">{{kazakh}}</td>
                         <td class="center">{{kazakh_literature}}</td>
                         <td class="center">{{russian}}</td>
@@ -70,8 +135,7 @@
                         <td class="center">{{computer}}</td>
                         <td class="center">{{world_history}}</td>
                         <td class="center">{{kazakh_history}}</td>
-                        <td class="center">{{geography}}</td>
-                        <td class="center">{{total}}</td>
+                        <td class="center">{{geography}}</td> -->
                     </tr>
                     <!-- <tr>
                         <td>A</td>

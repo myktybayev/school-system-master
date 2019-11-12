@@ -6,8 +6,8 @@ Template.btsUpload.onCreated(function() {
     let template = this
     template.results = new ReactiveVar([])
     template.errors = new ReactiveVar(false)
-    template.btsNo = new ReactiveVar("1")
-    template.day = new ReactiveVar("1")
+    template.btsNo = new ReactiveVar("0")
+    template.day = new ReactiveVar("0")
     template.subscribe("students")
     template.subscribe("btsSchoolKeys",academicYear.get())
 
@@ -20,10 +20,26 @@ Template.btsUpload.helpers({
 });
 
 Template.btsUpload.events({
-    "click #save"(event,template) {
+    "click #save"(event, template) {
         event.preventDefault()
-        if(template.results.get().length > 0 && !template.errors.get()) {
+
+        if(template.btsNo.get() == "0"){
+          alert("БТС номері таңдалмады")
+        }else if (template.day.get() == "0") {
+          alert("Күн таңдалмады")
+
+        }else if (template.results.get().length == 0 ) {
+          alert("Файл таңдалмады")
+
+        }else if (template.errors.get()) {
+          alert("Қателер табылды")
+
+        }else {
             SUIBlock.block('Жүктелуде...');
+
+            // console.log("BTS No: "+template.btsNo.get());
+            // console.log("BTS day: "+template.day.get());
+
             Meteor.call("BtsResults.Upload",academicYear.get(),template.btsNo.get(),template.day.get(),template.results.get(),function (err) {
                 if (err) {
                     alert(err.reason)
@@ -36,7 +52,6 @@ Template.btsUpload.events({
             });
             return
         }
-        alert("Файл таңдалмады немесе қателер табылды")
     },
     "change #btsNo"(event,template) {
         template.btsNo.set(event.target.value)
@@ -87,15 +102,19 @@ Template.btsUpload.events({
                 }
 
                 let variant = BtsAnswerKeys.findOne({variant: studObj.variant, academicYear:academicYear.get()});
+                let student = Students.findOne({studentId: parseInt(studObj.studentId)})
 
-                if (!variant || variant.day != day) {
+                if (!variant || btsNo != variant.quarter || student.grade != variant.grade) {
                     studObj.isValid = false
                     template.errors.set(true)
                     alert("Келесі окушының варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
 
+                }else if (variant.day != day) {
+                    studObj.isValid = false
+                    template.errors.set(true)
+                    alert("Келесі окушыға күн дұрыс таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
                 }
 
-                let student = Students.findOne({studentId: parseInt(studObj.studentId)})
                 if (!student) {
                     studObj.isValid = false
                     template.errors.set(true)

@@ -28,8 +28,25 @@ Template.btsLevelsNew.onCreated(function() {
 })
 
 Template.btsLevelsNew.helpers({
-    dayTwo() {
-    	return "2"==Template.instance().day.get()
+    day1() {
+      return "1"==Template.instance().day.get()
+    },
+    day2() {
+      return "2"==Template.instance().day.get()
+    },
+
+    btsNo1_or_2(){
+        return "2" == Template.instance().btsNo.get() || "1" == Template.instance().btsNo.get()
+    },
+
+    grade7(){
+        return "7" == Template.instance().grade.get()
+    },
+    grade8_or_9(){
+        return "8" == Template.instance().grade.get() || "9" == Template.instance().grade.get()
+    },
+    grade10(){
+        return "10" == Template.instance().grade.get()
     },
     selected(id,val) {
             let obj = {
@@ -40,15 +57,6 @@ Template.btsLevelsNew.helpers({
             let v = obj[id]===val
             return v ? "selected" : ""
     },
-    grade7(){
-        return "7" == Template.instance().grade.get()
-    },
-    grade8(){
-        return "8" == Template.instance().grade.get()
-    },
-    btsNo2(){
-        return "2" == Template.instance().btsNo.get()
-    }
 })
 
 Template.btsLevelsNew.events({
@@ -66,71 +74,78 @@ Template.btsLevelsNew.events({
     },
     "click #save"(event,template) {
         event.preventDefault()
-        let answerLevels = {
-            academicYear: academicYear.get(),
-            grade: template.grade.get(),
-            day: template.day.get(),
-            quarter: template.btsNo.get(),
-            variant: template.find("[name=variant]").value
-        }
-        if (template.grade.get() == "7" || template.grade.get() == "8"){
-            console.log("#")
-            if (template.day.get() == "1"){
-                answerLevels["algebra"] = template.find("[name=algebra]").value;
-                answerLevels["kazakh_kaz"] = template.find("[name=kazakh_kaz]").value;
-                answerLevels["kazakh_rus"] = template.find("[name=kazakh_rus]").value;
-                answerLevels["kazakh_literature_kaz"] = template.find("[name=kazakh_literature_kaz]").value;
-                answerLevels["kazakh_literature_rus"] = template.find("[name=kazakh_literature_rus]").value;
-                answerLevels["russian"] = template.find("[name=russian]").value;
+
+        let variantInput  = template.find("[name=variant]");
+
+        if(!variantInput.value) {
+          bootbox.alert("Сақтау жасалмады");
+
+        }else {
+
+          let gradeNo = template.grade.get()
+          let dayNo = template.day.get()
+          let btsNo = template.btsNo.get()
+
+          let answerLevels = {
+              academicYear: academicYear.get(),
+              grade: template.grade.get(),
+              day: template.day.get(),
+              quarter: template.btsNo.get(),
+              variant: variantInput.value
+          }
+
+          if (gradeNo == "7"){
+              if (dayNo == "1" && (btsNo == "1" || btsNo == "2")){
+                answerLevels["mathematic"] = template.find("[name=mathematic]").value;
+                answerLevels["kazakh_lang"] = template.find("[name=kazakh_lang]").value;
+                answerLevels["turkish_lang"] = template.find("[name=turkish_lang]").value;
+                // answerLevels["russian_lang"] = template.find("[name=russian_lang]").value;
+
+              }else if (btsNo == "3") {
+                answerLevels["mathematic"] = template.find("[name=mathematic]").value;
+                answerLevels["physics"] = template.find("[name=physics]").value;
+                answerLevels["chemistry"] = template.find("[name=chemistry]").value;
+                answerLevels["biology"] = template.find("[name=biology]").value;
+
+              }
+          }
+          else if (gradeNo == "8" || gradeNo == "9"){
+              if (dayNo == "1") {
+                answerLevels["mathematic"] = template.find("[name=mathematic]").value;
+                answerLevels["kazakh_lang"] = template.find("[name=kazakh_lang]").value;
+                answerLevels["turkish_lang"] = template.find("[name=turkish_lang]").value;
                 answerLevels["kazakh_history"] = template.find("[name=kazakh_history]").value;
 
-            }
-            if (template.day.get() == "2") {
-                console.log("#")
-                if (template.btsNo.get() == "2"){
-                    answerLevels["geometry"] = template.find("[name=geometry]").value;
-                    answerLevels["computer"] = template.find("[name=computer]").value;
-                    answerLevels["geography"] = template.find("[name=geography]").value;
-                    answerLevels["world_history"] = template.find("[name=world_history]").value;
-                }else{
-                    //answerLevels["turkish"] = template.find("[name=turkish]").value;
-                    answerLevels["chemistry"] = template.find("[name=chemistry]").value;
-                    answerLevels["physics"] = template.find("[name=physics]").value;
-                    answerLevels["biology"] = template.find("[name=biology]").value;
-                }
-            }
-        }
-        if (template.grade.get() == "9" || template.grade.get() == "10"){
-            console.log("#")
-            if (template.day.get()=="2") {
-              answerLevels["russian"] = template.find("[name=russian]").value
-              //answerLevels["turkish"] = template.find("[name=turkish]").value
-              answerLevels["physics"] = template.find("[name=physics]").value
-              answerLevels["chemistry"] = template.find("[name=chemistry]").value
-              answerLevels["biology"] = template.find("[name=biology]").value
-              answerLevels["computer"] = template.find("[name=computer]").value
-              answerLevels["world_history"] = template.find("[name=world_history]").value
-              answerLevels["geography"] = template.find("[name=geography]").value
-            }
-            else {
-              answerLevels["algebra"] = template.find("[name=algebra]").value;
-              answerLevels["geometry"] = template.find("[name=geometry]").value;
-              answerLevels["kazakh_kaz"] = template.find("[name=kazakh_kaz]").value;
-              answerLevels["kazakh_rus"] = template.find("[name=kazakh_rus]").value;
-              answerLevels["kazakh_literature_kaz"] = template.find("[name=kazakh_literature_kaz]").value;
-              answerLevels["kazakh_literature_rus"] = template.find("[name=kazakh_literature_rus]").value;
-              answerLevels["english"] = template.find("[name=english]").value;
-              answerLevels["kazakh_history"] = template.find("[name=kazakh_history]").value    
-            }
-        }
-        
-        Meteor.call("BtsLevels.Insert", answerLevels,function(err) {
-            if (err) {
-                alert(err.reason)
-            } else {
-                alert("Сақталды!")
-            }
-        })
-        FlowRouter.redirect("/admin/bts/levels")
+              }
+              else if(dayNo == "2"){
+                answerLevels["geography"] = template.find("[name=geography]").value;
+                answerLevels["physics"] = template.find("[name=physics]").value;
+                answerLevels["chemistry"] = template.find("[name=chemistry]").value;
+                answerLevels["biology"] = template.find("[name=biology]").value;
+              }
+          }
+          else if (gradeNo == "10") {
+              if (dayNo == "1") {
+                answerLevels["mathematic"] = template.find("[name=mathematic]").value;
+                answerLevels["kazakh_lang"] = template.find("[name=kazakh_lang]").value;
+                answerLevels["kazakh_history"] = template.find("[name=kazakh_history]").value;
+
+                answerLevels["geography"] = template.find("[name=geography]").value;
+                answerLevels["physics"] = template.find("[name=physics]").value;
+                answerLevels["chemistry"] = template.find("[name=chemistry]").value;
+                answerLevels["biology"] = template.find("[name=biology]").value;
+                answerLevels["world_history"] = template.find("[name=world_history]").value;
+              }
+          }
+
+          Meteor.call("BtsLevels.Insert", answerLevels,function(err) {
+              if (err) {
+                  alert(err.reason)
+              } else {
+                  alert("Сақталды!")
+              }
+          })
+          FlowRouter.redirect("/admin/bts/levels")
+      }
     }
 })

@@ -1,7 +1,8 @@
-<template name="btsLevelsNew">
+<template name="btsKeysNewTemp">
+
 	<div class="row">
 		<div class="col-md-8">
-              <h4>БТС Жауап категориясын қосу</h4>
+              <h4>БТС Жауап кілтін қосу</h4>
               <div class="form-group">
                   <div class="form-inline">
                       <div class="form-group">
@@ -27,24 +28,25 @@
               </div>
                   </div>
               </div>
+
               <div class="form-group">
                 <label for="name">Вариант</label>
                 <input type="text" class="form-control" name="variant" style="width: 100pt">
               </div>
-							
+
               {{#if grade7 }}
                 {{#if day1 }}
 
                   {{#if btsNo1_or_2 }}
-                    {{> math_levels}}
-                    {{> kazakh_lang_levels}}
-                    {{> turkish_lang_levels}}
-                    <!-- {{> russian_lang_levels}} -->
+                    {{> math}}
+                    {{> kazakh_lang}}
+                    {{> turkish_lang}}
+                    {{> russian_lang}}
                   {{else}} <!-- BTS No 3-->
-                    {{> math_levels}}
-                    {{> physics_levels}}
-                    {{> chemistry_levels}}
-                    {{> biology_levels}}
+                    {{> math}}
+                    {{> physics}}
+                    {{> chemistry}}
+                    {{> biology}}
                   {{/if}}
 
                 {{else}} <!-- day2-->
@@ -57,32 +59,32 @@
               {{else}}
                 {{#if grade8_or_9 }}
                   {{#if day1 }}
-                      {{> math_levels}}
-                      {{> kazakh_lang_levels}}
-                      {{> turkish_lang_levels}}
-                      {{> kazakh_history_levels}}
+                      {{> math}}
+                      {{> kazakh_lang}}
+                      {{> turkish_lang}}
+                      {{> kazakh_history}}
 
                   {{else}} <!-- grade 8 or 9, day 2 -->
-                    {{> geography_levels}}
-                    {{> physics_levels}}
-                    {{> chemistry_levels}}
-                    {{> biology_levels}}
+                    {{> geography}}
+                    {{> physics}}
+                    {{> chemistry}}
+                    {{> biology}}
                   {{/if}} <!-- end day1 -->
 
                 {{else}} <!-- else grade8_or_9 -->
                   {{#if grade10 }}
                     {{#if day1 }}
-                      {{> math_levels}}
-                      {{> kazakh_lang_levels}}
-                      {{> kazakh_history_levels}}
+                      {{> math}}
+                      {{> kazakh_lang}}
+                      {{> kazakh_history}}
                     <!-- Elective subjects -->
                     <div style="border: 2px solid grey; border-radius: 5px; padding: 10px;">
                       <h3>Таңдау пәндері</h3>
-                      {{> geography_levels}}
-                      {{> physics_levels}}
-                      {{> chemistry_levels}}
-                      {{> biology_levels}}
-                      {{> world_history_levels}}
+                      {{> geography}}
+                      {{> physics}}
+                      {{> chemistry}}
+                      {{> biology}}
+                      {{> world_history}}
                     </div>
                     {{else}}
                         <div class="form-group">
@@ -92,7 +94,7 @@
                   {{/if}}
                 {{/if}}
               {{/if}}
-              <button class="btn btn-primary" id="save">Сақтау</button>
+              <button class="btn btn-primary" id="save" style="margin-top: 10px">Сақтау</button>
         </div>
 	</div>
 </template>

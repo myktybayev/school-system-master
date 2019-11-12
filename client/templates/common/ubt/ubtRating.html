@@ -100,9 +100,35 @@
                 </tbody>
             </table>
             </div>
+
+            <h4 style="text-align: center;">Енгізбеген мектептер</h4>
+            <div class="table table-responsive" id="out">
+              <table class="table table-striped  table-bordered table-hover table-condensed"  border=1 cellpadding=0 cellspacing=0 width=100%>
+
+                <thead>
+                    <tr class="bts-header" style="white-space: nowrap">
+                        <th>#</th>
+                        <th>Мектеп аты</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {{#each schoolNotUploaded}}
+                    <tr>
+                        <td>{{math @index "+" 1}}</td>
+                        <td>{{this}}</td>
+                    </tr>
+                    {{/each}}
+
+
+                </tbody>
+              </table>
+            </div>
+
             {{else}}
             <p>Loading...</p>
             {{/if}}
         </div>
+
     </div>
 </template>

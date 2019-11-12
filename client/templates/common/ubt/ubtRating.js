@@ -15,10 +15,39 @@ Template.ubtRating.onCreated(function(){
     })
 })
 
+var schoolArray2 = [];
 Template.ubtRating.helpers({
     results() {
+
+        var schoolStore = new Map();
+        var schoolArray = [];
+
+        let schools = Schools.find().fetch()
+        let cursorKboRatings = UhdSchoolRatings.find({academicYear:academicYear.get()}).fetch()
+
+        schools.forEach(school =>{
+          schoolStore.set(school.schoolId, school.shortName);
+        });
+
+        for(var i = 0; i < cursorKboRatings.length; i++){
+            schoolStore.delete(cursorKboRatings[i].schoolId);
+        }
+        schoolStore.delete("042");
+
+        for (const [key, value] of schoolStore.entries()) {
+          // console.log(key);
+          schoolArray.push(value)
+        }
+
+        schoolArray2 = schoolArray;
+        console.log(schoolArray2);
+
         return UhdSchoolRatings.find({},{sort: {total:-1}});
-    }
+    },
+
+    schoolNotUploaded(){
+      return schoolArray2;
+    },
 })
 
 Template.ubtRating.events({

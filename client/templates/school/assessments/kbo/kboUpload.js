@@ -80,7 +80,7 @@ Template.kboUpload.events({
                     keys: txtlines[i].slice(39),
                     isValid: true
                 }
-                
+
                 let variant = KboKeys.findOne({variant: studObj.variant, academicYear:academicYear.get(), kboNo:kboNo});
                 if (!variant) {
                     studObj.isValid = false

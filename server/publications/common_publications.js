@@ -16,6 +16,10 @@ Meteor.publish('kboSubjects',function() {
     return KboCourses.find()
 })
 
+Meteor.publish('btsElectiveGroup',function() {
+    return BtsElectiveGroup.find()
+})
+
 Meteor.publish('schools',function() {
     return Schools.find()
 })

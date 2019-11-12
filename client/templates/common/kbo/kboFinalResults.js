@@ -79,11 +79,11 @@ function getResult(){
 
         if (grade == '7') {
             resultObj.total = resultObj.kbo1 * kboWeights7.kbo1 + resultObj.kbo2 * kboWeights7.kbo2 + resultObj.kbo3 * kboWeights7.kbo3
-            resultObj.total = resultObj.total/2;
+            resultObj.total = resultObj.total;
             results.push(resultObj)
         } else {
             resultObj.total = resultObj.kbo1 * kboWeights.kbo1 + resultObj.kbo2 * kboWeights.kbo2 + resultObj.kbo3 * kboWeights.kbo3
-            resultObj.total = resultObj.total/2;
+            resultObj.total = resultObj.total;
             results.push(resultObj)
         }
     })
@@ -142,9 +142,9 @@ Template.kboFinalResults.events({
         let mektepAty  = Schools.findOne({schoolId: kboStore[i].schoolId}) ? Schools.findOne({schoolId: kboStore[i].schoolId}).shortName : undefined;
 
         let synyp = kboStore[i].grade;
-        let kbo1 = kboStore[i].kbo1 / 2;
-        let kbo2 = kboStore[i].kbo2 / 2;
-        let kbo3 = kboStore[i].kbo3 / 2;
+        let kbo1 = kboStore[i].kbo1;
+        let kbo2 = kboStore[i].kbo2;
+        let kbo3 = kboStore[i].kbo3;
 
         let total = kboStore[i].total;
 
