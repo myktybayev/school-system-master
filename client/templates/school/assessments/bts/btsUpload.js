@@ -32,8 +32,8 @@ Template.btsUpload.events({
           alert("Файл таңдалмады")
 
         }else if (template.errors.get()) {
-          alert("Қателер табылды")
-
+          alert("Қателер табылды, басынан жүктеу жасаңыз!")
+          // window.location.reload();
         }else {
             SUIBlock.block('Жүктелуде...');
 
@@ -48,6 +48,7 @@ Template.btsUpload.events({
                     template.results.set([])
                     SUIBlock.unblock();
                     alert("Сақталды")
+                    FlowRouter.redirect('/school/bts/results/'+template.btsNo.get())
                 }
             });
             return
@@ -92,36 +93,43 @@ Template.btsUpload.events({
             var res = [];
             for (var i=0; i<txtlines.length; i++) {
                 if (txtlines[i] != "") {
-                let studObj = {
-                    studentId: txtlines[i].slice(3,8),
-                    variant: txtlines[i].slice(8,12),
-                    name: txtlines[i].slice(12,29),
-                    surname: txtlines[i].slice(29,39),
-                    keys: txtlines[i].slice(39),
-                    isValid: true
-                }
+                  let studObj = {
+                      studentId: txtlines[i].slice(3,8),
+                      variant: txtlines[i].slice(8,12),
+                      name: txtlines[i].slice(12,29),
+                      surname: txtlines[i].slice(29,39),
+                      keys: txtlines[i].slice(39),
+                      isValid: true
+                  }
 
-                let variant = BtsAnswerKeys.findOne({variant: studObj.variant, academicYear:academicYear.get()});
-                let student = Students.findOne({studentId: parseInt(studObj.studentId)})
+                  let variant = BtsAnswerKeys.findOne({variant: studObj.variant, academicYear:academicYear.get()});
+                  let student = Students.findOne({studentId: parseInt(studObj.studentId)})
 
-                if (!variant || btsNo != variant.quarter || student.grade != variant.grade) {
-                    studObj.isValid = false
-                    template.errors.set(true)
-                    alert("Келесі окушының варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
+                  if (!student) {
+                      studObj.isValid = false
+                      template.errors.set(true)
+                      alert("Келесі окушының id нөмірі дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
+                  }
+                  
+                  else if (!variant || btsNo != variant.quarter || student.grade != variant.grade) {
+                      studObj.isValid = false
+                      template.errors.set(true)
+                      alert("Келесі окушының варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
 
-                }else if (variant.day != day) {
-                    studObj.isValid = false
-                    template.errors.set(true)
-                    alert("Келесі окушыға күн дұрыс таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
-                }
+                  }else if (!variant || btsNo != variant.quarter || (student.grade == 10 &&
+                     !student.electiveGroup)) {
+                      studObj.isValid = false
+                      template.errors.set(true)
+                      alert("Келесі окушының БТС сабақтары таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
 
-                if (!student) {
-                    studObj.isValid = false
-                    template.errors.set(true)
-                    alert("Келесі окушының id нөмірі дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
-                }
+                  }else if (variant.day != day) {
+                      studObj.isValid = false
+                      template.errors.set(true)
+                      alert("Келесі окушыға күн дұрыс таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
+                  }
 
-                res.push(studObj);
+                  res.push(studObj);
+
                 }
             }
             //console.log(res)

@@ -32,6 +32,7 @@ Meteor.publish('tatRating',function(academicYear,subjectId,tatNo) {
 Meteor.publish('btsResults',function(academicYear,grade,btsNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        
         let cursor = BtsResults.find({academicYear:academicYear,grade:grade,btsNo:btsNo,schoolId:school.schoolId})
         return cursor
     }

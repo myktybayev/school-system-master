@@ -102,7 +102,7 @@ Template.schoolStudents.events({
         let studentInfo = studentList[i].surname+" "+studentList[i].name.trim();
         let studentLanguageGroup = studentList[i].languageGroup;
 
-        let studentBtsElective = btsElectiveList[parseInt(studentList[i].electiveGroup)]?btsElectiveList[parseInt(studentList[i].electiveGroup)].name:"---";
+        let studentBtsElective = btsElectiveList[parseInt(studentList[i].electiveGroup)]?btsElectiveList[parseInt(studentList[i].electiveGroup)-1].name:"---";
         var studentOlympiad = "---";
         for(var j = 0; j < olympiadSubjectList.length; j++){
           if(olympiadSubjectList[j].subjectId == studentList[i].olympiad){
@@ -115,8 +115,6 @@ Template.schoolStudents.events({
           studentLanguageGroup,
           studentOlympiad,
           studentBtsElective];
-
-          // console.log(content);
           data.push(content);
       }
 

@@ -192,7 +192,7 @@ export const check = (ansKeys,studentKeys) => {
         let sum=0
 
         if (ansKeys[i].length == 5) {
-            p=2
+            p=1
         } else if (stKeys.length <= ansKeys[i].length) {
             for(let j=0;j<stKeys.length;j++) {
                 if(ansKeys[i].includes(stKeys[j]) || ansKeys[i] == 'T'){

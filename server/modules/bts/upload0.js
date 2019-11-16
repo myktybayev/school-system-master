@@ -3,6 +3,7 @@ import { checkA} from "../multipleChoiceChecker";
 import { checkB} from "../multipleChoiceChecker";
 import { parseAnswerKey } from "../multipleChoiceChecker";
 import { parseLevelKey } from "../multipleChoiceChecker";
+
 /*
 * метод для загрузки текст файла bts
 * */
@@ -13,7 +14,6 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
         let student = Students.findOne({studentId:parseInt(studentObj.studentId)});
 
         // getting an answerKey
-
 
         let answerKey = BtsAnswerKeys.findOne({
             academicYear: academicYear,
@@ -47,12 +47,14 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
             languageGroup: student.languageGroup,
             electiveGroup: student.electiveGroup,
             total: 0,
+            totalA: 0,
+            totalB: 0
         }
         switch(student.grade){
           case '7':
 
             console.log("grade 7");
-            
+
             if(day == '1'){
               studentRecord.variant_day_1 = answerKey.variant
               studentRecord.day_1_keys = studentObj.keys
@@ -76,7 +78,12 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                   studentRecord["russian_lang"] = check(parseAnswerKey(answerKey.russian_lang), studentObj.keys.slice(300,400))
 
                   studentRecord["day_1_total"] = studentRecord["mathematic"] + studentRecord["kazakh_lang"] + studentRecord["turkish_lang"] + studentRecord["russian_lang"]
+                  studentRecord["day_1_total_A"] = studentRecord["mathematicA"] + studentRecord["kazakh_langA"] + studentRecord["turkish_langA"]
+                  studentRecord["day_1_total_B"] = studentRecord["mathematicB"] + studentRecord["kazakh_langB"] + studentRecord["turkish_langB"]
+
                   studentRecord["total"] += studentRecord["day_1_total"]
+                  studentRecord["totalA"] += studentRecord["day_1_total_A"]
+                  studentRecord["totalB"] += studentRecord["day_1_total_B"]
 
                 }else if (btsNo == '3'){
 
@@ -98,7 +105,12 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
 
 
                   studentRecord["day_1_total"] = studentRecord["mathematic"] + studentRecord["physics"] + studentRecord["chemistry"] + studentRecord["biology"]
+                  studentRecord["day_1_total_A"] = studentRecord["mathematicA"] + studentRecord["physicsA"] + studentRecord["chemistryA"] + studentRecord["biologyA"]
+                  studentRecord["day_1_total_B"] = studentRecord["mathematicB"] + studentRecord["physicsB"] + studentRecord["chemistryB"] + studentRecord["biologyB"]
+
                   studentRecord["total"] += studentRecord["day_1_total"]
+                  studentRecord["totalA"] += studentRecord["day_1_total_A"]
+                  studentRecord["totalB"] += studentRecord["day_1_total_B"]
                 }
             }
             //end 7 grade
@@ -107,7 +119,6 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
           case '8':
           case '9':
 
-            console.log("grade 8 or 9");
             if (day == '1'){
               console.log("upload0 day 1");
               studentRecord.variant_day_1 = answerKey.variant
@@ -130,10 +141,14 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
               studentRecord["kazakh_historyB"] = checkB(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(300,400), parseLevelKey(levelKey.kazakh_history))
 
               studentRecord["day_1_total"] = studentRecord["mathematic"] + studentRecord["kazakh_lang"] + studentRecord["turkish_lang"] + studentRecord["kazakh_history"]
+              studentRecord["day_1_total_A"] = studentRecord["mathematicA"] + studentRecord["kazakh_langA"] + studentRecord["turkish_langA"] + studentRecord["kazakh_historyA"]
+              studentRecord["day_1_total_B"] = studentRecord["mathematicB"] + studentRecord["kazakh_langB"] + studentRecord["turkish_langB"] + studentRecord["kazakh_historyB"]
+
               studentRecord["total"] += studentRecord["day_1_total"]
+              studentRecord["totalA"] += studentRecord["day_1_total_A"]
+              studentRecord["totalB"] += studentRecord["day_1_total_B"]
 
             }else if (day == '2'){
-                console.log("upload0 day 2");
                 studentRecord.variant_day_2 = answerKey.variant
                 studentRecord.day_2_keys = studentObj.keys
 
@@ -155,6 +170,15 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
 
                 studentRecord["day_2_total"] = studentRecord["geography"] + studentRecord["physics"] + studentRecord["chemistry"] + studentRecord["biology"]
                 studentRecord["total"] += studentRecord["day_2_total"]
+
+
+                studentRecord["day_2_total"] = studentRecord["geography"] + studentRecord["physics"] + studentRecord["chemistry"] + studentRecord["biology"]
+                studentRecord["day_2_total_A"] = studentRecord["geographyA"] + studentRecord["physicsA"] + studentRecord["chemistryA"] + studentRecord["biologyA"]
+                studentRecord["day_2_total_B"] = studentRecord["geographyB"] + studentRecord["physicsB"] + studentRecord["chemistryB"] + studentRecord["biologyB"]
+
+                studentRecord["total"] += studentRecord["day_2_total"]
+                studentRecord["totalA"] += studentRecord["day_2_total_A"]
+                studentRecord["totalB"] += studentRecord["day_2_total_B"]
             }
             break;
 
@@ -176,6 +200,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
               studentRecord["kazakh_historyB"] = checkB(parseAnswerKey(answerKey.kazakh_history), studentObj.keys.slice(200,300), parseLevelKey(levelKey.kazakh_history))
 
               var sumOfCorrectAnswers = studentRecord["mathematic"] + studentRecord["kazakh_lang"] + studentRecord["kazakh_history"];
+              var sumOfCorrectAnswersA = studentRecord["mathematicA"] + studentRecord["kazakh_langA"] + studentRecord["kazakh_historyA"];
+              var sumOfCorrectAnswersB = studentRecord["mathematicB"] + studentRecord["kazakh_langB"] + studentRecord["kazakh_historyB"];
 
               let electiveGroupId = studentRecord["electiveGroup"];
 
@@ -192,6 +218,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
 
 
                 sumOfCorrectAnswers += studentRecord["geography"] + studentRecord["physics"]
+                sumOfCorrectAnswersA += studentRecord["geographyA"] + studentRecord["physicsA"]
+                sumOfCorrectAnswersB += studentRecord["geographyB"] + studentRecord["physicsB"]
 
               }else if (electiveGroupId == "02") { //География - Химия
                 console.log("electiveGroupId 02");
@@ -204,6 +232,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["chemistryB"] = checkB(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(400,500),parseLevelKey(levelKey.chemistry))
 
                 sumOfCorrectAnswers += studentRecord["geography"] + studentRecord["chemistry"]
+                sumOfCorrectAnswersA += studentRecord["geographyA"] + studentRecord["chemistryA"]
+                sumOfCorrectAnswersB += studentRecord["geographyB"] + studentRecord["chemistryB"]
 
               }else if (electiveGroupId == "03") { //География - Биология
                 console.log("electiveGroupId 03");
@@ -217,6 +247,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
 
 
                 sumOfCorrectAnswers += studentRecord["geography"] + studentRecord["biology"]
+                sumOfCorrectAnswersA += studentRecord["geographyA"] + studentRecord["biologyA"]
+                sumOfCorrectAnswersB += studentRecord["geographyB"] + studentRecord["biologyB"]
 
               }else if (electiveGroupId == "04") { //Физика - Химия
                 console.log("electiveGroupId 04");
@@ -230,6 +262,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["chemistryB"] = checkB(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(400,500),parseLevelKey(levelKey.chemistry))
 
                 sumOfCorrectAnswers += studentRecord["physics"] + studentRecord["chemistry"]
+                sumOfCorrectAnswersA += studentRecord["physicsA"] + studentRecord["chemistryA"]
+                sumOfCorrectAnswersB += studentRecord["physicsB"] + studentRecord["chemistryB"]
 
               }else if (electiveGroupId == "05") { //Физика - Биология
                 studentRecord["physics"]  = check(parseAnswerKey(answerKey.physics), studentObj.keys.slice(300,400));
@@ -242,6 +276,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["biologyB"] = checkB(parseAnswerKey(answerKey.biology), studentObj.keys.slice(400,500), parseLevelKey(levelKey.biology));
 
                 sumOfCorrectAnswers += studentRecord["physics"] + studentRecord["biology"]
+                sumOfCorrectAnswersA += studentRecord["physicsA"] + studentRecord["biologyA"]
+                sumOfCorrectAnswersB += studentRecord["physicsB"] + studentRecord["biologyB"]
 
               }else if (electiveGroupId == "06") { // Химия - Биология
                 studentRecord["chemistry"] = check(parseAnswerKey(answerKey.chemistry), studentObj.keys.slice(300,400))
@@ -253,6 +289,8 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["biologyB"] = checkB(parseAnswerKey(answerKey.biology), studentObj.keys.slice(400,500), parseLevelKey(levelKey.biology));
 
                 sumOfCorrectAnswers += studentRecord["chemistry"] + studentRecord["biology"]
+                sumOfCorrectAnswersA += studentRecord["chemistryA"] + studentRecord["biologyA"]
+                sumOfCorrectAnswersB += studentRecord["chemistryB"] + studentRecord["biologyB"]
 
               }else if (electiveGroupId == "07") { // География - Д. Тарихы
                 studentRecord["geography"] = check(parseAnswerKey(answerKey.geography), studentObj.keys.slice(300,400))
@@ -264,10 +302,18 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["world_historyB"] = checkB(parseAnswerKey(answerKey.world_history), studentObj.keys.slice(400,500),parseLevelKey(levelKey.world_history))
 
                 sumOfCorrectAnswers += studentRecord["geography"] + studentRecord["world_history"]
+                sumOfCorrectAnswersA += studentRecord["geographyA"] + studentRecord["world_historyA"]
+                sumOfCorrectAnswersB += studentRecord["geographyB"] + studentRecord["world_historyB"]
               }
 
               studentRecord["day_1_total"] = sumOfCorrectAnswers;
+              studentRecord["day_1_total_A"] = sumOfCorrectAnswersA;
+              studentRecord["day_1_total_B"] = sumOfCorrectAnswersB;
+
               studentRecord["total"] += studentRecord["day_1_total"]
+              studentRecord["totalA"] += studentRecord["day_1_total_A"]
+              studentRecord["totalB"] += studentRecord["day_1_total_B"]
+              
             }
             break;
         }
@@ -279,8 +325,12 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
         if (recordInDb) {
             if (day == 1) {
                 studentRecord["total"] = studentRecord["day_1_total"] + (recordInDb["day_2_total"] || 0)
+                studentRecord["totalA"] = studentRecord["day_1_total_A"] + (recordInDb["day_2_total_A"] || 0)
+                studentRecord["totalB"] = studentRecord["day_1_total_B"] + (recordInDb["day_2_total_B"] || 0)
             } else {
                 studentRecord["total"] = studentRecord["day_2_total"] + (recordInDb["day_1_total"] || 0)
+                studentRecord["totalA"] = studentRecord["day_2_total_A"] + (recordInDb["day_1_total_A"] || 0)
+                studentRecord["totalB"] = studentRecord["day_2_total_B"] + (recordInDb["day_1_total_B"] || 0)
             }
             BtsResults.update({_id:recordInDb._id},{$set:studentRecord})
         } else {

@@ -1,10 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
-import './btsRating.html';
+import './btsRatingByCategory.html';
 import { Meteor } from 'meteor/meteor';
 import XLSX from 'xlsx';
-Template.btsRating.onCreated(function(){
+Template.btsRatingByCategory.onCreated(function(){
     let template = this
     Session.setDefault('Sort',{total:-1});
     document.title = "БТС Рейтинг";
@@ -15,7 +15,7 @@ Template.btsRating.onCreated(function(){
     })
 })
 
-Template.btsRating.helpers({
+Template.btsRatingByCategory.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
     },
@@ -36,7 +36,7 @@ Template.btsRating.helpers({
     }
 })
 
-Template.btsRating.events({
+Template.btsRatingByCategory.events({
     "change #select"(event,template) {
         template.grade.set(template.find('[name=grade]').value)
 
