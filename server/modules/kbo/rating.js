@@ -50,7 +50,7 @@ export const calculateRating = (academicYear,kboNo,schoolId) => {
             }
         }
     });
-
+    
     _.each(subjects,function(subject) {
         generalRating[subject.subjectId] = 0;
         let results = KboResults.find({academicYear:academicYear,schoolId:schoolId,kboNo:kboNo,subjectId:subject.subjectId}).fetch();

@@ -29,17 +29,22 @@
                         <th class="absolute-style" style="width: 20pt;  text-align: center;">#</th>
                         <th class="absolute-style" style="width: 55pt;  margin-left: 20pt; ">Мектеп ID</th>
                         <th class="absolute-style" style="width: 380pt; margin-left: 70pt; ">Мектеп аты</th>
-                        <th style="white-space: nowrap; padding-left: 470pt;"  id="sortTotal">Жалпы</th>
+                        <th style="white-space: nowrap; padding-left: 470pt;"  id="sortTotal">Жалпы орташа балл</th>
 
                         <th style="white-space: nowrap; text-align:right" id="sortMath">Математика</th>
-                        <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
 
                         {{#if grade7}}
-                          <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
-                          <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
-                          <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
-                          <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
-                          <th style="white-space: nowrap;" id="sortBio">Биология</th>
+
+                          {{#if btsNo3}}
+                            <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
+                            <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
+                            <th style="white-space: nowrap;" id="sortBio">Биология</th>
+
+                          {{else}}
+                            <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
+                            <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
+                            <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
+                          {{/if}}
                         {{else}}
                           {{#if grade8_or_9}}
 
@@ -53,6 +58,7 @@
                             {{else}}
 
                               {{#if grade10}}
+                                <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
                                 <th style="white-space: nowrap;" id="sortWHistory">Қазақcтан тарихы</th>
                                 <th style="white-space: nowrap;" id="sortWorlHistory">Дүние тарихы</th>
                                 <th style="white-space: nowrap;" id="sortGeography">География</th>
@@ -62,6 +68,7 @@
 
                               {{else}}
 
+                                <th style="white-space: nowrap;" id="sortTur">Қазақ тілі</th>
                                 <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
                                 <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
                                 <th style="white-space: nowrap;" id="sortWHistory">Қазақcтан тарихы</th>
@@ -94,14 +101,21 @@
 
 
                         <td style="white-space: nowrap;">{{round 2 mathematic}}</td>
-                        <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
 
                         {{#if grade7}}
-                          <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
-                          <td style="white-space: nowrap;">{{round 2 russian_lang}}</td>
-                          <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                          <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                          <td style="white-space: nowrap;">{{round 2 biology}}</td>
+
+                          {{#if btsNo3}}
+                            <td style="white-space: nowrap;">{{round 2 physics}}</td>
+                            <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
+                            <td style="white-space: nowrap;">{{round 2 biology}}</td>
+
+                          {{else}}
+                            <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
+                            <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
+                            <td style="white-space: nowrap;">{{round 2 russian_lang}}</td>
+
+                          {{/if}}
+
                         {{else}}
                           {{#if grade8_or_9}}
 
@@ -115,6 +129,7 @@
                             {{else}}
 
                               {{#if grade10}}
+                                <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
                                 <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>
                                 <td style="white-space: nowrap;">{{round 2 world_history}}</td>
                                 <td style="white-space: nowrap;">{{round 2 geography}}</td>
@@ -124,6 +139,7 @@
 
                               {{else}}
 
+                                <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
                                 <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
                                 <td style="white-space: nowrap;">{{round 2 russian_lang}}</td>
                                 <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>

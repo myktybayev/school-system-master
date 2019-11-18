@@ -4,6 +4,7 @@ import { check } from "../multipleChoiceChecker";
 import { checkA } from "../multipleChoiceChecker";
 import { checkB } from "../multipleChoiceChecker";
 import { checkC } from "../multipleChoiceChecker";
+import { calculateReRating } from "./reRating";
 import { calculateRating } from "./rating";
 
 export const recheck = (academicYear,btsNo,variant,day) => {
@@ -15,7 +16,6 @@ export const recheck = (academicYear,btsNo,variant,day) => {
         let results = BtsResults.find({academicYear:academicYear,btsNo:btsNo,variant_day_1:variant}).fetch()
 
         if (btsNo == '1' || btsNo == '2'){
-
             _.each(results,(result) => {
                 result["mathematic"] = check(parseAnswerKey(answerKey.mathematic), result.day_1_keys.slice(0,100));
                 result["mathematicA"] = checkA(parseAnswerKey(answerKey.mathematic), result.day_1_keys.slice(0,100),parseLevelKey(levelKey.mathematic));
@@ -88,7 +88,7 @@ export const recheck = (academicYear,btsNo,variant,day) => {
                 BtsResults.update({_id:result._id},{$set:result})
             })
           }
-      }else if(answerKey.grade == '8' || answerKey.grade == '9'){
+    }else if(answerKey.grade == '8' || answerKey.grade == '9'){
         if(day == 1){
             let results = BtsResults.find({academicYear:academicYear,btsNo:btsNo,variant_day_1:variant}).fetch()
             _.each(results,(result) => {
@@ -310,8 +310,12 @@ export const recheck = (academicYear,btsNo,variant,day) => {
         }
     }
 
-    let schools = Schools.find().fetch()
+    // let schools = Schools.find().fetch()
+    let schools = BtsRatings.find({academicYear:academicYear, btsNo:btsNo}).fetch()
+    // console.log(schools);
+    console.log("rerating: ");
     _.each(schools,(school) => {
-        calculateRating(academicYear,btsNo,school.schoolId)
+        calculateReRating(academicYear,btsNo,school.schoolId,school.grade)
+
     })
 }

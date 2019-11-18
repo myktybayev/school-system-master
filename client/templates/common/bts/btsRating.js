@@ -19,6 +19,9 @@ Template.btsRating.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
     },
+    btsNo3() {
+        return FlowRouter.getParam("btsNo") == "3"
+    },
     results() {
         return BtsRatings.find({},{sort: Session.get('Sort')});
     },

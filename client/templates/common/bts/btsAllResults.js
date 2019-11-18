@@ -63,7 +63,7 @@ Template.btsAllResults.events({
         var curGrade = btsStore[0].grade;
         let okuJyly = academicYear.get();
         if(curGrade == '7'){
-          headers = ["#", "Оқу жылы", "Сынып", "Аты Жөні","Жалпы", "Математика", "Қазақ тілі",
+          headers = ["#", "Оқу жылы","Оқушы ID", "Сынып", "Аты Жөні","Жалпы", "Математика", "Қазақ тілі",
           "Түрік тілі", "Орыс тілі"];
 
             data.push(headers);
@@ -72,12 +72,13 @@ Template.btsAllResults.events({
               let studentInfo = btsStore[i].surname+" "+btsStore[i].name.trim();
               let classN = btsStore[i].grade+" "+btsStore[i].division;
               let total = btsStore[i].total;
+              let studentId = btsStore[i].studentId;
               let mathematic = btsStore[i].mathematic;
               let kazakh_lang = btsStore[i].kazakh_lang;
               let russian_lang = btsStore[i].russian_lang;
               let turkish_lang = btsStore[i].turkish_lang;
 
-              let content = [idN, okuJyly, classN, studentInfo, total, mathematic, kazakh_lang,
+              let content = [idN, okuJyly,studentId, classN, studentInfo, total, mathematic, kazakh_lang,
                 russian_lang,
                 turkish_lang];
 
@@ -86,7 +87,7 @@ Template.btsAllResults.events({
             }
 
         }else if (curGrade == '8' || curGrade == '9') {
-          headers = ["#", "Оқу жылы", "Сынып", "Аты Жөні","Жалпы","Математика", "Қазақ тілі",
+          headers = ["#", "Оқу жылы","Оқушы ID", "Сынып", "Аты Жөні","Жалпы","Математика", "Қазақ тілі",
             "Түрік тілі", "Қазақстан тарихы",
             "География", "Физика", "Химия", "Биология"];
 
@@ -96,6 +97,7 @@ Template.btsAllResults.events({
               let studentInfo = btsStore[i].surname+" "+btsStore[i].name.trim();
               let classN = btsStore[i].grade+" "+btsStore[i].division;
               let total = btsStore[i].total;
+              let studentId = btsStore[i].studentId;
               let mathematic = btsStore[i].mathematic;
               let kazakh_lang = btsStore[i].kazakh_lang;
               let turkish_lang = btsStore[i].turkish_lang;
@@ -105,7 +107,7 @@ Template.btsAllResults.events({
               let chemistry = btsStore[i].chemistry;
               let biology = btsStore[i].biology;
 
-              let content = [idN, okuJyly, classN, studentInfo, total, mathematic, kazakh_lang,
+              let content = [idN, okuJyly,studentId, classN, studentInfo, total, mathematic, kazakh_lang,
                 turkish_lang,kazakh_history, geography, physics, chemistry, biology];
 
               data.push(content);
@@ -113,7 +115,7 @@ Template.btsAllResults.events({
             }
 
         }else if (curGrade == '10') {
-          headers = ["#", "Оқу жылы", "Сынып", "Аты Жөні","Жалпы","Математика", "Қазақ тілі",
+          headers = ["#", "Оқу жылы", "Оқушы ID","Сынып", "Аты Жөні","Жалпы","Математика", "Қазақ тілі",
             "Қазақстан тарихы", "География",  "Физика",
             "Химия",            "Биология",   "Дүние тарихы"];
 
@@ -123,6 +125,7 @@ Template.btsAllResults.events({
               let studentInfo = btsStore[i].surname+" "+btsStore[i].name.trim();
               let classN = btsStore[i].grade+" "+btsStore[i].division;
               let total = btsStore[i].total;
+              let studentId = btsStore[i].studentId;
               let mathematic = btsStore[i].mathematic;
               let kazakh_lang = btsStore[i].kazakh_lang;
               let kazakh_history = btsStore[i].kazakh_history;
@@ -134,11 +137,11 @@ Template.btsAllResults.events({
               let biology = btsStore[i].biology?btsStore[i].biology:'-';
               let world_history = btsStore[i].world_history?btsStore[i].world_history:'-';
 
-              let content = [idN, okuJyly, classN, studentInfo, total, mathematic, kazakh_lang,
+              let content = [idN, okuJyly, studentId, classN, studentInfo, total, mathematic, kazakh_lang,
                 kazakh_history,geography, physics, chemistry, biology, world_history];
 
               data.push(content);
-              
+
             }
         }
 

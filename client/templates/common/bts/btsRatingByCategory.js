@@ -7,7 +7,7 @@ import XLSX from 'xlsx';
 Template.btsRatingByCategory.onCreated(function(){
     let template = this
     Session.setDefault('Sort',{total:-1});
-    document.title = "БТС Рейтинг";
+    document.title = "БТС Рейтинг по категорий";
     template.grade = new ReactiveVar("all")
     template.subscribe("schools")
     template.autorun(()=>{
@@ -19,6 +19,13 @@ Template.btsRatingByCategory.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
     },
+    btsNo3() {
+        return FlowRouter.getParam("btsNo") == "3"
+    },
+    btsNo1_or_2(){
+      return FlowRouter.getParam("btsNo") == "1" || FlowRouter.getParam("btsNo") == "2"
+    },
+    
     results() {
         return BtsRatings.find({},{sort: Session.get('Sort')});
     },

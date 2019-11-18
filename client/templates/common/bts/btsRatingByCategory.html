@@ -35,12 +35,17 @@
                         <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
 
                         {{#if grade7}}
-                          <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
-                          <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
-                          <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
-                          <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
-                          <th style="white-space: nowrap;" id="sortBio">Биология</th>
+
+                          {{#if btsNo1_or_2 }}
+                            <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
+                          {{else}}
+                            <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
+                            <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
+                            <th style="white-space: nowrap;" id="sortBio">Биология</th>
+                          {{/if}}
+
                         {{else}}
+
                           {{#if grade8_or_9}}
 
                             <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
@@ -63,7 +68,6 @@
                               {{else}}
 
                                 <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
-                                <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
                                 <th style="white-space: nowrap;" id="sortWHistory">Қазақcтан тарихы</th>
                                 <th style="white-space: nowrap;" id="sortWorlHistory">Дүние тарихы</th>
                                 <th style="white-space: nowrap;" id="sortGeography">География</th>
@@ -85,53 +89,53 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {{#each results}}
                     <tr>
                         <td class="absolute-style" style="width: 20pt; ">{{math @index "+" 1}}</td>
                         <td class="absolute-style" style="width: 55pt;  margin-left: 20pt; text-align: center;">{{schoolId}}</td>
                         <td class="absolute-style" style="width: 380pt; margin-left: 70pt; ">{{schoolName schoolId}}</td>
-                        <td style="padding-left: 470pt; white-space: nowrap;">{{round 2 total}}</td>
-
-
-                        <td style="white-space: nowrap;">{{round 2 mathematic}}</td>
-                        <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
+                        <td style="padding-left: 470pt; white-space: nowrap;">{{round 2 totalInProcent}}</td>
+                        <td class="center" style="white-space: nowrap;">{{math 5 "*" mathematic}}%</td>
+                        <td class="center" style="white-space: nowrap;">{{math 5 "*" kazakh_lang}}%</td>
 
                         {{#if grade7}}
-                          <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
-                          <td style="white-space: nowrap;">{{round 2 russian_lang}}</td>
-                          <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                          <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                          <td style="white-space: nowrap;">{{round 2 biology}}</td>
+                          {{#if btsNo1_or_2 }}
+                            <td class="center">{{math 5 "*" turkish_lang}}%</td>
+                          {{else}}
+                            <td class="center">{{math 5 "*" physics}}%</td>
+                            <td class="center">{{math 5 "*" chemistry}}%</td>
+                            <td class="center">{{math 5 "*" biology}}%</td>
+                          {{/if}}
                         {{else}}
                           {{#if grade8_or_9}}
 
-                            <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
-                            <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>
-                            <td style="white-space: nowrap;">{{round 2 geography}}</td>
-                            <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                            <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                            <td style="white-space: nowrap;">{{round 2 biology}}</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" turkish_lang}}%</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" kazakh_history}}%</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" geography}}%</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" physics}}%</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" chemistry}}%</td>
+                            <td style="white-space: nowrap;">{{math 5 "*" biology}}%</td>
 
                             {{else}}
 
                               {{#if grade10}}
-                                <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 world_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 geography}}</td>
-                                <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                                <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                                <td style="white-space: nowrap;">{{round 2 biology}}</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" kazakh_history}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" world_history}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" geography}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" physics}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" chemistry}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" biology}}%</td>
 
                               {{else}}
 
-                                <td style="white-space: nowrap;">{{round 2 turkish_lang}}</td>
-                                <td style="white-space: nowrap;">{{round 2 russian_lang}}</td>
-                                <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 world_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 geography}}</td>
-                                <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                                <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                                <td style="white-space: nowrap;">{{round 2 biology}}</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" turkish_lang}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" kazakh_history}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" world_history}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" geography}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" physics}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" chemistry}}%</td>
+                                <td style="white-space: nowrap;">{{math 5 "*" biology}}%</td>
 
                               {{/if}}
 
@@ -139,6 +143,117 @@
 
                         {{/if}}
 
+                    </tr>
+
+                    <tr>
+                        <td class="absolute-style" style="width: 20pt; background: white; color: white; ">-</td>
+                        <td class="absolute-style" style="width: 55pt;  margin-left: 19pt; text-align: center; background: white; color: white;">-</td>
+                        <td class="absolute-style" style="width: 50pt;  margin-left: 69pt; background: white; color: white; ">-</td>
+                        <td class="absolute-style" style="width: 380pt; margin-left: 70pt;">Категория А</td>
+                        <td class="center" style="white-space: nowrap; padding-left: 262pt;"></td>
+                        <td class="center">{{round 1 mathematicA}}%</td>
+                        <td class="center">{{round 2 kazakh_langA}}%</td>
+
+                        {{#if grade7 }}
+
+                          {{#if btsNo1_or_2 }}
+                            <td class="center">{{turkish_langA}}%</td>
+                          {{else}}
+                            <td class="center">{{physicsA}}%</td>
+                            <td class="center">{{chemistryA}}%</td>
+                            <td class="center">{{biologyA}}%</td>
+                          {{/if}}
+
+
+                        {{else}}
+                          {{#if grade8_or_9 }}
+                            <td class="center">{{turkish_langA}}%</td>
+                            <td class="center">{{kazakh_historyA}}%</td>
+                            <td class="center">{{geographyA}}%</td>
+                            <td class="center">{{physicsA}}%</td>
+                            <td class="center">{{chemistryA}}%</td>
+                            <td class="center">{{biologyA}}%</td>
+
+                          {{else}}
+                              {{#if grade10 }}
+                                <td class="center">{{kazakh_historyA}}%</td>
+                                <td class="center">{{geographyA}}%</td>
+                                <td class="center">{{physicsA}}%</td>
+                                <td class="center">{{chemistryA}}%</td>
+                                <td class="center">{{biologyA}}%</td>
+                                <td class="center">{{world_historyA}}%</td>
+
+                              {{else}}
+
+                                  <td style="white-space: nowrap;">{{round 2 turkish_langA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 kazakh_historyA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 world_historyA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 geographyA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 physicsA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 chemistryA}}%</td>
+                                  <td style="white-space: nowrap;">{{round 2 biologyA}}%</td>
+
+                              {{/if}}
+
+                          {{/if}}
+                        {{/if}}
+                    </tr>
+
+                    <tr style="border-bottom: 2px solid black">
+                        <td class="absolute-style" style="width: 20pt; background: white; color: white;  border-top: 1px black">-</td>
+                        <td class="absolute-style" style="width: 55pt;  margin-left: 19pt; text-align: center; background: white; color: white; border-top: 1px black">-</td>
+                        <td class="absolute-style" style="width: 50pt;  margin-left: 69pt; background: white; color: white;  border-top: 1px black">-</td>
+                        <td class="absolute-style" style="width: 380pt; margin-left: 70pt;">Категория B</td>
+                        <td class="center" style="white-space: nowrap; padding-left: 262pt;"></td>
+                        <td class="center">{{mathematicB}}%</td>
+                        <td class="center">{{kazakh_langB}}%</td>
+
+                        {{#if grade7 }}
+
+                          {{#if btsNo1_or_2 }}
+                            <td class="center">{{turkish_langB}}%</td>
+                            <td class="center">{{russian_langB}}%</td>
+                          {{else}}
+                            <td class="center">{{physicsB}}%</td>
+                            <td class="center">{{chemistryB}}%</td>
+                            <td class="center">{{biologyB}}%</td>
+                          {{/if}}
+
+
+                        {{else}}
+                          {{#if grade8_or_9 }}
+                            <td class="center">{{kazakh_langB}}%</td>
+                            <td class="center">{{turkish_langB}}%</td>
+                            <td class="center">{{kazakh_historyB}}%</td>
+                            <td class="center">{{geographyB}}%</td>
+                            <td class="center">{{physicsB}}%</td>
+                            <td class="center">{{chemistryB}}%</td>
+                            <td class="center">{{biologyB}}%</td>
+
+                          {{else}}
+                              {{#if grade10 }}
+                                <td class="center">{{kazakh_langB}}%</td>
+                                <td class="center">{{kazakh_historyB}}%</td>
+                                <td class="center">{{geographyB}}%</td>
+                                <td class="center">{{physicsB}}%</td>
+                                <td class="center">{{chemistryB}}%</td>
+                                <td class="center">{{biologyB}}%</td>
+                                <td class="center">{{world_historyB}}%</td>
+
+                              {{else}}
+
+                                <td style="white-space: nowrap;">{{round 2 turkish_langB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 kazakh_historyB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 world_historyB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 geographyB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 physicsB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 chemistryB}}%</td>
+                                <td style="white-space: nowrap;">{{round 2 biologyB}}%</td>
+
+                              {{/if}}
+
+                          {{/if}}
+                        {{/if}}
                     </tr>
                     <!--<tr>
                         <td >A</td>

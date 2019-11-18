@@ -1,19 +1,15 @@
 import { runInThisContext } from "vm";
 // 1 and 2 BTS exams needs to be changed if there are any changes, 3 and 4 were changed
-export const calculateRating = (academicYear,btsNo,day, schoolId) => {
+export const calculateReRating = (academicYear,btsNo,schoolId) => {
     //calculated bts rating here
-    let gradesFirstDay = ["7","8","9","10"]
-    let gradesSecondDay = ["8","9"]
-    //let grades = ["9","10"]
+    let grades = ["7","8","9","10"]
+
     var counter = 0;
 
-    console.log("================================================================");
+    console.log("============================re rating====================================");
 
     calculateBtsRatingForGrade = (academicYear,btsNo,schoolId,grade) => {
-        var ratingObj = {};
-
-        if(day == '1'){
-          ratingObj = {
+        var ratingObj = {
               academicYear:academicYear,
               btsNo: btsNo,
               schoolId: schoolId,
@@ -50,29 +46,8 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
               totalA: 0,
               totalB: 0
           }
-        }else if(day == '2'){
-          ratingObj = {
-              academicYear:academicYear,
-              btsNo: btsNo,
-              schoolId: schoolId,
-              grade: grade,
-              geography: 0,
-              geographyA: 0,
-              geographyB: 0,
-              physics: 0,
-              physicsA: 0,
-              physicsB: 0,
-              chemistry: 0,
-              chemistryA: 0,
-              chemistryB: 0,
-              biology: 0,
-              biologyA: 0,
-              biologyB: 0,
-              total: 0,
-              totalA: 0,
-              totalB: 0
-          }
-        }
+
+
 
         let records = BtsResults.find({academicYear:academicYear,btsNo:btsNo,grade:grade,schoolId:schoolId}).fetch()
 
@@ -131,8 +106,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
         }else if(ratingObj.grade == '8' || ratingObj.grade == '9'){
             _.each(records,(record) => {
 
-                if (day == '1') {
-
                     ratingObj.mathematic += (record.mathematic || 0)
                     ratingObj.mathematicA += (record.mathematicA || 0)
                     ratingObj.mathematicB += (record.mathematicB || 0)
@@ -153,8 +126,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                     firstDayCounter++;
                     firstDayTotal += (record.day_1_total || 0)
 
-                }else if (day == '2') {
-
                     ratingObj.geography += (record.geography || 0)
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
@@ -174,7 +145,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                     secondDayCounter++;
                     secondDayTotal += (record.day_2_total || 0)
 
-                }
 
               })
         }
@@ -286,7 +256,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
         }
 
         if (ratingObj.grade == '7'){
-            if (firstDayCounter != 0) {
 
               ratingObj.mathematic = (ratingObj.mathematic / firstDayCounter)
               ratingObj.mathematicA = (ratingObj.mathematicA / firstDayCounter)
@@ -321,9 +290,8 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 }
 
                 ratingObj.total += firstDayTotal/firstDayCounter
-            }
+
         }else if(ratingObj.grade == '8'){
-            if (firstDayCounter != 0) {
                 ratingObj.mathematic = (ratingObj.mathematic / firstDayCounter)
                 ratingObj.mathematicA = (ratingObj.mathematicA / firstDayCounter)
                 ratingObj.mathematicB = (ratingObj.mathematicB / firstDayCounter)
@@ -338,10 +306,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 ratingObj.kazakh_historyB = (ratingObj.kazakh_historyB / firstDayCounter)
 
                 ratingObj.total += firstDayTotal/firstDayCounter
-
-            }
-            else if (secondDayCounter != 0) {
-                  console.log("ratingObj.grade == '8' || ratingObj.grade == '9' || secondDayCounter != 0");
 
                   ratingObj.geography = (ratingObj.geography / secondDayCounter)
                   ratingObj.geographyA = (ratingObj.geographyA / secondDayCounter)
@@ -359,13 +323,12 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   ratingObj.biologyA = (ratingObj.biologyA / secondDayCounter)
                   ratingObj.biologyB = (ratingObj.biologyB / secondDayCounter)
 
-                  let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'8',schoolId:schoolId})
+                  // let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'8',schoolId:schoolId})
 
-                  ratingObj.total = secondDayTotal/secondDayCounter + totalSecondDay.total
-            }
+                  ratingObj.total = secondDayTotal/secondDayCounter + ratingObj.total
+
         }
         else if(ratingObj.grade == '9'){
-            if (firstDayCounter != 0) {
                 ratingObj.mathematic = (ratingObj.mathematic / firstDayCounter)
                 ratingObj.mathematicA = (ratingObj.mathematicA / firstDayCounter)
                 ratingObj.mathematicB = (ratingObj.mathematicB / firstDayCounter)
@@ -380,10 +343,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 ratingObj.kazakh_historyB = (ratingObj.kazakh_historyB / firstDayCounter)
 
                 ratingObj.total += firstDayTotal/firstDayCounter
-
-            }
-            else if (secondDayCounter != 0) {
-                  console.log("ratingObj.grade == '8' || ratingObj.grade == '9' || secondDayCounter != 0");
 
                   ratingObj.geography = (ratingObj.geography / secondDayCounter)
                   ratingObj.geographyA = (ratingObj.geographyA / secondDayCounter)
@@ -402,14 +361,13 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   ratingObj.biologyB = (ratingObj.biologyB / secondDayCounter)
 
 
-                  let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'9',schoolId:schoolId})
+                  // let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'9',schoolId:schoolId})
 
-                  ratingObj.total = secondDayTotal/secondDayCounter + totalSecondDay.total
+                  ratingObj.total = secondDayTotal/secondDayCounter + ratingObj.total
 
-            }
+
         }
         else if(ratingObj.grade == '10'){
-          if (firstDayCounter != 0) {
 
               console.log("ratingObj.grade == '10' firstDayCounter != 0");
               ratingObj.mathematic = (ratingObj.mathematic / firstDayCounter)
@@ -445,7 +403,7 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
               ratingObj.total = firstDayTotal/firstDayCounter
 
-          }
+
         }
 
         // insert rating to db
@@ -480,77 +438,46 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
     var biologyCount = 0;
     var totalRating = {};
 
-    if(day == '1'){
-        grades = gradesFirstDay;
-        console.log("gradesFirstDay");
-
-        totalRating = {
-            academicYear:academicYear,
-            btsNo: btsNo,
-            schoolId: schoolId,
-            grade: "all",
-            mathematic: 0,
-            mathematicA: 0,
-            mathematicB: 0,
-            turkish_lang: 0,
-            turkish_langA: 0,
-            turkish_langB: 0,
-            kazakh_history: 0,
-            kazakh_historyA: 0,
-            kazakh_historyB: 0,
-            world_history: 0,
-            world_historyA: 0,
-            world_historyB: 0,
-            geography: 0,
-            geographyA: 0,
-            geographyB: 0,
-            physics: 0,
-            physicsA: 0,
-            physicsB: 0,
-            chemistry: 0,
-            chemistryA: 0,
-            chemistryB: 0,
-            biology: 0,
-            biologyA: 0,
-            biologyB: 0,
-            kazakh_lang: 0,
-            kazakh_langA: 0,
-            kazakh_langB: 0,
-            russian_lang: 0,
-            total_1_day: 0,
-            total: 0,
-            totalInProcent: 0,
-            totalA: 0,
-            totalB: 0
-        }
-
-    }else{
-        grades = gradesSecondDay;
-        console.log("gradesSecondDay");
-
-        totalRating = {
-            academicYear:academicYear,
-            btsNo: btsNo,
-            schoolId: schoolId,
-            grade: "all",
-            geography: 0,
-            geographyA: 0,
-            geographyB: 0,
-            physics: 0,
-            physicsA: 0,
-            physicsB: 0,
-            chemistry: 0,
-            chemistryA: 0,
-            chemistryB: 0,
-            biology: 0,
-            biologyA: 0,
-            biologyB: 0,
-            total: 0,
-            totalInProcent: 0,
-            totalA: 0,
-            totalB: 0
-        }
+    totalRating = {
+        academicYear:academicYear,
+        btsNo: btsNo,
+        schoolId: schoolId,
+        grade: "all",
+        mathematic: 0,
+        mathematicA: 0,
+        mathematicB: 0,
+        turkish_lang: 0,
+        turkish_langA: 0,
+        turkish_langB: 0,
+        kazakh_history: 0,
+        kazakh_historyA: 0,
+        kazakh_historyB: 0,
+        world_history: 0,
+        world_historyA: 0,
+        world_historyB: 0,
+        geography: 0,
+        geographyA: 0,
+        geographyB: 0,
+        physics: 0,
+        physicsA: 0,
+        physicsB: 0,
+        chemistry: 0,
+        chemistryA: 0,
+        chemistryB: 0,
+        biology: 0,
+        biologyA: 0,
+        biologyB: 0,
+        kazakh_lang: 0,
+        kazakh_langA: 0,
+        kazakh_langB: 0,
+        russian_lang: 0,
+        total_1_day: 0,
+        total: 0,
+        totalInProcent: 0,
+        totalA: 0,
+        totalB: 0
     }
+
 
     _.each(grades,(grade) => {
         let gradeRating = calculateBtsRatingForGrade(academicYear,btsNo,schoolId,grade)
@@ -595,27 +522,22 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
             }
         }
         else if(grade == '8' || grade == '9'){
-            if(day == '1'){
-                console.log("8 or 9 grade day 1");
-                totalRating.mathematic += (gradeRating.mathematic || 0)
-                totalRating.mathematicA += (gradeRating.mathematicA || 0)
-                totalRating.mathematicB += (gradeRating.mathematicB || 0)
+              totalRating.mathematic += (gradeRating.mathematic || 0)
+              totalRating.mathematicA += (gradeRating.mathematicA || 0)
+              totalRating.mathematicB += (gradeRating.mathematicB || 0)
 
-                totalRating.kazakh_lang += (gradeRating.kazakh_lang || 0)
-                totalRating.kazakh_langA += (gradeRating.kazakh_langA || 0)
-                totalRating.kazakh_langB += (gradeRating.kazakh_langB || 0)
+              totalRating.kazakh_lang += (gradeRating.kazakh_lang || 0)
+              totalRating.kazakh_langA += (gradeRating.kazakh_langA || 0)
+              totalRating.kazakh_langB += (gradeRating.kazakh_langB || 0)
 
-                totalRating.turkish_lang += (gradeRating.turkish_lang || 0)
-                totalRating.turkish_langA += (gradeRating.turkish_langA || 0)
-                totalRating.turkish_langB += (gradeRating.turkish_langB || 0)
+              totalRating.turkish_lang += (gradeRating.turkish_lang || 0)
+              totalRating.turkish_langA += (gradeRating.turkish_langA || 0)
+              totalRating.turkish_langB += (gradeRating.turkish_langB || 0)
 
-                totalRating.kazakh_history += (gradeRating.kazakh_history || 0)
-                totalRating.kazakh_historyA += (gradeRating.kazakh_historyA || 0)
-                totalRating.kazakh_historyB += (gradeRating.kazakh_historyB || 0)
+              totalRating.kazakh_history += (gradeRating.kazakh_history || 0)
+              totalRating.kazakh_historyA += (gradeRating.kazakh_historyA || 0)
+              totalRating.kazakh_historyB += (gradeRating.kazakh_historyB || 0)
 
-            }
-            if(day == '2'){
-              console.log("8 or 9 grade day 2");
               totalRating.geography += (gradeRating.geography || 0)
               totalRating.geographyA += (gradeRating.geographyA || 0)
               totalRating.geographyB += (gradeRating.geographyB || 0)
@@ -631,8 +553,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
               totalRating.biology += (gradeRating.biology || 0)
               totalRating.biologyA += (gradeRating.biologyA || 0)
               totalRating.biologyB += (gradeRating.biologyB || 0)
-
-            }
 
         }else if(grade == '10'){
           totalRating.mathematic += (gradeRating.mathematic || 0)
@@ -682,17 +602,7 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
             // russianTotal += gradeRating.russian_lang;
             // russianCount++;
     })
-
-    var sameSchoolRating2 = BtsRatings.findOne({
-        btsNo: btsNo,
-        schoolId: schoolId,
-        academicYear: academicYear,
-        grade: 'all'
-    });
-
-    if(day == '1'){
-
-      console.log("totalRating day 1");
+      
       totalRating.mathematic     /= (mathematicCount|| 1);
       totalRating.mathematicA    /= (mathematicCount|| 1);
       totalRating.mathematicB    /= (mathematicCount|| 1);
@@ -730,15 +640,8 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
       totalRating.total = totalRating.mathematic + totalRating.turkish_lang + totalRating.russian_lang + totalRating.kazakh_history +    totalRating.world_history +     totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology +    totalRating.kazakh_lang;
       totalRating.total_1_day = totalRating.total
-      totalRating.totalInProcent = 999;
+      totalRating.totalInProcent = "999";
 
-      /*
-        
-
-      */
-
-    }else if(day == '2'){
-      console.log("totalRating day 2");
       totalRating.geography /= (geographyCount || 1);
       totalRating.geographyA /= (geographyCount || 1);
       totalRating.geographyB /= (geographyCount || 1);
@@ -752,12 +655,10 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
       totalRating.biologyA /= (biologyCount || 1);
       totalRating.biologyB /= (biologyCount || 1);
 
-      // total_1_day = totalRating.mathematic + totalRating.turkish_lang + totalRating.kazakh_lang + totalRating.kazakh_history;
-      console.log("sameSchoolRating2['total_1_day'] "+ sameSchoolRating2["total_1_day"]);
-      totalRating.total =  sameSchoolRating2["total_1_day"] // + totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology;
+      totalRating.total =  totalRating.total_1_day // + totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology;
 
-      totalRating.totalInProcent = 888;
-    }
+      totalRating.totalInProcent = "888";
+
 
     // let totalOfTotal = (mathTotalProcent + tTotalProcent + rTotalProcent) / 3;
     var sameSchoolRating = BtsRatings.findOne({
@@ -769,9 +670,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
     if (sameSchoolRating) {
         BtsRatings.update({_id:sameSchoolRating._id},{$set:totalRating})
-    } else {
-        console.log("rating insert");
-        BtsRatings.insert(totalRating)
     }
 
     console.log("================================================================");
