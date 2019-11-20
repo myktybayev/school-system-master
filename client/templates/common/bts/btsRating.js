@@ -15,6 +15,7 @@ Template.btsRating.onCreated(function(){
     })
 })
 
+var schoolArray2 = [];
 Template.btsRating.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
@@ -23,7 +24,34 @@ Template.btsRating.helpers({
         return FlowRouter.getParam("btsNo") == "3"
     },
     results() {
+
+        var schoolStore = new Map();
+        var schoolArray = [];
+
+        let schools = Schools.find().fetch()
+        let cursorKboRatings = BtsRatings.find({academicYear:academicYear.get()}).fetch()
+
+        schools.forEach(school =>{
+          schoolStore.set(school.schoolId, school.shortName);
+        });
+
+        for(var i = 0; i < cursorKboRatings.length; i++){
+            schoolStore.delete(cursorKboRatings[i].schoolId);
+        }
+        // schoolStore.delete("042");
+
+        for (const [key, value] of schoolStore.entries()) {
+          // console.log(key);
+          schoolArray.push(value)
+        }
+
+        schoolArray2 = schoolArray;
+        console.log(schoolArray2);
+
         return BtsRatings.find({},{sort: Session.get('Sort')});
+    },
+    schoolNotUploaded(){
+      return schoolArray2;
     },
     gradeAll(){
         return "all" == Template.instance().grade.get()

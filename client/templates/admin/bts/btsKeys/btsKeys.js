@@ -27,6 +27,7 @@ Template.btsKeys.events({
         template.btsNo.set(event.target.value);
         localStorage.setItem("btsNo", event.target.value);
     },
+
     "click #delete"(event, template) {
         if (confirm("Жауап кілтін өшіргіңіз келеді ме?")) {
             Meteor.call("BtsAnswerKeys.Delete", this._id, function(err) {
