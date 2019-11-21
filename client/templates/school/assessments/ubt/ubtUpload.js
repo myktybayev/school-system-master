@@ -77,7 +77,7 @@ Template.ubtUpload.events({
             SUIBlock.block('Жүктелуде...');
             console.log(academicYear.get());
             Meteor.call("UbtResults.Upload", academicYear.get(), template.results.get(),function (err) {
-                if (err) {                    
+                if (err) {
                     bootbox.alert(err.reason);
                     SUIBlock.unblock();
                 } else {
@@ -91,6 +91,7 @@ Template.ubtUpload.events({
         }
         alert("Файл таңдалмады немесе қателер табылды")
     },
+    
     "change #select"(event,template) {
         template.quarter.set(template.find('[name=quarter]').value)
 

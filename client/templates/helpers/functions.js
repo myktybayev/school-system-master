@@ -53,6 +53,10 @@ Blaze.registerHelper("round", function(value,number) {
     return number.toFixed(value)
 })
 
+Blaze.registerHelper("notZero", function(value) {
+    return value != 0
+})
+
 Blaze.registerHelper("divide", function(value,number) {
     return value/number
 })

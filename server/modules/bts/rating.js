@@ -733,7 +733,7 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
       totalRating.totalInProcent = 999;
 
       /*
-        
+
 
       */
 

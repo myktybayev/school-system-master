@@ -27,6 +27,19 @@ Template.adminSettings.helpers({
 });
 
 Template.adminSettings.events({
+    "click #reCalc"() {
+          console.log("reCalc");
+          Meteor.call("UbtResults.reCalcRating", academicYear.get(),function (err) {
+              if (err) {
+                  bootbox.alert(err.reason);
+                  SUIBlock.unblock();
+              } else {
+                  SUIBlock.unblock();
+                  bootbox.alert("Жасалынды");
+              }
+          });
+    },
+
     'click #resetpassword'() {
         if (confirm("Are u sure?"))
             Meteor.call('resetSchoolPassword',this.schoolId,(err,res) => {
@@ -38,36 +51,16 @@ Template.adminSettings.events({
         })
     },
 
-    'click #calc_rating'(event,template) {
-      let kboKeysArray = KboKeys.find({academicYear:academicYear.get(),kboNo:'1'}).fetch();
-      let subjects = [];
-
-      _.each(kboKeysArray,(kboKey) => {
-        subjects.push(kboKey.subjectId)
-      })
-      subjects = Array.from(new Set(subjects))
-
-      let schools = Schools.find().fetch();
-
-      _.each(schools,(school) => {
-        _.each(subjects,(subject) => {
-          let kboResults = KboResults.find({schoolId:school.schoolId, subjectId:subject}).fetch();
-            if(kboResults.length > 0){
-              let totalResult = 0;
-              _.each(kboResults,(kboResult) => {
-                totalResult += kboResult.result;
-
-                console.log("subjectId: "+subject);
-                console.log("schoolId:  "+school.schoolId);
-                console.log("totalResult: "+totalResult);
-
-              })
-
-              console.log(kboResults);
-            }
-        })
-      })
-      // let kboResults = KboResults.find();
+    'click #reCalcTotalRating'(event,template) {
+      Meteor.call("BtsResults.calcTotalRating", academicYear.get(), function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Сақталды")
+          }
+      });
     },
 
     'click #addNew'(event,template) {

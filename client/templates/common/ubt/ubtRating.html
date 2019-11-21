@@ -16,8 +16,10 @@
             <table class="table table-striped table-bordered table-hover table-condensed">
                 <thead>
                     <tr class="bts-header" style="background-color: white;">
-                        <th style="position: absolute; width: 300pt; background-color: white; text-align: center;">Мектеп аты</th>
-                        <th style="padding-left: 305pt; text-align: center;">Жалпы</th>
+                        <th style="position: absolute; width: 20pt; background-color: white; text-align: center; ">#</th>
+                        <th style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center;">Мектеп ID</th>
+                        <th style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: center;">Мектеп аты</th>
+                        <th style="padding-left: 355pt; text-align: center; white-space: nowrap;">Жалпы</th>
                         <th style="text-align: center;">ҰБТ1</th>
                         <th style="text-align: center;">ҰБТ2</th>
                         <th style="text-align: center;">ҰБТ3</th>
@@ -58,9 +60,53 @@
                     {{#each results}}
                     <tr>
 
-                        <td style="position: absolute; width: 300pt; background-color: white;">{{math @index "+" 1}}. {{schoolName schoolId}}</td>
+                        <td style="position: absolute; width: 20pt; background-color: white; text-align: center; border: 1px solid white; color: white;">-</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center;">{{schoolId}}</td>
+                        <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white;">{{schoolName schoolId}}</td>
+                        <td style="text-align: center; padding-left: 355pt; white-space: nowrap;">{{round 1 totalInProcent}} %</td>
+                        <td style="text-align: center; white-space: nowrap;">{{round 1 (math 0.71 "*" ubt1)}} %</td>
+                        <td style="text-align: center; white-space: nowrap;">{{round 1 (math 0.71 "*" ubt2)}} %</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt3}}{{round 1 (math 0.71 "*" ubt3)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt4}}{{round 1 (math 0.71 "*" ubt4)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt5}}{{round 1 (math 0.71 "*" ubt5)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt6}}{{round 1 (math 0.71 "*" ubt6)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt7}}{{round 1 (math 0.71 "*" ubt7)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt8}}{{round 1 (math 0.71 "*" ubt8)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt9}}{{round 1 (math 0.71 "*" ubt9)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt10}}{{round 1 (math 0.71 "*" ubt10)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt11}}{{round 1 (math 0.71 "*" ubt11)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt12}}{{round 1 (math 0.71 "*" ubt12)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt13}}{{round 1 (math 0.71 "*" ubt13)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt14}}{{round 1 (math 0.71 "*" ubt14)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt15}}{{round 1 (math 0.71 "*" ubt15)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt16}}{{round 1 (math 0.71 "*" ubt16)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt17}}{{round 1 (math 0.71 "*" ubt17)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt18}}{{round 1 (math 0.71 "*" ubt18)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt19}}{{round 1 (math 0.71 "*" ubt19)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt20}}{{round 1 (math 0.71 "*" ubt20)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt21}}{{round 1 (math 0.71 "*" ubt21)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt22}}{{round 1 (math 0.71 "*" ubt22)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt23}}{{round 1 (math 0.71 "*" ubt23)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt24}}{{round 1 (math 0.71 "*" ubt24)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt25}}{{round 1 (math 0.71 "*" ubt25)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt26}}{{round 1 (math 0.71 "*" ubt26)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt27}}{{round 1 (math 0.71 "*" ubt27)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt28}}{{round 1 (math 0.71 "*" ubt28)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt29}}{{round 1 (math 0.71 "*" ubt29)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt30}}{{round 1 (math 0.71 "*" ubt30)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt31}}{{round 1 (math 0.71 "*" ubt31)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt32}}{{round 1 (math 0.71 "*" ubt32)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt33}}{{round 1 (math 0.71 "*" ubt33)}} % {{else}} 0 {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt34}}{{round 1 (math 0.71 "*" ubt34)}} % {{else}} 0 {{/if}}</td>
+                    </tr>
 
-                        <td style="text-align: center; padding-left: 305pt">{{total}}</td>
+                    <tr>
+                        <!-- Average -->
+                        <td style="position: absolute; width: 20pt; background-color: white; text-align: center;  border: 1px solid white">{{math @index "+" 1}}</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center; font-size: 10px;">тапсырған оқушы саны</td>
+                        <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt;">ave / 140</td>
+
+                        <td style="text-align: center; padding-left: 355pt">{{total}}</td>
                         <td style="text-align: center;">{{ubt1}}</td>
                         <td style="text-align: center;">{{ubt2}}</td>
                         <td style="text-align: center;">{{ubt3}}</td>
@@ -95,6 +141,50 @@
                         <td style="text-align: center;">{{ubt32}}</td>
                         <td style="text-align: center;">{{ubt33}}</td>
                         <td style="text-align: center;">{{ubt34}}</td>
+                    </tr>
+
+                    <tr style="border-bottom: 2px solid black">
+
+                        <!-- Median -->
+                        <td style="position: absolute; width: 20pt; background-color: white; text-align: center; color: white; border: 1px solid white">-</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt; background-color: white; text-align: center;  border-top: 1px solid white">{{countOfStudentTakingUbt}}</td>
+                        <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt;">median</td>
+
+                        <td style="text-align: center; padding-left: 355pt">{{totalMedian}}</td>
+                        <td style="text-align: center;">{{median1}}</td>
+                        <td style="text-align: center;">{{median2}}</td>
+                        <td style="text-align: center;">{{median3}}</td>
+                        <td style="text-align: center;">{{median4}}</td>
+                        <td style="text-align: center;">{{median5}}</td>
+                        <td style="text-align: center;">{{median6}}</td>
+                        <td style="text-align: center;">{{median7}}</td>
+                        <td style="text-align: center;">{{median8}}</td>
+                        <td style="text-align: center;">{{median9}}</td>
+                        <td style="text-align: center;">{{median10}}</td>
+                        <td style="text-align: center;">{{median11}}</td>
+                        <td style="text-align: center;">{{median12}}</td>
+                        <td style="text-align: center;">{{median13}}</td>
+                        <td style="text-align: center;">{{median14}}</td>
+                        <td style="text-align: center;">{{median15}}</td>
+                        <td style="text-align: center;">{{median16}}</td>
+                        <td style="text-align: center;">{{median17}}</td>
+                        <td style="text-align: center;">{{median18}}</td>
+                        <td style="text-align: center;">{{median19}}</td>
+                        <td style="text-align: center;">{{median20}}</td>
+                        <td style="text-align: center;">{{median21}}</td>
+                        <td style="text-align: center;">{{median22}}</td>
+                        <td style="text-align: center;">{{median23}}</td>
+                        <td style="text-align: center;">{{median24}}</td>
+                        <td style="text-align: center;">{{median25}}</td>
+                        <td style="text-align: center;">{{median26}}</td>
+                        <td style="text-align: center;">{{median27}}</td>
+                        <td style="text-align: center;">{{median28}}</td>
+                        <td style="text-align: center;">{{median29}}</td>
+                        <td style="text-align: center;">{{median30}}</td>
+                        <td style="text-align: center;">{{median31}}</td>
+                        <td style="text-align: center;">{{median32}}</td>
+                        <td style="text-align: center;">{{median33}}</td>
+                        <td style="text-align: center;">{{median34}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

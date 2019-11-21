@@ -4,10 +4,6 @@ import { checkB} from "../multipleChoiceChecker";
 import { parseAnswerKey } from "../multipleChoiceChecker";
 import { parseLevelKey } from "../multipleChoiceChecker";
 
-/*
-* метод для загрузки текст файла bts
-* */
-
 export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
     _.each(results,(studentObj) => {
         //console.log(studentObj.keys)
@@ -186,7 +182,7 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
             console.log("grade: 10");
             if (day == '1'){
               console.log("day 1");
-
+              
               studentRecord["mathematic"]   = check(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100))
               studentRecord["mathematicA"]  = checkA(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100),parseLevelKey(levelKey.mathematic))
               studentRecord["mathematicB"]  = checkB(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100),parseLevelKey(levelKey.mathematic))
@@ -313,7 +309,7 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
               studentRecord["total"] += studentRecord["day_1_total"]
               studentRecord["totalA"] += studentRecord["day_1_total_A"]
               studentRecord["totalB"] += studentRecord["day_1_total_B"]
-              
+
             }
             break;
         }

@@ -1,5 +1,6 @@
 import { upload0 } from "../../modules/bts/upload0";
 import { calculateRating } from "../../modules/bts/rating";
+import { calcTotalRating } from "../../modules/bts/totalRating";
 
 Meteor.methods({
     'BtsResults.Upload':function(academicYear,btsNo,day,results) {
@@ -22,5 +23,18 @@ Meteor.methods({
             calculateRating(academicYear,btsNo,day,school.schoolId)
         }
 
-    }
+    },
+
+    'BtsResults.calcTotalRating':function(academicYear) {
+        let btsNo = "1"
+        calcTotalRating(academicYear, "020", btsNo)
+        // let school = Schools.findOne({
+        //     userId: this.userId
+        // })
+        //
+        // if (school) {
+        //     calcTotalRating(academicYear,btsNo,day,school.schoolId)
+        // }
+
+    },
 });

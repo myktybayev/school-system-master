@@ -10,6 +10,7 @@ Template.ubtRating.onCreated(function(){
 
     document.title = "ҰБТ Рейтинг";
     template.subscribe("schools")
+    template.subscribe("Configs")
     template.autorun(()=>{
         template.subscribe("uhdSchoolRatings",academicYear.get())
     })
@@ -40,7 +41,6 @@ Template.ubtRating.helpers({
         }
 
         schoolArray2 = schoolArray;
-        console.log(schoolArray2);
 
         return UhdSchoolRatings.find({},{sort: {total:-1}});
     },
@@ -48,9 +48,20 @@ Template.ubtRating.helpers({
     schoolNotUploaded(){
       return schoolArray2;
     },
+
+    ratingButtonView(){
+      var bts = Configs.find({});
+
+      console.log(bts);
+      // if (bts4['3'] == 'disabled')
+          // return false
+
+      return true;
+    }
 })
 
 Template.ubtRating.events({
+  
   "click #export"(event,template) {
     const html = document.getElementById('out').innerHTML;
 
