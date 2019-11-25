@@ -67,9 +67,7 @@ Template.ubtResults.events({
          data[i].splice(id0,1);
          data[i].splice(id2,1);
       }
-
-      console.log(data);
-
+      
       let year = academicYear.get();
 
       Meteor.call('download', data, (err, wb) => {

@@ -1,10 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import './opeReport.html';
+import './opeReportResults.html';
 import {ReactiveDict} from 'meteor/reactive-dict'
 import XLSX from 'xlsx';
 
-Template.opeReport.onCreated(function() {
+Template.opeReportResults.onCreated(function() {
     let template = this
     document.title = "OPE Репорт";
     template.reportPeriod = new ReactiveVar('16.11 - 30.11')
@@ -13,16 +13,15 @@ Template.opeReport.onCreated(function() {
     state = new ReactiveDict();
     state.set('directorClickedYes', false)
     template.subscribe('opes');
-    template.subscribe('opeReport');
+    // template.subscribe('opeReport');
 
-    // template.autorun(() => {
-    //     template.subscribe("opeReports", academicYear.get(), template.reportPeriod.get())
-    // })
-
+    template.autorun(() => {
+        template.subscribe("opeReports", academicYear.get(), template.reportPeriod.get())
+    })
 
 })
 
-Template.opeReport.helpers({
+Template.opeReportResults.helpers({
   students(){
     return Students.find({},{sort:{surname:-1, division:1}})
   },
@@ -30,14 +29,16 @@ Template.opeReport.helpers({
     return !state.get('directorClickedYes')
   },
   results() {
-      return Template.instance().results.get()
+      return OpeReports.find({})
   }
 });
 
-Template.opeReport.events({
-  'change #select'(event,template) {
+Template.opeReportResults.events({
+  'change #reportPeriod'(event,template) {
       template.reportPeriod.set(event.target.value)
+      console.log(template.reportPeriod.get());
   },
+
   'click #director_yes': function(){
       state.set('directorClickedYes', true)
   },
@@ -57,8 +58,6 @@ Template.opeReport.events({
                         template.results.set([])
                         SUIBlock.unblock();
                         bootbox.alert("Сақталды");
-
-                        FlowRouter.redirect('/school/ope/reportResults/')
                     }
                 });
 
@@ -148,14 +147,11 @@ Template.opeReport.events({
         Session.set('editItemId', null);
       }
     },
-    'change #reportPeriod'(event,template) {
-        template.reportPeriod.set(event.target.value)
-    },
     'change #grade'(event,template) {
         template.grade.set(event.target.value)
     },
 })
 
-Template.opeReport.onRendered(function() {
+Template.opeReportResults.onRendered(function() {
     this.$('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
 });

@@ -91,7 +91,7 @@ Template.ubtUpload.events({
         }
         alert("Файл таңдалмады немесе қателер табылды")
     },
-    
+
     "change #select"(event,template) {
         template.quarter.set(template.find('[name=quarter]').value)
 

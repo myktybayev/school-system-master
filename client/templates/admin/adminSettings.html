@@ -131,6 +131,7 @@
                             </select>
                             </td>
                         </tr>
+
                         <tr>
                             <td>TAT-2</td>
                             <td>
@@ -140,6 +141,30 @@
                             </select>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td>OPE report</td>
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="ope" id="opePeriod">
+                                <option value="16.11 - 30.11">16.11 - 30.11</option>
+                                <option value="30.11 - 14.12">30.11 - 14.12</option>
+                                <option value="14.12 - 28.12">14.12 - 28.12</option>
+                                <option value="28.12 - 11.01">28.12 - 11.01</option>
+                                <option value="11.01 - 25.01">11.01 - 25.01</option>
+                                <option value="25.01 - 08.02">25.01 - 08.02</option>
+                                <option value="08.01 - 22.02">08.01 - 22.02</option>
+                                <option value="22.02 - 07.03">22.02 - 07.03</option>
+                            </select>
+                            </td>
+                            
+                            <td>
+                            <select style="width: 100pt; float: right;" class="form-control" name="tat2" id="tat2">
+                                <option value="enabled" {{selected "tatUpload" "2" "enabled"}}>Ашық</option>
+                                <option value="disabled" {{selected "tatUpload" "2" "disabled"}}>Жабық</option>
+                            </select>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
         </div>

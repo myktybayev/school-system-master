@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { upload } from "../../modules/ope/upload";
+import { rating } from "../../modules/tat/rating";
 
 Meteor.methods({
     "Ope.updateOpeResults": function(student_id, editItem) {
@@ -57,5 +59,20 @@ Meteor.methods({
         } else {
             throw new Meteor.Error('auth-error','School rights required.')
         }
+    },
+
+    'OpeReport.Upload':function(academicYear, reportPeriod, results) {
+
+          if (!Roles.userIsInRole(this.userId,"school"))
+              throw new Meteor.Error('access-denied', 'Access denied!')
+
+          let school = Schools.findOne({
+              userId: this.userId
+          })
+
+          if (school) {
+              upload(academicYear, school.schoolId, reportPeriod, results)
+              // rating(academicYear, school.schoolId)
+          }
     }
 })
