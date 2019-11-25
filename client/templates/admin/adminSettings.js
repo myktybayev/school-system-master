@@ -28,7 +28,6 @@ Template.adminSettings.helpers({
 
 Template.adminSettings.events({
     "click #reCalc"() {
-          console.log("reCalc");
           Meteor.call("UbtResults.reCalcRating", academicYear.get(),function (err) {
               if (err) {
                   bootbox.alert(err.reason);

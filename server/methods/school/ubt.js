@@ -27,9 +27,6 @@ Meteor.methods({
 
 	'UbtResults.reCalcRating':function(academicYear) {
 
-        if (!Roles.userIsInRole(this.userId,"school"))
-            throw new Meteor.Error('access-denied', 'Access denied!')
-
         let school = Schools.findOne({
             userId: this.userId
         })

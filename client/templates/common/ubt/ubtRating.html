@@ -59,11 +59,44 @@
                 <tbody>
                     {{#each results}}
                     <tr>
-
                         <td style="position: absolute; width: 20pt; background-color: white; text-align: center; border: 1px solid white; color: white;">-</td>
                         <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center;">{{schoolId}}</td>
                         <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white;">{{schoolName schoolId}}</td>
                         <td style="text-align: center; padding-left: 355pt; white-space: nowrap;">{{round 1 totalInProcent}} %</td>
+
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt1PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt2PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt3PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt4PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt5PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt6PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt7PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt8PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt9PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt10PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt11PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt12PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt13PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt14PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt15PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt16PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt17PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt18PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt19PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt20PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt21PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt22PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt23PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt24PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt25PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt26PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt27PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt28PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt29PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt30PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt31PassedStudents}}</td>
+                        <td style="text-align: center; white-space: nowrap; font-weight:bold;">{{ubt32PassedStudents}}</td>
+                        <!--
                         <td style="text-align: center; white-space: nowrap;">{{round 1 (math 0.71 "*" ubt1)}} %</td>
                         <td style="text-align: center; white-space: nowrap;">{{round 1 (math 0.71 "*" ubt2)}} %</td>
                         <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt3}}{{round 1 (math 0.71 "*" ubt3)}} % {{else}} 0 {{/if}}</td>
@@ -98,12 +131,13 @@
                         <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt32}}{{round 1 (math 0.71 "*" ubt32)}} % {{else}} 0 {{/if}}</td>
                         <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt33}}{{round 1 (math 0.71 "*" ubt33)}} % {{else}} 0 {{/if}}</td>
                         <td style="text-align: center; white-space: nowrap;">{{#if notZero ubt34}}{{round 1 (math 0.71 "*" ubt34)}} % {{else}} 0 {{/if}}</td>
+                        -->
                     </tr>
 
                     <tr>
                         <!-- Average -->
                         <td style="position: absolute; width: 20pt; background-color: white; text-align: center;  border: 1px solid white">{{math @index "+" 1}}</td>
-                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center; font-size: 10px;">тапсырған оқушы саны</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center; font-size: 14px;">Оқушы саны</td>
                         <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt;">ave / 140</td>
 
                         <td style="text-align: center; padding-left: 355pt">{{total}}</td>
@@ -147,7 +181,7 @@
 
                         <!-- Median -->
                         <td style="position: absolute; width: 20pt; background-color: white; text-align: center; color: white; border: 1px solid white">-</td>
-                        <td style="position: absolute; width: 80pt; margin-left: 20pt; background-color: white; text-align: center;  border-top: 1px solid white">{{countOfStudentTakingUbt}}</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt; background-color: white; text-align: center;  border-top: 1px solid white; font-weight:bold;">{{countOfStudentTakingUbt}}</td>
                         <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt;">median</td>
 
                         <td style="text-align: center; padding-left: 355pt">{{totalMedian}}</td>

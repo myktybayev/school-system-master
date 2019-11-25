@@ -1,0 +1,141 @@
+<template name="opeReport">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="text-align: center; padding-bottom: 15pt">OPE Репорт</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group" style="margin-right: 15pt">
+                        {{> academicYear}}
+                        
+                        <label style="margin-left: 10pt;">Уақыты</label>
+                        <select class="form-control" id="subjectId">
+                            <option value="week1">16.11 - 30.11</option>
+                            <option value="week2">30.11 - 14.12</option>
+                            <option value="week3">14.12 - 28.12</option>
+                            <option value="week4">28.12 - 11.01</option>
+                            <option value="week5">11.01 - 25.01</option>
+                            <option value="week6">25.01 - 08.02</option>
+                            <option value="week6">08.01 - 22.02</option>
+                            <option value="week6">22.02 - 07.03</option>
+                        </select>
+
+                        <label for="" style="margin-left: 10pt; ">Сынып</label>
+                        <select class="form-control" id="grade">
+                            <option value="7">7 сынып</option>
+                            <option value="8">8 сынып</option>
+                            <option value="9">9 сынып</option>
+                            <option value="10">10 сынып</option>
+                            <option value="11">11 сынып</option>
+                        </select>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {{#if Template.subscriptionsReady}}
+
+            <div  class="table table-responsive" id="out">
+              <table style="margin-top: 15pt" class="table table-striped">
+
+                <thead>
+                    <tr class="bts-header">
+                        <th class="absolute-style" style="width: 230pt; white-space: nowrap; text-align: center;">Репорт аты</th>
+                        <th style="padding-left: 240pt; white-space: nowrap;">Математика</th>
+                        <th style="white-space: nowrap;">Физика</th>
+                        <th style="white-space: nowrap;">Химия</th>
+                        <th style="white-space: nowrap;">Биология</th>
+                        <th style="white-space: nowrap;">Ағылшын тілі</th>
+                        <th style="white-space: nowrap;">География</th>
+                        <th style="white-space: nowrap;">Қазақстан тарихы</th>
+                        <th style="white-space: nowrap;">Информатика</th>
+                        <th style="white-space: nowrap;">Қазақ тілі</th>
+                        <th style="white-space: nowrap;">Қазақ тілі</th>
+                        <th style="white-space: nowrap;">Орыс тілі</th>
+                        <th style="white-space: nowrap;">Құқық</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; background-color: white;">Мұғалім түсіндірген сабақ сағаты</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input style="width: 50pt;" type="text" value=""></td>
+                        <td><input type="text" value=""></td>
+                    </tr>
+
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; background-color: white;">Басқа мұғалім түсіндірген сабақ сағаты</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input style="width: 50pt;" type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap; ">Жасалған емтихан саны</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input style="width: 50pt;" type="text"></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Мұғалім мотивация программ сағаты</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input style="width: 50pt;" type="text"></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Мұғалімнің кандидат саны(10 сынып)</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input style="width: 50pt;" type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Мұғалімнің кандидат саны(11 сынып)</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Жалпы Олимпиадчик оқушы саны</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Область дәрежесіне жеткен оқушы саны</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Республика дәрежесіне жеткен оқушы саны</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Дүние дәрежесіне жеткен оқушы саны</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Әкімшіліктің мотивация программ сағаты</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Олимпиада мұғалімдерімен жиналыс сағаты</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; white-space: nowrap;">Директор растады ма?</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><input type="text"></td>
+
+                    </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            {{else}}
+            <p>Loading...</p>
+            {{/if}}
+        </div>
+    </div>
+</template>

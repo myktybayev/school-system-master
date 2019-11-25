@@ -24,17 +24,4 @@ Meteor.methods({
         }
 
     },
-
-    'BtsResults.calcTotalRating':function(academicYear) {
-        let btsNo = "1"
-        calcTotalRating(academicYear, "020", btsNo)
-        // let school = Schools.findOne({
-        //     userId: this.userId
-        // })
-        //
-        // if (school) {
-        //     calcTotalRating(academicYear,btsNo,day,school.schoolId)
-        // }
-
-    },
 });

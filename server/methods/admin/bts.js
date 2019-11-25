@@ -1,13 +1,32 @@
 import { calculateRating } from "../../modules/bts/rating";
 import { recheck } from "../../modules/bts/recheck";
 import { calculateObj } from "../../modules/bts/calculateObj"
+import { calcTotalRating } from "../../modules/bts/totalRating"
 
 
 Meteor.methods({
+
+    'BtsResults.calcTotalRating':function(academicYear) {
+        let btsNo = "1"
+        let btsRatings = BtsRatings.find({academicYear: academicYear, grade: "all"}).fetch()
+        
+        _.each(btsRatings,(btsRating) => {
+          calcTotalRating(academicYear, btsRating.schoolId, btsNo)
+        })
+
+        // let school = Schools.findOne({
+        //     userId: this.userId
+        // })
+        //
+        // if (school) {
+        //     calcTotalRating(academicYear,btsNo,day,school.schoolId)
+        // }
+    },
+
     "BtsAnswerKeys.Insert": function (answerKeys) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
             //check if same variant exists in database
         sameVariant = BtsAnswerKeys.findOne({
             academicYear: answerKeys.academicYear,
@@ -25,7 +44,7 @@ Meteor.methods({
     "BtsLevels.Insert": function (levels) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
             //check if same variant exists in database
         sameVariant = BtsLevels.findOne({
             academicYear: levels.academicYear,
@@ -65,14 +84,14 @@ Meteor.methods({
     "BtsAnswerKeys.Update": function(id,answerKeys) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
         sameVariant = BtsAnswerKeys.findOne({_id:id});
         if (sameVariant) {
             BtsAnswerKeys.update({_id:id},{$set:answerKeys})
             let config = Configs.findOne({_id:"btsUpload"})
             if (config[sameVariant.quarter] == "enabled") {
                 //let schools = Schools.find().fetch()
-                
+
                 // recheck student results
                 recheck(sameVariant.academicYear,sameVariant.quarter,sameVariant.variant,sameVariant.day)
                 //
@@ -84,14 +103,14 @@ Meteor.methods({
     "BtsLevels.Update": function(id,levels) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
         sameVariant = BtsLevels.findOne({_id:id});
         if (sameVariant) {
             BtsLevels.update({_id:id},{$set:levels})
             let config = Configs.findOne({_id:"btsUpload"})
             if (config[sameVariant.quarter] == "enabled") {
                 //let schools = Schools.find().fetch()
-                
+
                 // recheck student results
                 recheck(sameVariant.academicYear,sameVariant.quarter,sameVariant.variant,sameVariant.day)
                 //
@@ -104,7 +123,7 @@ Meteor.methods({
     "BtsObjectives.Insert": function (objectives) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
             //check if same variant exists in database
         sameObjective = BtsObjectivesList.findOne({
             academicYear: objectives.academicYear,
@@ -134,7 +153,7 @@ Meteor.methods({
     "BtsObjectives.Update": function(id,objectives) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
         sameObjective = BtsObjectivesList.findOne({_id:id});
         if (sameObjective) {
             BtsObjectivesList.update({_id:id},{$set:objectives})

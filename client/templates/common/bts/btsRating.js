@@ -48,7 +48,7 @@ Template.btsRating.helpers({
         schoolArray2 = schoolArray;
         console.log(schoolArray2);
 
-        return BtsRatings.find({},{sort: Session.get('Sort')});
+        return BtsRatings.find({schoolId: {$nin: ['004']}},{sort: Session.get('Sort')});
     },
     schoolNotUploaded(){
       return schoolArray2;
@@ -146,67 +146,38 @@ Template.btsRating.events({
       }
     },
 
-    /*
-      academicYear: "2018-2019"
-      algebra: 17.57265536723164
-      biology: 19.22077922077922
-      btsNo: "1"
-      chemistry: 24.055555555555557
-      computer: 17
-      english: 22.38282485875706
-      geography: 25.11111111111111
-      geometry: 5.503954802259887
-      grade: "all"
-      kazakh: 19.656723163841807
-      kazakh_history: 16.79819209039548
-      physics: 18.406698564593302
-      russian: 26.1690395480226
-      schoolId: "001"
-      total: 168.65740112994348
-      turkish: 17.975141242937852
-      world_history: 22.763157894736842
-
-    */
-
+    'click #sortMath'(event,template) {
+        Session.set('Sort',{mathematic:-1});
+    },
     'click #sortPhysics'(event,template) {
         Session.set('Sort',{physics:-1});
     },
-
     'click #sortChemistry'(event,template) {
         Session.set('Sort',{chemistry:-1});
     },
     'click #sortBio'(event,template) {
         Session.set('Sort',{biology:-1});
     },
-    'click #sortEng'(event,template) {
-        Session.set('Sort',{english:-1});
-    },
+
+
+
     'click #sortKazakh'(event,template) {
-        Session.set('Sort',{kazakh:-1});
+        Session.set('Sort',{kazakh_lang:-1});
     },
-    'click #sortKazLit'(event,template) {
-        Session.set('Sort',{kazakh_literature:-1});
+    'click #sortTur'(event,template) {
+        Session.set('Sort',{turkish_lang:-1});
     },
     'click #sortRus'(event,template) {
-        Session.set('Sort',{russian:-1});
+        Session.set('Sort',{russian_lang:-1});
     },
-    'click #sortAlgebra'(event,template) {
-        Session.set('Sort',{algebra:-1});
-    },
-    'click #sortGeometry'(event,template) {
-        Session.set('Sort',{geometry:-1});
-    },
-    'click #sortInf'(event,template) {
-        Session.set('Sort',{computer:-1});
-    },
-    'click #sortWHistory'(event,template) {
+    'click #sortHistory'(event,template) {
         Session.set('Sort',{world_history:-1});
-    },
-    'click #sortKZHistory'(event,template) {
-        Session.set('Sort',{kazakh_history:-1});
     },
     'click #sortGeography'(event,template) {
         Session.set('Sort',{geography:-1});
+    },
+    'click #sortWorlHistory'(event,template) {
+        Session.set('Sort',{world_history:-1});
     },
     'click #sortTotal'(event,template) {
         Session.set('Sort',{total:-1});
