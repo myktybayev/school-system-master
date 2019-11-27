@@ -1,29 +1,27 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import './adminOpeReportResults.html';
+import './opeReportRatings.html';
 import {ReactiveDict} from 'meteor/reactive-dict'
 import XLSX from 'xlsx';
 
-Template.adminOpeReportResults.onCreated(function() {
+Template.opeReportRatings.onCreated(function() {
     let template = this
-    document.title = "OPE Репорт";
+    document.title = "OPE Репорт Рейтинг";
     template.reportPeriod = new ReactiveVar('16.11 - 30.11')
-    template.grade = new ReactiveVar('7')
-    template.results = new ReactiveVar([])
-    template.schoolId_select = new ReactiveVar("")
-    state = new ReactiveDict();
-    state.set('directorClickedYes', false)
+    template.subjectId = new ReactiveVar('all')
     template.subscribe('opes');
-    template.subscribe("schools")
+    template.subscribe("opeReport")
+    template.subscribe('schools')
+    // template.subscribe("opeReportRatings")
     // template.subscribe('opeReport');
 
     template.autorun(() => {
-        template.subscribe("opeAdminReports", academicYear.get(), template.schoolId_select.get(), template.reportPeriod.get())
+        template.subscribe("opeReportRatingsByFilter", academicYear.get(), template.subjectId.get())
     })
 
 })
 
-Template.adminOpeReportResults.helpers({
+Template.opeReportRatings.helpers({
   students(){
     return Students.find({},{sort:{surname:-1, division:1}})
   },
@@ -31,24 +29,18 @@ Template.adminOpeReportResults.helpers({
     return !state.get('directorClickedYes')
   },
   results() {
-      return OpeReports.find({})
+      return OpeRatings.find({})
   },
   schools() {
       return Schools.find({},{sort:{schoolId:1}})
   },
 });
 
-Template.adminOpeReportResults.events({
+Template.opeReportRatings.events({
 
-  "change #select"(event,template) {
-      template.schoolId_select.set(template.find('[name=schoolId_select]').value)
-
-      let schoolId_select = FlowRouter.getParam('_id')
-
-  },
-
-  'change #reportPeriod'(event,template) {
-      template.reportPeriod.set(event.target.value)
+  'change #subjectId'(event,template) {
+      template.subjectId.set(event.target.value)
+      // console.log(template.reportPeriod.get());
   },
 
   'click #dnload' () {
@@ -87,6 +79,6 @@ Template.adminOpeReportResults.events({
   },
 })
 
-Template.adminOpeReportResults.onRendered(function() {
+Template.opeReportRatings.onRendered(function() {
     this.$('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
 });

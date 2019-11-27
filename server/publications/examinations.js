@@ -8,6 +8,14 @@ Meteor.publish('opeReport',function() {
       return OpeReports.find()
 })
 
+Meteor.publish('opeReportRatings',function() {
+      return OpeRatings.find()
+})
+
+Meteor.publish('opeReportRatingsByFilter', function(academicYear, subjectId) {
+      return OpeRatings.find({academicYear:academicYear, subjectId:subjectId})
+})
+
 Meteor.publish('adminOpeResults',function(subjectId, grade) {
     if (this.userId) {
       return OpeResults.find({olympiad:subjectId, grade:grade})
@@ -27,16 +35,9 @@ Meteor.publish('opeResults',function(subjectId, grade) {
 
 Meteor.publish('opeReports', function(academicYear, reportPeriod) {
     if (this.userId) {
-        console.log('this.userId opeReports');
-            console.log("academicYear: "+academicYear);
-            console.log("reportPeriod: "+reportPeriod);
-
         let school = Schools.findOne({userId:this.userId})
-        console.log(school);
         let cursor = OpeReports.find({academicYear:academicYear, reportPeriod:reportPeriod, schoolId:school.schoolId})
         // let cursor = OpeResults.find()
-        console.log(cursor.fetch());
-
         return cursor
     }
     return this.ready()

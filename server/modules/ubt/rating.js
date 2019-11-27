@@ -117,10 +117,9 @@ export const calculateRating = (academicYear,schoolId) => {
     totalRating.ubt31PassedStudents  = ubtPassedStudentCounters[31];
     totalRating.ubt32PassedStudents  = ubtPassedStudentCounters[32];
 
-    console.log("schoolId: "+schoolId);
-    console.log("ubt1 count: "+ubtPassedStudentCounters[1]);
-    console.log("ubt2 count: "+ubtPassedStudentCounters[2]);
-    console.log("ubt3 count: "+ubtPassedStudentCounters[3]);
+    // console.log("ubt1 count: "+ubtPassedStudentCounters[1]);
+    // console.log("ubt2 count: "+ubtPassedStudentCounters[2]);
+    // console.log("ubt3 count: "+ubtPassedStudentCounters[3]);
 
     var totalOfMediansStore = [];
     var t = 0;
@@ -187,12 +186,28 @@ export const calculateRating = (academicYear,schoolId) => {
                 totalRating[n] = 0
             }
     }
+    // countOfStudentTakingUbt
+    // ubtPassedStudentCounters
+    var c = 0;
+    var sumOftudentCounters = 0;
+    _.each(ubtPassedStudentCounters,(item) => {
+        if(item > 0){
+          c++;
+          sumOftudentCounters += item;
+        }
+    })
+
+    totalRating.totalInProcent = ((sumOftudentCounters / c) * 100) / totalRating.countOfStudentTakingUbt
+    // totalRating.totalInProcent = totalRating.total * 100 / 140;
+    totalRating.totalInProcent = parseFloat(totalRating.totalInProcent)
+    // 10 - 100
+    // ave  -  x
+    // x = (ave*100)/10
+
 
     totalRating.total = (totalRating.total / counterTotal).toFixed(1)
-
     totalRating.total = parseFloat(totalRating.total)
-    totalRating.totalInProcent = totalRating.total * 100 / 140;
-    totalRating.totalInProcent = parseFloat(totalRating.totalInProcent)
+
 
     // insert total rating to db
     var sameSchoolRating = UhdSchoolRatings.findOne({

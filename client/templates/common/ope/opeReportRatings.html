@@ -1,26 +1,43 @@
-<template name="opeReport">
+<template name="opeReportRatings">
     <div class="row">
         <div class="col-md-12">
-            <h4 style="text-align: center; padding-bottom: 15pt">Олимпиада Дайындық Репорт<br>(2 апталық)</h4>
+            <h4 style="text-align: center; padding-bottom: 15pt">Олимпиада Дайындық Репорт Рейтинг<br>(2 апталық)</h4>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-inline">
                         <div class="form-group" style="margin-right: 15pt">
+
+                          <!--
                           <label style="margin-left: 10pt;">Репорт уақыты</label>
                           <select class="form-control" id="reportPeriod">
-                              <option value="week1">16.11 - 30.11</option>
-                              <option value="week2">30.11 - 14.12</option>
-                              <option value="week3">14.12 - 28.12</option>
-                              <option value="week4">28.12 - 11.01</option>
-                              <option value="week5">11.01 - 25.01</option>
-                              <option value="week6">25.01 - 08.02</option>
-                              <option value="week6">08.01 - 22.02</option>
-                              <option value="week6">22.02 - 07.03</option>
+                              <option value="16.11 - 30.11">Жалпы</option>
+                              <option value="16.11 - 30.11">16.11 - 30.11</option>
+                              <option value="30.11 - 14.12">30.11 - 14.12</option>
+                              <option value="14.12 - 28.12">14.12 - 28.12</option>
+                              <option value="28.12 - 11.01">28.12 - 11.01</option>
+                              <option value="11.01 - 25.01">11.01 - 25.01</option>
+                              <option value="25.01 - 08.02">25.01 - 08.02</option>
+                              <option value="08.01 - 22.02">08.01 - 22.02</option>
+                              <option value="22.02 - 07.03">22.02 - 07.03</option>
                           </select>
+                          -->
 
-                            <a style="margin-right: 15pt; margin-left: 15pt;" class="btn btn-default" id="dnload">Үлгі</a>
-                            <input type="file" class="form-control" id="upload" style="margin-right: 15pt;">
-                            <a class="btn btn-primary" id="save">Сақтау</a>
+                          <label>Сабақты таңдаңыз</label>
+                          <select class="form-control" id="subjectId">
+                              <option value="all">Жалпы</option>
+                              <option value="01">Математика</option>
+                              <option value="02">Физика</option>
+                              <option value="03">Химия</option>
+                              <option value="04">Биология</option>
+                              <option value="05">Информатика</option>
+                              <option value="06">Ағылшын тілі</option>
+                              <option value="07">География</option>
+                              <option value="08">Қазақстан тарихы</option>
+                              <option value="09">Қазақ тілі</option>
+                              <option value="10">Түрік тілі</option>
+                              <option value="11">Орыс тілі</option>
+                              <option value="12">Құқық</option>
+                          </select>
 
                         </div>
 
@@ -35,48 +52,40 @@
 
                 <thead>
                     <tr class="bts-header">
-                        <th class="absolute-style" style="width: 230pt; white-space: nowrap; text-align: center;">Репорт аты</th>
-                        <th style="padding-left: 240pt; white-space: nowrap;">Математика</th>
-                        <th style="white-space: nowrap; text-align:center">Физика</th>
-                        <th style="white-space: nowrap; text-align:center">Химия</th>
-                        <th style="white-space: nowrap; text-align:center">Биология</th>
-                        <th style="white-space: nowrap; text-align:center">Ағылшын тілі</th>
-                        <th style="white-space: nowrap; text-align:center">География</th>
-                        <th style="white-space: nowrap; text-align:center">Қазақстан тарихы</th>
-                        <th style="white-space: nowrap; text-align:center">Информатика</th>
-                        <th style="white-space: nowrap; text-align:center">Қазақ тілі</th>
-                        <th style="white-space: nowrap; text-align:center">Түрік тілі</th>
-                        <th style="white-space: nowrap; text-align:center">Орыс тілі</th>
-                        <th style="white-space: nowrap; text-align:center">Құқық</th>
+                        <th class="absolute-style" style="width: 230pt; height: 80pt; white-space: nowrap; text-align: center;">Мектеп аты</th>
+                        <th style="padding-left: 240pt;">Мұғалім түсіндірген сабақ сағаты</th>
+                        <th style="text-align:center">Басқа мұғалім түсіндірген сабақ сағаты</th>
+                        <th style="text-align:center">Жасалған емтихан саны</th>
+                        <th style="text-align:center">Мұғалім мотивация программ сағаты</th>
+                        <th style="text-align:center">Мұғалімнің кандидат саны(10 сынып)</th>
+                        <th style="text-align:center">Мұғалімнің кандидат саны(11 сынып)</th>
+                        <th style="text-align:center">Жалпы Олимпиадчик оқушы саны</th>
+                        <th style="text-align:center">Область дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center">Республика дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center">Дүние дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center">Әкімшіліктің мотивация программ сағаты</th>
+                        <th style="text-align:center">Олимпиада мұғалімдерімен жиналыс сағаты</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {{#each results}}
                     <tr>
-                        <td class="absolute-style" style="width: 230pt; background-color: white;">{{report_name}}</td>
-                        <td  style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{mathematic}}</td>
-                        <td style="text-align: center;">{{physics}}</td>
-                        <td style="text-align: center;">{{chemistry}}</td>
-                        <td style="text-align: center;">{{biology}}</td>
-                        <td style="text-align: center;">{{english}}</td>
-                        <td style="text-align: center;">{{geography}}</td>
-                        <td style="text-align: center;">{{kazakh_history}}</td>
-                        <td style="text-align: center;">{{informatic}}</td>
-                        <td style="text-align: center;">{{kazakh_lang}}</td>
-                        <td style="text-align: center;">{{turkish_lang}}</td>
-                        <td style="text-align: center;">{{russian_lang}}</td>
-                        <td style="text-align: center;">{{huhuk}}</td>
+                        <td class="absolute-style" style="width: 230pt; background-color: white;">{{schoolName schoolId}}</td>
+                        <td style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{reportType1}}</td>
+                        <td style="text-align: center;">{{reportType2}}</td>
+                        <td style="text-align: center;">{{reportType3}}</td>
+                        <td style="text-align: center;">{{reportType4}}</td>
+                        <td style="text-align: center;">{{reportType5}}</td>
+                        <td style="text-align: center;">{{reportType6}}</td>
+                        <td style="text-align: center;">{{reportType7}}</td>
+                        <td style="text-align: center;">{{reportType8}}</td>
+                        <td style="text-align: center;">{{reportType9}}</td>
+                        <td style="text-align: center;">{{reportType10}}</td>
+                        <td style="text-align: center;">{{reportType11}}</td>
+                        <td style="text-align: center;">{{reportType12}}</td>
                     </tr>
                     {{/each}}
-                    {{#if results}}
-                    <tr>
-                        <td class="absolute-style" style="width: 230pt; height: 35pt; white-space: nowrap;">Директор растады ма?</td>
-                        <td style="padding-left: 240pt; white-space: nowrap;"><a class="btn btn-success" style="width: 50pt;" id="director_yes">Иә</a></td>
-                        {{#if clickedYes}}<td style="text-align:center" ><a class="btn btn-primary" style="width: 50pt;" id="director_no">Жоқ</a></td> {{/if}}
-
-                    </tr>
-                    {{/if}}
                 </tbody>
 
                 <!--

@@ -182,7 +182,7 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
             console.log("grade: 10");
             if (day == '1'){
               console.log("day 1");
-              
+
               studentRecord["mathematic"]   = check(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100))
               studentRecord["mathematicA"]  = checkA(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100),parseLevelKey(levelKey.mathematic))
               studentRecord["mathematicB"]  = checkB(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100),parseLevelKey(levelKey.mathematic))

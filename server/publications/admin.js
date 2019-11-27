@@ -1,5 +1,14 @@
 import { Meteor } from 'meteor/meteor'
 
+
+Meteor.publish('opeAdminReports', function(academicYear, schoolId, reportPeriod) {
+    if (this.userId) {
+        let cursor = OpeReports.find({academicYear:academicYear, reportPeriod:reportPeriod, schoolId:schoolId})
+        return cursor
+    }
+    return this.ready()
+})
+
 Meteor.publish('btsKeys', function(academicYear, quarter){
 	if (this.userId) {
 		return BtsAnswerKeys.find({academicYear:academicYear,quarter:quarter})

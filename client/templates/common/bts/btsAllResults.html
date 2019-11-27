@@ -36,10 +36,11 @@
                     <tr class="bts-header center" style="white-space: nowrap;">
                         <th class="absolute-style" style="width: 20pt; text-align: center;">#</th>
                         <th class="absolute-style" style="width: 55pt;  margin-left: 19pt;">Оқушы ID</th>
-                        <th class="absolute-style" style="width: 50pt;  margin-left: 69pt;">Сынып</th>
-                        <th class="absolute-style" style="width: 80pt;  margin-left: 109pt;">Аты</th>
-                        <th class="absolute-style" style="width: 80pt;  margin-left: 180pt;">Жөні</th>
-                        <th style="white-space: nowrap; padding-left: 262pt;">Жалпы</th>
+                        <th class="absolute-style" style="width: 150pt; margin-left: 19pt;">Мектеп</th>
+                        <th class="absolute-style" style="width: 50pt;  margin-left: 168pt;">Сынып</th>
+                        <th class="absolute-style" style="width: 80pt;  margin-left: 209pt;">Аты</th>
+                        <th class="absolute-style" style="width: 80pt;  margin-left: 280pt;">Жөні</th>
+                        <th style="white-space: nowrap; padding-left: 362pt;">Жалпы</th>
                         <th>Математика</th>
 
                         {{#if grade7 }}
@@ -87,13 +88,20 @@
                 </thead>
                 <tbody>
                     {{#each results}}
+
+                    <!-- <th class="absolute-style" style="width: 55pt;  margin-left: 19pt;">Оқушы ID</th>
+                    <th class="absolute-style" style="width: 150pt; margin-left: 19pt;">Мектеп</th>
+                    <th class="absolute-style" style="width: 50pt;  margin-left: 168pt;">Сынып</th>
+                    <th class="absolute-style" style="width: 80pt;  margin-left: 209pt;">Аты</th>
+                    <th class="absolute-style" style="width: 80pt;  margin-left: 280pt;">Жөні</th> -->
                     <tr>
                         <td class="absolute-style" style="width: 20pt;">{{math @index "+" 1}}</td>
                         <td class="absolute-style" style="width: 55pt;  margin-left: 19pt; text-align: center;">{{studentId}}</td>
-                        <td class="absolute-style" style="width: 50pt;  margin-left: 69pt; ">{{grade}}{{division}}</td>
-                        <td class="absolute-style" style="width: 80pt;  margin-left: 109pt;">{{name}}</td>
-                        <td class="absolute-style" style="width: 80pt;  margin-left: 180pt;">{{surname}}</td>
-                        <td class="center" style="white-space: nowrap; padding-left: 262pt;">{{total}}</td>
+                        <td class="absolute-style" style="width: 150pt; margin-left: 19pt; ">{{schoolName schoolId}}</td>
+                        <td class="absolute-style" style="width: 50pt;  margin-left: 168pt; ">{{grade}}{{division}}</td>
+                        <td class="absolute-style" style="width: 80pt;  margin-left: 209pt;">{{name}}</td>
+                        <td class="absolute-style" style="width: 80pt;  margin-left: 280pt;">{{surname}}</td>
+                        <td class="center" style="white-space: nowrap; padding-left: 362pt;">{{total}}</td>
                         <td class="center">{{mathematic}}</td>
 
                         {{#if grade7 }}

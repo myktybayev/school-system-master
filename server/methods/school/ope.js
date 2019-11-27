@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { upload } from "../../modules/ope/upload";
-import { rating } from "../../modules/tat/rating";
+import { rating } from "../../modules/ope/rating";
 
 Meteor.methods({
     "Ope.updateOpeResults": function(student_id, editItem) {
@@ -71,8 +71,8 @@ Meteor.methods({
           })
 
           if (school) {
-              upload(academicYear, school.schoolId, reportPeriod, results)
-              // rating(academicYear, school.schoolId)
+              // upload(academicYear, school.schoolId, reportPeriod, results)
+              rating(academicYear, school.schoolId)
           }
     }
 })

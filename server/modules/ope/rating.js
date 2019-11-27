@@ -1,31 +1,276 @@
 //calculaint ope rating
 
-export const rating = (academicYear,schoolId) => {
-
+export const rating = (academicYear, schoolId) => {
+    
     opeReports = OpeReports.find({academicYear:academicYear, schoolId:schoolId}).fetch()
 
-    let totalRating = {
-        academicYear:academicYear,
-        schoolId: schoolId,
-        totalMathematicHours: 0,
-        totalPhysicsHours: 0,
-        totalChemistryHours: 0,
-        median: 0,
-        total: 0
-    }
+    var totalMathReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalPhysicsReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalChemistryReportType = [0,0,0,0,0,0,0,0,0,0,0];
 
+    var totalBiologyReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalInformaticReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalEnglishReportType = [0,0,0,0,0,0,0,0,0,0,0];
+
+    var totalGeographyReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalKazakh_historyReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalKazakh_langReportType = [0,0,0,0,0,0,0,0,0,0,0];
+
+    var totalTurkish_langReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalRussian_langReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var totalHuhuk_langReportType = [0,0,0,0,0,0,0,0,0,0,0];
+
+    var totalReportType = [0,0,0,0,0,0,0,0,0,0,0];
+    var report11 = 0;
+    var report12 = 0;
+
+    var reportIndex = 1;
     _.each(opeReports,(report) => {
-        if(report.reportId == 'reportType1') {
-          totalRating.totalMathematicHours += report.mathematic
-          totalRating.totalPhysicsHours += report.physics
-          totalRating.totalChemistryHours += report.chemistry
-        }
-        
-        if(report.reportId == 'reportType2') totalRating.totalMathematicHours += report.mathematic
-        if(report.reportId == 'reportType3') totalRating.totalMathematicHours += report.mathematic
+
+      if(reportIndex == 13){
+        reportIndex = 1;
+        totalReportType = [0,0,0,0,0,0,0,0,0,0,0];
+      }
+
+      if(reportIndex < 11){
+        totalMathReportType[reportIndex] += parseInt(report.mathematic)
+        totalPhysicsReportType[reportIndex] += parseInt(report.physics)
+        totalChemistryReportType[reportIndex] += parseInt(report.chemistry)
+
+        totalBiologyReportType[reportIndex] += parseInt(report.biology)
+        totalInformaticReportType[reportIndex] += parseInt(report.informatic)
+        totalEnglishReportType[reportIndex] += parseInt(report.english)
+
+        totalGeographyReportType[reportIndex] += parseInt(report.geography)
+        totalKazakh_historyReportType[reportIndex] += parseInt(report.kazakh_history)
+        totalKazakh_langReportType[reportIndex] += parseInt(report.kazakh_lang)
+
+        totalTurkish_langReportType[reportIndex] += parseInt(report.turkish_lang)
+        totalRussian_langReportType[reportIndex] += parseInt(report.russian_lang)
+        totalHuhuk_langReportType[reportIndex] += parseInt(report.huhuk)
+
+        totalReportType[reportIndex] +=
+
+            totalMathReportType[reportIndex] +
+            totalPhysicsReportType[reportIndex] +
+            totalChemistryReportType[reportIndex]+
+
+            totalBiologyReportType[reportIndex]+
+            totalInformaticReportType[reportIndex]+
+            totalEnglishReportType[reportIndex]+
+
+            totalGeographyReportType[reportIndex]+
+            totalKazakh_historyReportType[reportIndex]+
+            totalKazakh_langReportType[reportIndex]+
+
+            totalTurkish_langReportType[reportIndex]+
+            totalRussian_langReportType[reportIndex]+
+            totalHuhuk_langReportType[reportIndex];
+
+            /*
+      console.log("totalMathReportType[reportIndex]: "+totalMathReportType[reportIndex]);
+
+      console.log("totalMathReportType[reportIndex]: "+totalMathReportType[reportIndex] )
+      console.log("totalPhysicsReportType[reportIndex]: "+totalPhysicsReportType[reportIndex] )
+      console.log("totalChemistryReportType[reportIndex]: "+totalChemistryReportType[reportIndex])
+
+      console.log("totalBiologyReportType[reportIndex]: "+totalBiologyReportType[reportIndex])
+      console.log("totalInformaticReportType[reportIndex]: "+totalInformaticReportType[reportIndex])
+      console.log("totalEnglishReportType[reportIndex]: "+totalEnglishReportType[reportIndex])
+
+      console.log("totalGeographyReportType[reportIndex]: "+totalGeographyReportType[reportIndex])
+      console.log("totalKazakh_historyReportType[reportIndex]: "+totalKazakh_historyReportType[reportIndex])
+      console.log("totalKazakh_langReportType[reportIndex]: "+totalKazakh_langReportType[reportIndex])
+
+      console.log("totalTurkish_langReportType[reportIndex]: "+totalTurkish_langReportType[reportIndex])
+      console.log("totalRussian_langReportType[reportIndex]: "+totalRussian_langReportType[reportIndex])
+      console.log("totalHuhuk_langReportType[reportIndex]: "+totalHuhuk_langReportType[reportIndex])
+
+      console.log("totalReportType[reportIndex]: "+totalReportType[reportIndex]);
+      */
+
+      }else if(reportIndex == 11){
+        report11 += parseInt(report.mathematic)
+
+      }else if(reportIndex == 12){
+        report12 += parseInt(report.mathematic)
+      }
+
+      reportIndex++;
+
     })
 
+    console.log("11: "+report11);
+    console.log("12: "+report12);
+
+    let subjectIdStore = ['01','02','03','04','05','06','07','08','09','10','11','12']
+
+    _.each(subjectIdStore,(sId) => {
+        let reportArray = [];
+        if(sId == '01'){
+            reportArray = totalMathReportType;
+        }else if(sId == '02'){
+            reportArray = totalPhysicsReportType;
+        }else if(sId == '03'){
+            reportArray = totalChemistryReportType;
+        }else if(sId == '04'){
+            reportArray = totalBiologyReportType;
+        }else if(sId == '05'){
+            reportArray = totalInformaticReportType;
+        }else if(sId == '06'){
+            reportArray = totalEnglishReportType;
+        }else if(sId == '07'){
+            reportArray = totalGeographyReportType;
+        }else if(sId == '08'){
+            reportArray = totalKazakh_historyReportType;
+        }else if(sId == '09'){
+            reportArray = totalKazakh_langReportType;
+        }else if(sId == '10'){
+            reportArray = totalTurkish_langReportType;
+        }else if(sId == '11'){
+            reportArray = totalRussian_langReportType;
+        }else if(sId == '12'){
+            reportArray = totalHuhuk_langReportType;
+        }
+
+        let subjectRating = {
+            academicYear:academicYear,
+            schoolId: schoolId,
+            subjectId: sId,
+            reportType1: reportArray[1],
+            reportType2: reportArray[2],
+            reportType3: reportArray[3],
+            reportType4: reportArray[4],
+            reportType5: reportArray[5],
+            reportType6: reportArray[6],
+            reportType7: reportArray[7],
+            reportType8: reportArray[8],
+            reportType9: reportArray[9],
+            reportType10: reportArray[10],
+            reportType11: report11,
+            reportType12: report12
+        }
+
+        var sameSubjectRating = OpeRatings.findOne({
+            academicYear: academicYear,
+            schoolId: schoolId,
+            subjectId: sId
+        })
+
+        if (sameSubjectRating) {
+            OpeRatings.update({_id:sameSubjectRating._id},{$set:subjectRating})
+        } else {
+            OpeRatings.insert(subjectRating)
+        }
+
+    })
+
+
+    let allSchoolsRating = {
+        academicYear:academicYear,
+        schoolId: schoolId,
+        subjectId: 'all',
+        reportType1: totalReportType[1],
+        reportType2: totalReportType[2],
+        reportType3: totalReportType[3],
+        reportType4: totalReportType[4],
+        reportType5: totalReportType[5],
+        reportType6: totalReportType[6],
+        reportType7: totalReportType[7],
+        reportType8: totalReportType[8],
+        reportType9: totalReportType[9],
+        reportType10: totalReportType[10],
+        reportType11: report11,
+        reportType12: report12
+    }
+
+    var sameAllSchoolsRating = OpeRatings.findOne({
+        academicYear: academicYear,
+        schoolId: schoolId,
+        subjectId: 'all'
+    })
+
+    if (sameAllSchoolsRating) {
+        OpeRatings.update({_id:sameAllSchoolsRating._id},{$set:allSchoolsRating})
+    } else {
+        OpeRatings.insert(allSchoolsRating)
+    }
+
+
+
+
+            /*
+            if(report.reportId == 'reportType1') {
+              totalMathReportType[1] += parseInt(report.mathematic)
+              totalPhysicsReportType[1] += parseInt(report.physics)
+              totalChemistryReportType[1] += parseInt(report.chemistry)
+
+              totalReportType[1] +=
+                  totalMathReportType[1] +
+                  totalPhysicsReportType[1] +
+                  totalChemistryReportType[1];
+            }
+
+            if(report.reportId == 'reportType2') {
+              totalMathReportType[2] += parseInt(report.mathematic)
+              totalPhysicsReportType[2] += parseInt(report.physics)
+              totalChemistryReportType[2] += parseInt(report.chemistry)
+
+              totalReportType[2] +=
+                  totalMathReportType[2] +
+                  totalPhysicsReportType[2] +
+                  totalChemistryReportType[2];
+
+            }
+
+            if(report.reportId == 'reportType3') {
+              totalMathReportType[3] += parseInt(report.mathematic)
+              totalPhysicsReportType[3] += parseInt(report.physics)
+              totalChemistryReportType[3] += parseInt(report.chemistry)
+
+              totalReportType[3] +=
+                  totalMathReportType[3] +
+                  totalPhysicsReportType[3] +
+                  totalChemistryReportType[3];
+            }
+            */
+
     /*
+
+    // if(report.reportId == 'reportType1') {
+    //   totalRating.totalMathReportType1 += parseInt(report.mathematic)
+    //   totalRating.totalPhysicsReportType1 += parseInt(report.physics)
+    //   totalRating.totalChemistryReportType1 += parseInt(report.chemistry)
+    //
+    //   totalRating.totalReportType1 +=
+    //       totalRating.totalMathReportType1 +
+    //       totalRating.totalPhysicsReportType1 +
+    //       totalRating.totalPhysicsReportType1;
+    // }
+    //
+    // if(report.reportId == 'reportType2') {
+    //   totalRating.totalMathReportType2 += parseInt(report.mathematic)
+    //   totalRating.totalPhysicsReportType2 += parseInt(report.physics)
+    //   totalRating.totalChemistryReportType2 += parseInt(report.chemistry)
+    //
+    //   totalRating.totalReportType2 +=
+    //       totalRating.totalMathReportType2 +
+    //       totalRating.totalPhysicsReportType2 +
+    //       totalRating.totalPhysicsReportType2;
+    //
+    // }
+    //
+    // if(report.reportId == 'reportType3') {
+    //   totalRating.totalMathReportType3 += parseInt(report.mathematic)
+    //   totalRating.totalPhysicsReportType3 += parseInt(report.physics)
+    //   totalRating.totalChemistryReportType3 += parseInt(report.chemistry)
+    //
+    //   totalRating.totalReportType3 +=
+    //       totalRating.totalMathReportType3 +
+    //       totalRating.totalPhysicsReportType3 +
+    //       totalRating.totalPhysicsReportType3;
+    // }
+
     function compareNumbers(a, b) {
       return a - b;
     }

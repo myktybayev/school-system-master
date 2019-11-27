@@ -1,10 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import './opeReport.html';
+import './opeReportUpload.html';
 import {ReactiveDict} from 'meteor/reactive-dict'
 import XLSX from 'xlsx';
 
-Template.opeReport.onCreated(function() {
+Template.opeReportUpload.onCreated(function() {
     let template = this
     document.title = "OPE Репорт";
     template.reportPeriod = new ReactiveVar('16.11 - 30.11')
@@ -22,7 +22,7 @@ Template.opeReport.onCreated(function() {
 
 })
 
-Template.opeReport.helpers({
+Template.opeReportUpload.helpers({
   students(){
     return Students.find({},{sort:{surname:-1, division:1}})
   },
@@ -34,7 +34,7 @@ Template.opeReport.helpers({
   }
 });
 
-Template.opeReport.events({
+Template.opeReportUpload.events({
   'change #select'(event,template) {
       template.reportPeriod.set(event.target.value)
   },
@@ -125,7 +125,6 @@ Template.opeReport.events({
                   // 'ubt11','ubt12','ubt13','ubt14','ubt15','ubt16','ubt17','ubt18','ubt19','ubt20','ubt21','ubt22','ubt23','ubt24','ubt25','ubt26','ubt27','ubt28','ubt29','ubt30','ubt31','ubt32','ubt33','ubt34']})
                   res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : 0})
                   template.results.set(res)
-                  console.log(res);
               }
           });
       };
@@ -156,6 +155,6 @@ Template.opeReport.events({
     },
 })
 
-Template.opeReport.onRendered(function() {
+Template.opeReportUpload.onRendered(function() {
     this.$('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
 });
