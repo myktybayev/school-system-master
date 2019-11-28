@@ -18,12 +18,19 @@ Meteor.methods({
         let conf = Configs.findOne({_id:id})
         if(conf) {
             conf[num] = val
-            console.log(conf)
             Configs.update({_id:conf._id},{$set:conf})
+        }else{
+            var fild = val;
+
+            let newConf = {
+              fild: num,
+              "_id" : "opeUpload"
+            }
+            Configs.insert(newConf)
         }
     },
 
-/*    
+/*
     addMultipleUsers: function() {
         let schools = Schools.find().fetch()
         _.each(schools,(school) => {
@@ -46,7 +53,7 @@ Meteor.methods({
                 username: "school" + school.schoolId,
                 password: "school" + school.schoolId
             };
-            
+
             let userId = Accounts.createUser(newUserData);
             Roles.addUsersToRoles(userId,['school'])
             school.userId = userId
@@ -58,7 +65,7 @@ Meteor.methods({
     "lessonObjectives.Insert": function (objectives) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
             //check if same variant exists in database
         sameObjective = LessonObjectives.findOne({
             grade: objectives.grade,
@@ -86,7 +93,7 @@ Meteor.methods({
     "lessonObjectives.Update": function(_id,objectives) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
             throw new Meteor.Error(401, 'Please login as administrator')
-        
+
         console.log(objectives)
         sameObjective = LessonObjectives.findOne({_id:_id});
         if (sameObjective) {

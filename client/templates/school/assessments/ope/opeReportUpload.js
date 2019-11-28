@@ -14,11 +14,11 @@ Template.opeReportUpload.onCreated(function() {
     state.set('directorClickedYes', false)
     template.subscribe('opes');
     template.subscribe('opeReport');
+    template.subscribe('configs');
 
     // template.autorun(() => {
     //     template.subscribe("opeReports", academicYear.get(), template.reportPeriod.get())
     // })
-
 
 })
 
@@ -35,6 +35,8 @@ Template.opeReportUpload.helpers({
 });
 
 Template.opeReportUpload.events({
+
+
   'change #select'(event,template) {
       template.reportPeriod.set(event.target.value)
   },
@@ -43,37 +45,38 @@ Template.opeReportUpload.events({
   },
 
   "click #save"(event,template) {
-        event.preventDefault()
-        if(template.results.get().length > 0) {
-            SUIBlock.block('Жүктелуде...');
+      event.preventDefault()
 
-            if(state.get('directorClickedYes')){
-                Meteor.call("OpeReport.Upload", academicYear.get(), template.reportPeriod.get(), template.results.get(),function (err) {
+      if(template.results.get().length > 0) {
+          SUIBlock.block('Жүктелуде...');
 
-                   if (err) {
-                        bootbox.alert(err.reason);
-                        SUIBlock.unblock();
-                    } else {
-                        template.results.set([])
-                        SUIBlock.unblock();
-                        bootbox.alert("Сақталды");
+          if(state.get('directorClickedYes')){
+              Meteor.call("OpeReport.Upload", academicYear.get(), template.reportPeriod.get(), template.results.get(),function (err) {
 
-                        FlowRouter.redirect('/school/ope/reportResults/')
-                    }
-                });
+                 if (err) {
+                      bootbox.alert(err.reason);
+                      SUIBlock.unblock();
+                  } else {
+                      template.results.set([])
+                      SUIBlock.unblock();
+                      bootbox.alert("Сақталды");
 
-            }else{
-                bootbox.alert({
-                    message: "Директор растамады!!!",
-                    callback: function () {
-                    }
-                })
-                SUIBlock.unblock();
-            }
+                      FlowRouter.redirect('/school/ope/reportResults/')
+                  }
+              });
 
-            return
-        }
-        alert("Файл таңдалмады немесе қателер табылды")
+          }else{
+              bootbox.alert({
+                  message: "Директор растамады!!!",
+                  callback: function () {
+                  }
+              })
+              SUIBlock.unblock();
+          }
+
+          return
+      }
+      alert("Файл таңдалмады немесе қателер табылды")
    },
 
   'click #dnload' () {
@@ -108,9 +111,18 @@ Template.opeReportUpload.events({
         let sName = 'ope_report.xlsx';
         XLSX.writeFile(wb, sName);
       });
-
   },
+  
   'change #upload' (event,template) {
+      let ope = Configs.findOne({
+          _id: 'opeUpload'
+      });
+
+      reportId = template.reportPeriod.get().replace(/[.*+?^${}()|[\]\\]/g, "_");
+
+      if (ope[reportId] == 'disabled')
+          throw alert('OPE '+template.reportPeriod.get()+' күнгі жүктеу жабық. Өтініш, IT Department-ке хабарласыңыз.')
+
 
       const file = event.currentTarget.files[0];
       const reader = new FileReader();
@@ -121,8 +133,6 @@ Template.opeReportUpload.events({
           Meteor.call('upload', data, name, function(err, wb) {
               if(err) alert(err);
               else {
-                  // res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : ['studentId', 'grade', 'studentSurname', 'studentName', 'ubt1','ubt2','ubt3','ubt4','ubt5','ubt6','ubt7','ubt8','ubt9','ubt10',
-                  // 'ubt11','ubt12','ubt13','ubt14','ubt15','ubt16','ubt17','ubt18','ubt19','ubt20','ubt21','ubt22','ubt23','ubt24','ubt25','ubt26','ubt27','ubt28','ubt29','ubt30','ubt31','ubt32','ubt33','ubt34']})
                   res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : 0})
                   template.results.set(res)
               }

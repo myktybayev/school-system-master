@@ -3,16 +3,20 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './adminSettings.html';
 Template.adminSettings.onCreated(function() {
     let template = this
+    template.reportPeriod = new ReactiveVar('16.11 - 30.11')
     template.subscribe('subjects')
     template.subscribe('schools')
     template.subscribe("configs")
     template.subscribe('kboKeysGeneral')
     template.subscribe('kboGenelResults',academicYear.get())
+    template.autorun(()=>{
 
+    })
 
 })
 
 Template.adminSettings.helpers({
+
     subjects() {
         return Subjects.find({},{sort:{subjectId:1}})
     },
@@ -23,6 +27,15 @@ Template.adminSettings.helpers({
         let conf = Configs.findOne({_id:id})
         if (conf)
             return conf[num] == val ? "selected" : ""
+    },
+    selectedPeriod(){
+      var idd = Template.instance().reportPeriod.get().replace(/[.*+?^${}()|[\]\\]/g, "_");
+      let conf = Configs.findOne({_id:"opeUpload"})
+      
+      if (conf)
+          return conf[idd] == "enabled"
+
+      // return Template.instance().reportPeriod.get()
     }
 });
 
@@ -109,5 +122,31 @@ Template.adminSettings.events({
     },
     "change #tat2"(event,template) {
         Meteor.call("editConfig","tatUpload","2",event.target.value)
+    },
+
+    'change #opePeriod'(event,template) {
+        event.preventDefault();
+        template.reportPeriod.set(event.target.value)
+        // console.log(template.reportPeriod.get());
+    },
+
+    "change #opePeriodPermission"(event,template) {
+        var period = template.reportPeriod.get().replace(/[.*+?^${}()|[\]\\]/g, "_");
+        Meteor.call("editConfig", "opeUpload", period, event.target.value)
     }
 })
+
+// editConfig: function(id,num,val) {
+//     if (!this.userId)
+//         return
+//
+//     if (!Roles.userIsInRole(this.userId,"admin"))
+//         return
+//
+//     let conf = Configs.findOne({_id:id})
+//     if(conf) {
+//         conf[num] = val
+//         console.log(conf)
+//         Configs.update({_id:conf._id},{$set:conf})
+//     }
+// },

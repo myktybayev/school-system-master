@@ -156,13 +156,20 @@
                                 <option value="22.02 - 07.03">22.02 - 07.03</option>
                             </select>
                             </td>
-                            
+
                             <td>
-                            <select style="width: 100pt; float: right;" class="form-control" name="tat2" id="tat2">
-                                <option value="enabled" {{selected "tatUpload" "2" "enabled"}}>Ашық</option>
-                                <option value="disabled" {{selected "tatUpload" "2" "disabled"}}>Жабық</option>
+
+                            <select style="width: 100pt; float: right;" class="form-control" id="opePeriodPermission">
+                                {{#if selectedPeriod}}
+                                  <option value="enabled" selected>Ашық</option>
+                                  <option value="disabled" >Жабық</option>
+                                {{else}}
+                                  <option value="enabled">Ашық</option>
+                                  <option value="disabled" selected>Жабық</option>
+                                {{/if}}
                             </select>
                             </td>
+
                         </tr>
 
                     </tbody>
