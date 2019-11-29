@@ -49,6 +49,34 @@ Blaze.registerHelper("math", function(lvalue, operator, rvalue, options) {
     }[operator];
 })
 
+Blaze.registerHelper("swapToChars", function(index, value) {
+    value = parseFloat(value);
+    console.log("index: "+index);
+
+    if(index==12){
+      if(value == 0) return "жоқ"
+      if(value == 1) return "exam"
+      if(value == 2) return "exam + uploaded"
+
+    }else if(index==13){
+      if(value == 0) return "жоқ"
+      if(value == 1) return "иә"
+    }
+    
+    return value;
+})
+
+Blaze.registerHelper("swapToChars2", function(index, value) {
+    value = parseFloat(value);
+
+    if(index==13){
+      if(value == 0) return "жоқ"
+      if(value == 1) return "иә"
+    }
+
+    return value;
+})
+
 Blaze.registerHelper("round", function(value,number) {
     return number.toFixed(value)
 })

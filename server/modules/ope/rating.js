@@ -1,7 +1,7 @@
 //calculaint ope rating
 
 export const rating = (academicYear, schoolId) => {
-    
+
     opeReports = OpeReports.find({academicYear:academicYear, schoolId:schoolId}).fetch()
 
     var totalMathReportType = [0,0,0,0,0,0,0,0,0,0,0];
@@ -23,11 +23,13 @@ export const rating = (academicYear, schoolId) => {
     var totalReportType = [0,0,0,0,0,0,0,0,0,0,0];
     var report11 = 0;
     var report12 = 0;
+    var report13 = 0;
+    var report14 = 0;
 
     var reportIndex = 1;
     _.each(opeReports,(report) => {
 
-      if(reportIndex == 13){
+      if(reportIndex == 15){
         reportIndex = 1;
         totalReportType = [0,0,0,0,0,0,0,0,0,0,0];
       }
@@ -67,42 +69,26 @@ export const rating = (academicYear, schoolId) => {
             totalRussian_langReportType[reportIndex]+
             totalHuhuk_langReportType[reportIndex];
 
-            /*
-      console.log("totalMathReportType[reportIndex]: "+totalMathReportType[reportIndex]);
-
-      console.log("totalMathReportType[reportIndex]: "+totalMathReportType[reportIndex] )
-      console.log("totalPhysicsReportType[reportIndex]: "+totalPhysicsReportType[reportIndex] )
-      console.log("totalChemistryReportType[reportIndex]: "+totalChemistryReportType[reportIndex])
-
-      console.log("totalBiologyReportType[reportIndex]: "+totalBiologyReportType[reportIndex])
-      console.log("totalInformaticReportType[reportIndex]: "+totalInformaticReportType[reportIndex])
-      console.log("totalEnglishReportType[reportIndex]: "+totalEnglishReportType[reportIndex])
-
-      console.log("totalGeographyReportType[reportIndex]: "+totalGeographyReportType[reportIndex])
-      console.log("totalKazakh_historyReportType[reportIndex]: "+totalKazakh_historyReportType[reportIndex])
-      console.log("totalKazakh_langReportType[reportIndex]: "+totalKazakh_langReportType[reportIndex])
-
-      console.log("totalTurkish_langReportType[reportIndex]: "+totalTurkish_langReportType[reportIndex])
-      console.log("totalRussian_langReportType[reportIndex]: "+totalRussian_langReportType[reportIndex])
-      console.log("totalHuhuk_langReportType[reportIndex]: "+totalHuhuk_langReportType[reportIndex])
-
-      console.log("totalReportType[reportIndex]: "+totalReportType[reportIndex]);
-      */
+// Олимпиада Дайындық Емтиханы(OPE) жасалды - 2 %
+// 3 күн олимпиада дайындық камп жасалды ма? - 3 %
 
       }else if(reportIndex == 11){
         report11 += parseInt(report.mathematic)
 
       }else if(reportIndex == 12){
         report12 += parseInt(report.mathematic)
+
+      }else if(reportIndex == 13){
+        report13 += parseInt(report.mathematic)
+
+      }else if(reportIndex == 14){
+        report14 += parseInt(report.mathematic)
       }
 
       reportIndex++;
 
     })
-
-    console.log("11: "+report11);
-    console.log("12: "+report12);
-
+      
     let subjectIdStore = ['01','02','03','04','05','06','07','08','09','10','11','12']
 
     _.each(subjectIdStore,(sId) => {
@@ -133,6 +119,10 @@ export const rating = (academicYear, schoolId) => {
             reportArray = totalHuhuk_langReportType;
         }
 
+        let totalOfTotal = reportArray[1] * 0.1 + reportArray[2] * 0.1 + reportArray[3] * 0.25 +
+                    reportArray[4] * 0.25 + reportArray[5] +
+                    reportArray[6] + reportArray[7] * 0.1 + report11 * 2.5 + report12 * 2.5 + report13 * 2 + report14 * 3;
+
         let subjectRating = {
             academicYear:academicYear,
             schoolId: schoolId,
@@ -148,7 +138,10 @@ export const rating = (academicYear, schoolId) => {
             reportType9: reportArray[9],
             reportType10: reportArray[10],
             reportType11: report11,
-            reportType12: report12
+            reportType12: report12,
+            reportType13: report13,
+            reportType14: report14,
+            total: totalOfTotal
         }
 
         var sameSubjectRating = OpeRatings.findOne({
@@ -164,7 +157,30 @@ export const rating = (academicYear, schoolId) => {
         }
 
     })
-
+    // 1 Мұғалім түсіндірген сабақ сағаты(0.1%)
+    // 2 Басқа мұғалім түсіндірген сабақ сағаты(0.1%)
+    // 3 Жасалған емтихан саны(0.25%)
+    // 4 Мұғалім мотивация программ сағаты(0.25%)
+    // 5 Мұғалімнің кандидат саны(10 сынып)(1%)
+    // 6 Мұғалімнің кандидат саны(11 сынып)(1%)
+    // 7 Жалпы Олимпиадчик оқушы саны(0.1%)
+    // 8 Область дәрежесіне жеткен оқушы саны
+    // 9 Республика дәрежесіне жеткен оқушы саны
+    // 10 Дүние дәрежесіне жеткен оқушы саны
+    // 11 Әкімшіліктің мотивация программ сағаты(2.5%)
+    // 12 Олимпиада мұғалімдерімен жиналыс сағаты(2.5%)
+    //
+    let totalOfTotal = totalReportType[1] * 0.1  +
+                       totalReportType[2] * 0.1  +
+                       totalReportType[3] * 0.25 +
+                       totalReportType[4] * 0.25 +
+                       totalReportType[5] +
+                       totalReportType[6] +
+                       totalReportType[7] * 0.1 +
+                       report11 * 2.5 +
+                       report12 * 2.5 +
+                       report13 * 2 +
+                       report14 * 3;
 
     let allSchoolsRating = {
         academicYear:academicYear,
@@ -181,7 +197,10 @@ export const rating = (academicYear, schoolId) => {
         reportType9: totalReportType[9],
         reportType10: totalReportType[10],
         reportType11: report11,
-        reportType12: report12
+        reportType12: report12,
+        reportType13: report13,
+        reportType14: report14,
+        total: totalOfTotal
     }
 
     var sameAllSchoolsRating = OpeRatings.findOne({

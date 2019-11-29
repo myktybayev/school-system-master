@@ -12,6 +12,7 @@ Template.opeReportRatings.onCreated(function() {
     template.subscribe('opes');
     template.subscribe("opeReport")
     template.subscribe('schools')
+    Session.setDefault('Sort',{total:-1});
     // template.subscribe("opeReportRatings")
     // template.subscribe('opeReport');
 
@@ -29,11 +30,11 @@ Template.opeReportRatings.helpers({
     return !state.get('directorClickedYes')
   },
   results() {
-      return OpeRatings.find({})
+      return OpeRatings.find({},{sort: Session.get('Sort')})
   },
   schools() {
       return Schools.find({},{sort:{schoolId:1}})
-  },
+  }
 });
 
 Template.opeReportRatings.events({
@@ -77,6 +78,53 @@ Template.opeReportRatings.events({
       });
 
   },
+
+  'click #sortTotal'(event,template) {
+      Session.set('Sort',{total:-1});
+  },
+  'click #reportType1'(event,template) {
+      Session.set('Sort',{reportType1:-1});
+  },
+  'click #reportType2'(event,template) {
+      Session.set('Sort',{reportType2:-1});
+  },
+  'click #reportType3'(event,template) {
+      Session.set('Sort',{reportType3:-1});
+  },
+  'click #reportType4'(event,template) {
+      Session.set('Sort',{reportType4:-1});
+  },
+  'click #reportType5'(event,template) {
+      Session.set('Sort',{reportType5:-1});
+  },
+  'click #reportType6'(event,template) {
+      Session.set('Sort',{reportType6:-1});
+  },
+  'click #reportType7'(event,template) {
+      Session.set('Sort',{reportType7:-1});
+  },
+  'click #reportType8'(event,template) {
+      Session.set('Sort',{reportType8:-1});
+  },
+  'click #reportType9'(event,template) {
+      Session.set('Sort',{reportType9:-1});
+  },
+  'click #reportType10'(event,template) {
+      Session.set('Sort',{reportType10:-1});
+  },
+  'click #reportType11'(event,template) {
+      Session.set('Sort',{reportType11:-1});
+  },
+  'click #reportType12'(event,template) {
+      Session.set('Sort',{reportType12:-1});
+  },
+  'click #reportType13'(event,template) {
+      Session.set('Sort',{reportType13:-1});
+  },
+  'click #reportType14'(event,template) {
+      Session.set('Sort',{reportType14:-1});
+  },
+
 })
 
 Template.opeReportRatings.onRendered(function() {

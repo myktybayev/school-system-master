@@ -52,19 +52,22 @@
 
                 <thead>
                     <tr class="bts-header">
-                        <th class="absolute-style" style="width: 230pt; height: 80pt; white-space: nowrap; text-align: center;">Мектеп аты</th>
-                        <th style="padding-left: 240pt;">Мұғалім түсіндірген сабақ сағаты</th>
-                        <th style="text-align:center">Басқа мұғалім түсіндірген сабақ сағаты</th>
-                        <th style="text-align:center">Жасалған емтихан саны</th>
-                        <th style="text-align:center">Мұғалім мотивация программ сағаты</th>
-                        <th style="text-align:center">Мұғалімнің кандидат саны(10 сынып)</th>
-                        <th style="text-align:center">Мұғалімнің кандидат саны(11 сынып)</th>
-                        <th style="text-align:center">Жалпы Олимпиадчик оқушы саны</th>
-                        <th style="text-align:center">Область дәрежесіне жеткен оқушы саны</th>
-                        <th style="text-align:center">Республика дәрежесіне жеткен оқушы саны</th>
-                        <th style="text-align:center">Дүние дәрежесіне жеткен оқушы саны</th>
-                        <th style="text-align:center">Әкімшіліктің мотивация программ сағаты</th>
-                        <th style="text-align:center">Олимпиада мұғалімдерімен жиналыс сағаты</th>
+                        <th class="absolute-style" style="width: 230pt; height: 90pt; white-space: nowrap; text-align: center;">Мектеп аты</th>
+                        <th style="padding-left: 240pt; text-align:center" id="sortTotal">Жалпы</th>
+                        <th style="text-align:center" id="reportType1">Мұғалім түсіндірген сабақ сағаты<br>(0.1%)</th>
+                        <th style="text-align:center" id="reportType2">Басқа мұғалім түсіндірген сабақ сағаты<br>(0.1%)</th>
+                        <th style="text-align:center" id="reportType3">Жасалған емтихан саны<br>(0.25%)</th>
+                        <th style="text-align:center" id="reportType4">Мұғалім мотивация программ сағаты<br>(0.25%)</th>
+                        <th style="text-align:center" id="reportType5">Мұғалімнің кандидат саны<br>(10 сынып)<br>(1%)</th>
+                        <th style="text-align:center" id="reportType6">Мұғалімнің кандидат саны<br>(11 сынып)<br>(1%)</th>
+                        <th style="text-align:center" id="reportType7">Жалпы Олимпиадчик оқушы саны<br>(0.1%)</th>
+                        <th style="text-align:center" id="reportType8">Область дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center" id="reportType9">Республика дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center" id="reportType10">Дүние дәрежесіне жеткен оқушы саны</th>
+                        <th style="text-align:center" id="reportType11">Әкімшіліктің мотивация программ сағаты<br>(2.5%)</th>
+                        <th style="text-align:center" id="reportType12">Олимпиада мұғалімдерімен жиналыс сағаты<br>(2.5%)</th>
+                        <th style="text-align:center" id="reportType13">Олимпиада дайындық Емтиханы(OPE) жасалды<br>(2%)</th>
+                        <th style="text-align:center" id="reportType14">Олимпиада дайындық камп(3 күн) жасалды<br>(3%)</th>
                     </tr>
                 </thead>
 
@@ -72,7 +75,8 @@
                     {{#each results}}
                     <tr>
                         <td class="absolute-style" style="width: 230pt; background-color: white;">{{schoolName schoolId}}</td>
-                        <td style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{reportType1}}</td>
+                        <td style="padding-left: 240pt; white-space: nowrap; text-align:center;">{{round "2" total}}</td>
+                        <td style="text-align: center;">{{reportType1}}</td>
                         <td style="text-align: center;">{{reportType2}}</td>
                         <td style="text-align: center;">{{reportType3}}</td>
                         <td style="text-align: center;">{{reportType4}}</td>
@@ -84,6 +88,8 @@
                         <td style="text-align: center;">{{reportType10}}</td>
                         <td style="text-align: center;">{{reportType11}}</td>
                         <td style="text-align: center;">{{reportType12}}</td>
+                        <td style="text-align: center;">{{reportType13}}</td>
+                        <td style="text-align: center;">{{reportType14}}</td>
                     </tr>
                     {{/each}}
                 </tbody>

@@ -83,7 +83,7 @@ Template.opeReportUpload.events({
       const html = document.getElementById('out').innerHTML;
 
       var data = [];
-      var headers = ['report_name',	'math', 'physics', 'chemistry', 'biology', 'english', 'geography', 'kazakh_history',
+      var headers = ['report_name',	'mathematic', 'physics', 'chemistry', 'biology', 'english', 'geography', 'kazakh_history',
       'informatic', 'kazakh_lang', 'turkish_lang', 'russian_lang', 'huhuk'];
       var reportNameList = ['Мұғалім түсіндірген сабақ сағаты',
                             'Басқа мұғалім түсіндірген сабақ сағаты',
@@ -98,12 +98,17 @@ Template.opeReportUpload.events({
                             'Әкімшіліктің мотивация программ сағаты',
                             'Олимпиада мұғалімдерімен жиналыс сағаты']
 
+
+
       data.push(headers);
 
       reportNameList.forEach(reportName =>{
         let content = [reportName];
         data.push(content);
       });
+
+      data.push(['Олимпиада Дайындық Емтиханы(OPE) жасалды','0 - жоқ', '1 - exam', '2 - exam + uploaded']);
+      data.push(['3 күн олимпиада дайындық камп жасалды ма?','0 - жоқ', '1 - иә']);
 
       Meteor.call('download', data, (err, wb) => {
         if (err) throw err;
@@ -112,7 +117,7 @@ Template.opeReportUpload.events({
         XLSX.writeFile(wb, sName);
       });
   },
-  
+
   'change #upload' (event,template) {
       let ope = Configs.findOne({
           _id: 'opeUpload'
@@ -120,9 +125,10 @@ Template.opeReportUpload.events({
 
       reportId = template.reportPeriod.get().replace(/[.*+?^${}()|[\]\\]/g, "_");
 
-      if (ope[reportId] == 'disabled')
-          throw alert('OPE '+template.reportPeriod.get()+' күнгі жүктеу жабық. Өтініш, IT Department-ке хабарласыңыз.')
-
+      if (!ope[reportId] || ope[reportId] == 'disabled'){
+          throw alert('OPE '+template.reportPeriod.get()+' күнгі жүктеу жабық.\nӨтініш, IT Department-ке хабарласыңыз.')
+          FlowRouter.redirect('/school/ope/reportResults/')
+      }
 
       const file = event.currentTarget.files[0];
       const reader = new FileReader();

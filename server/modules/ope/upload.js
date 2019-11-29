@@ -6,25 +6,41 @@ export const upload = (academicYear, schoolId, reportPeriod, results) => {
     _.each(results,(result) => {
 
       var reportId = "reportType"+index;
-      let opeRecord = {
-          academicYear: academicYear,
-          schoolId: schoolId,
-          reportId: reportId,
-          reportPeriod: reportPeriod,
-          reportName: result.report_name,
-          mathematic: result.mathematic,
-          physics: result.physics,
-          chemistry: result.chemistry,
-          biology: result.biology,
-          english: result.english,
-          geography: result.geography,
-          kazakh_history: result.kazakh_history,
-          informatic: result.informatic,
-          kazakh_lang: result.kazakh_lang,
-          turkish_lang: result.turkish_lang,
-          russian_lang: result.russian_lang,
-          huhuk: result.huhuk
+      let opeRecord;
+      if(index >= 11 && index <= 14){
+
+        opeRecord = {
+            academicYear: academicYear,
+            schoolId: schoolId,
+            reportId: reportId,
+            reportPeriod: reportPeriod,
+            reportName: result.report_name,
+            mathematic: result.mathematic?result.mathematic:0,
+        }
+
+      }else{
+
+        opeRecord = {
+            academicYear: academicYear,
+            schoolId: schoolId,
+            reportId: reportId,
+            reportPeriod: reportPeriod,
+            reportName: result.report_name,
+            mathematic: result.mathematic?result.mathematic:0,
+            physics: result.physics?result.physics:0,
+            chemistry: result.chemistry?result.chemistry:0,
+            biology: result.biology?result.biology:0,
+            english: result.english?result.english:0,
+            geography: result.geography?result.geography:0,
+            kazakh_history: result.kazakh_history?result.kazakh_history:0,
+            informatic: result.informatic?result.informatic:0,
+            kazakh_lang: result.kazakh_lang?result.kazakh_lang:0,
+            turkish_lang: result.turkish_lang?result.turkish_lang:0,
+            russian_lang: result.russian_lang?result.russian_lang:0,
+            huhuk: result.huhuk?result.huhuk:0
+        }
       }
+
       index++;
 
       // OpeReports.insert(opeRecord)

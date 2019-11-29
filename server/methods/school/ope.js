@@ -65,21 +65,21 @@ Meteor.methods({
           ope = Configs.findOne({
               _id: 'opeUpload'
           });
-          
+
           reportId = reportPeriod.replace(/[.*+?^${}()|[\]\\]/g, "_");
           if (ope[reportId] == 'disabled')
               throw new Meteor.Error('upload-disabled', 'OPE'+reportPeriod+' күнгі жүктеу жабық. Өтініш, IT Department-ке хабарласыңыз.')
 
-          // if (!Roles.userIsInRole(this.userId,"school"))
-          //     throw new Meteor.Error('access-denied', 'Access denied!')
-          //
-          // let school = Schools.findOne({
-          //     userId: this.userId
-          // })
-          //
-          // if (school) {
-          //     // upload(academicYear, school.schoolId, reportPeriod, results)
-          //     rating(academicYear, school.schoolId)
-          // }
+          if (!Roles.userIsInRole(this.userId,"school"))
+              throw new Meteor.Error('access-denied', 'Access denied!')
+
+          let school = Schools.findOne({
+              userId: this.userId
+          })
+
+          if (school) {
+              upload(academicYear, school.schoolId, reportPeriod, results)
+              rating(academicYear, school.schoolId)
+          }
     }
 })
