@@ -19,14 +19,27 @@ Meteor.methods({
         if(conf) {
             conf[num] = val
             Configs.update({_id:conf._id},{$set:conf})
+
         }else{
             var fild = val;
+            if(id == 'ketPetUpload'){
 
-            let newConf = {
-              fild: num,
-              "_id" : "opeUpload"
+              let newConf = {
+                "2": "disabled",
+                "4": "disabled",
+                "_id" : "ketPetUpload"
+              }
+              Configs.insert(newConf)
+
+            }else{
+
+              let newConf = {
+                fild: num,
+                "_id" : "opeUpload"
+              }
+              Configs.insert(newConf)
+
             }
-            Configs.insert(newConf)
         }
     },
 

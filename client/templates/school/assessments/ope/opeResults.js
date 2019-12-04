@@ -28,12 +28,13 @@ var saveItem = function(){
   var editItem = {
     ope1: $("#editOpe1").val(),
     ope2: $("#editOpe2").val(),
+    ope3: $("#editOpe3").val(),
+    ope4: $("#editOpe4").val(),
+    ope5: $("#editOpe5").val(),
+    ope6: $("#editOpe6").val(),
   }
-  console.log("id: "+Session.get('editItemId'));
-  console.log("Ope1: "+editItem["ope1"]);
 
   Meteor.call('Ope.updateOpeResults',Session.get('editItemId'),editItem)
-  // Items.update(Session.get('editItemId'), {$set: editItem});
   Session.set('editItemId', null);
 }
 

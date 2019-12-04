@@ -26,6 +26,10 @@ Meteor.methods({
                 {$set:{
                   ope1: editItem["ope1"],
                   ope2: editItem["ope2"],
+                  ope2: editItem["ope3"],
+                  ope2: editItem["ope4"],
+                  ope2: editItem["ope5"],
+                  ope2: editItem["ope6"],
                   average: average
 
                 }})
@@ -49,7 +53,11 @@ Meteor.methods({
                   olympiad: olympiad,
                   ope1: editItem["ope1"],
                   ope2: editItem["ope2"],
-                  average: undefined
+                  ope2: editItem["ope3"],
+                  ope2: editItem["ope4"],
+                  ope2: editItem["ope5"],
+                  ope2: editItem["ope6"],
+                  average: 0
               };
               OpeResults.insert(studentOpeResults)
 

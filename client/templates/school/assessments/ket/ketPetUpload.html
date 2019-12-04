@@ -1,30 +1,22 @@
-<template name="adminOpeReportResults">
+<template name="ketPetUpload">
     <div class="row">
         <div class="col-md-12">
-            <h4 style="text-align: center; padding-bottom: 15pt">Олимпиада Дайындық Репорт Нәтижелері<br>(2 апталық)</h4>
+            <h4 style="text-align: center; padding-bottom: 15pt">KET and PET емтихан жүктеу</h4>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-inline">
                         <div class="form-group" style="margin-right: 15pt">
-                          <label>Мектепті таңдаңыз</label>
-                          <select class="form-control" style="width:150pt; margin-left: 10pt;" name="schoolId_select" id="select">
-                              <option value="">Select School</option>
-                              {{#each schools}}
-                                  <option value="{{schoolId}}" >{{shortName}}</option>
-                              {{/each}}
+                          {{> academicYear}}
+
+                          <label style="margin-left: 10pt;">Тоқсан</label>
+                          <select class="form-control" id="examPeriod">
+                              <option value="2">2 тоқсан</option>
+                              <option value="4">4 тоқсан</option>
                           </select>
 
-                          <label style="margin-left: 10pt;">Репорт уақыты</label>
-                          <select class="form-control" id="reportPeriod">
-                              <option value="16.11 - 30.11">16.11 - 30.11</option>
-                              <option value="30.11 - 14.12">30.11 - 14.12</option>
-                              <option value="14.12 - 28.12">14.12 - 28.12</option>
-                              <option value="28.12 - 11.01">28.12 - 11.01</option>
-                              <option value="11.01 - 25.01">11.01 - 25.01</option>
-                              <option value="25.01 - 08.02">25.01 - 08.02</option>
-                              <option value="08.01 - 22.02">08.01 - 22.02</option>
-                              <option value="22.02 - 07.03">22.02 - 07.03</option>
-                          </select>
+                            <a style="margin-right: 15pt; margin-left: 15pt;" class="btn btn-default" id="dnload">Үлгі</a>
+                            <input type="file" class="form-control" id="upload" style="margin-right: 15pt;">
+                            <a class="btn btn-primary" id="save">Сақтау</a>
 
                         </div>
 
@@ -40,7 +32,7 @@
                 <thead>
                     <tr class="bts-header">
                         <th class="absolute-style" style="width: 230pt; white-space: nowrap; text-align: center;">Репорт аты</th>
-                        <th style="padding-left: 240pt; white-space: nowrap; text-align:center">Математика</th>
+                        <th style="padding-left: 240pt; white-space: nowrap;">Математика</th>
                         <th style="white-space: nowrap; text-align:center">Физика</th>
                         <th style="white-space: nowrap; text-align:center">Химия</th>
                         <th style="white-space: nowrap; text-align:center">Биология</th>
@@ -58,8 +50,8 @@
                 <tbody>
                     {{#each results}}
                     <tr>
-                        <td class="absolute-style" style="width: 230pt; background-color: white;">{{reportName}}</td>
-                        <td style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{swapToChars @index mathematic}}</td>
+                        <td class="absolute-style" style="width: 230pt; background-color: white;">{{report_name}}</td>
+                        <td  style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{mathematic}}</td>
                         <td style="text-align: center;">{{physics}}</td>
                         <td style="text-align: center;">{{chemistry}}</td>
                         <td style="text-align: center;">{{biology}}</td>
@@ -73,6 +65,14 @@
                         <td style="text-align: center;">{{huhuk}}</td>
                     </tr>
                     {{/each}}
+                    {{#if results}}
+                    <tr>
+                        <td class="absolute-style" style="width: 230pt; height: 35pt; white-space: nowrap;">Директор растады ма?</td>
+                        <td style="padding-left: 240pt; white-space: nowrap;"><a class="btn btn-success" style="width: 50pt;" id="director_yes">Иә</a></td>
+                        {{#if clickedYes}}<td style="text-align:center" ><a class="btn btn-primary" style="width: 50pt;" id="director_no">Жоқ</a></td> {{/if}}
+
+                    </tr>
+                    {{/if}}
                 </tbody>
 
                 <!--

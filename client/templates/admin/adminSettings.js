@@ -31,7 +31,7 @@ Template.adminSettings.helpers({
     selectedPeriod(){
       var idd = Template.instance().reportPeriod.get().replace(/[.*+?^${}()|[\]\\]/g, "_");
       let conf = Configs.findOne({_id:"opeUpload"})
-      
+
       if (conf)
           return conf[idd] == "enabled"
 
@@ -123,6 +123,15 @@ Template.adminSettings.events({
     "change #tat2"(event,template) {
         Meteor.call("editConfig","tatUpload","2",event.target.value)
     },
+
+    "change #ketPet2"(event,template) {
+        Meteor.call("editConfig","ketPetUpload","2",event.target.value)
+    },
+
+    "change #ketPet4"(event,template) {
+        Meteor.call("editConfig","ketPetUpload","4",event.target.value)
+    },
+
 
     'change #opePeriod'(event,template) {
         event.preventDefault();

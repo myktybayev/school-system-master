@@ -2,12 +2,15 @@ Blaze.registerHelper("schoolName", function(schoolId) {
     return Schools.findOne({schoolId:schoolId}) ? Schools.findOne({schoolId:schoolId}).shortName : undefined
 })
 
-Blaze.registerHelper("ope1", function(studentId) {
-    return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope1 : undefined
-})
+Blaze.registerHelper("ope", function(studentId, number) {
 
-Blaze.registerHelper("ope2", function(studentId) {
-    return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope2 : undefined
+    if(number == 1) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope1 : undefined
+    if(number == 2) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope2 : undefined
+    if(number == 3) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope3 : undefined
+    if(number == 4) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope4 : undefined
+    if(number == 5) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope5 : undefined
+    if(number == 6) return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).ope6 : undefined
+
 })
 
 Blaze.registerHelper("average", function(studentId) {
@@ -62,7 +65,7 @@ Blaze.registerHelper("swapToChars", function(index, value) {
       if(value == 0) return "жоқ"
       if(value == 1) return "иә"
     }
-    
+
     return value;
 })
 

@@ -47,8 +47,13 @@
                         <th>#</th>
                         <th>Сынып</th>
                         <th>Аты-жөні</th>
-                        <th>OPE1</th>
-                        <th>OPE2</th>
+                        <th style="text-align: center">OPE<br>16.11 - 30.11</th>
+                        <th style="text-align: center">OPE<br>30.11 - 14.12</th>
+                        <th style="text-align: center">OPE<br>14.12 - 28.12</th>
+                        <th style="text-align: center">OPE<br>28.12 - 11.01</th>
+                        <th style="text-align: center">OPE<br>11.01 - 25.01</th>
+                        <th style="text-align: center">OPE<br>25.01 - 08.02</th>
+
                         <th>Average</th>
                     </tr>
                 </thead>
@@ -62,8 +67,13 @@
 
                     {{#if editing}}
 
-                        <td><input type="text" id="editOpe1" value="{{ope1 studentId}}"></td>
-                        <td><input type="text" id="editOpe2" value="{{ope2 studentId}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe1" value="{{ope studentId '1'}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe2" value="{{ope studentId '2'}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe3" value="{{ope studentId '3'}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe4" value="{{ope studentId '4'}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe5" value="{{ope studentId '5'}}"></td>
+                        <td style="text-align: center"><input type="text" style="width: 30pt" id="editOpe6" value="{{ope studentId '6'}}"></td>
+                        <td style="text-align: center">{{average studentId}}</td>
                         <td>
                           <button class="saveItem btn btn-success">Save</button>
                           <button class="cancelItem btn btn-default">Cancel</button>
@@ -71,9 +81,13 @@
 
                     {{else}}
 
-                        <td>{{ope1 studentId}}</td>
-                        <td>{{ope2 studentId}}</td>
-                        <td>{{average studentId}}</td>
+                        <td style="text-align: center">{{ope studentId "1"}}</td>
+                        <td style="text-align: center">{{ope studentId "2"}}</td>
+                        <td style="text-align: center">{{ope studentId "3"}}</td>
+                        <td style="text-align: center">{{ope studentId "4"}}</td>
+                        <td style="text-align: center">{{ope studentId "5"}}</td>
+                        <td style="text-align: center">{{ope studentId "6"}}</td>
+                        <td style="text-align: center">{{average studentId}}</td>
                         <!-- <td>{{ope1 studentId}}</td> -->
                         <td><button class="editItem btn btn-primary">Edit</button>
                         </td>
