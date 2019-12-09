@@ -54,8 +54,48 @@ Meteor.publish('tatRating',function(academicYear,subjectId,tatNo) {
 Meteor.publish('btsResults',function(academicYear,grade,btsNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
-
         let cursor = BtsResults.find({academicYear:academicYear,grade:grade,btsNo:btsNo,schoolId:school.schoolId})
+        return cursor
+    }
+    return this.ready()
+})
+
+Meteor.publish('ketPetRating',function() {
+      return KetPetRatings.find()
+})
+
+Meteor.publish('ketPetResult',function() {
+      return KetPetResults.find()
+})
+
+Meteor.publish('ketPetResults',function(academicYear,grade,examPeriod) {
+    if (this.userId) {
+        let school = Schools.findOne({userId:this.userId})
+        let cursor = KetPetResults.find({academicYear:academicYear, schoolId:school.schoolId, grade:grade, examPeriod:examPeriod})
+        return cursor
+    }
+    return this.ready()
+})
+
+Meteor.publish('ketPet10Results',function(academicYear,grade,examPeriod) {
+    if (this.userId) {
+        let cursor = KetPetResults.find({academicYear:academicYear, grade:grade, examPeriod:examPeriod})
+        return cursor
+    }
+    return this.ready()
+})
+
+Meteor.publish('adminKetPetResults',function(academicYear,schoolId,grade,examPeriod) {
+    if (this.userId) {
+        let cursor = KetPetResults.find({academicYear:academicYear, schoolId:schoolId, grade:grade, examPeriod:examPeriod})
+        return cursor
+    }
+    return this.ready()
+})
+
+Meteor.publish('ketPetRatings',function(academicYear, examPeriod) {
+    if (this.userId) {
+        let cursor = KetPetRatings.find({academicYear:academicYear, examPeriod:examPeriod})
         return cursor
     }
     return this.ready()

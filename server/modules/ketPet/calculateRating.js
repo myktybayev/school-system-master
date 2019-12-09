@@ -1,8 +1,5 @@
-import { parseAnswerKey } from "../multipleChoiceChecker";
-/*
-* Подсчитывает рейтинг школы по кбо
-* */
 export const calculateRating = (academicYear,kboNo,schoolId) => {
+
     generalRating = {
         academicYear:academicYear,
         schoolId:schoolId,
