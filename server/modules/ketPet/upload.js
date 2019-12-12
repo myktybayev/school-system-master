@@ -33,14 +33,16 @@ export const upload = (academicYear, schoolId, grade, examPeriod, results) => {
                total: 0,
            }
 
-           var total50 = parseInt(result.ReadingAndWriting) + parseInt(result.WritingTask9);
+           var total50 = (result.ReadingAndWriting?parseInt(result.ReadingAndWriting):0) +
+                         (result.WritingTask9?parseInt(result.WritingTask9):0)
            total50 = (total50 * 5)/6;
 
-           var totalL25 = parseInt(result.Listening);
-           var totalS25 = parseInt(result.Speaking) * 5;
+           var totalL25 = result.Listening?parseInt(result.Listening):0;
+           var totalS25 = (result.Speaking?parseInt(result.Speaking):0) * 5
 
            studentRecord.total = parseInt(total50) + parseInt(totalL25) + parseInt(totalS25);
            studentRecord.total = parseFloat(studentRecord.total)
+
 
            if(studentRecord.total >= 90 && studentRecord.total <= 100){
               studentRecord.level = "Pass with Distinction(B1)"
@@ -81,14 +83,21 @@ export const upload = (academicYear, schoolId, grade, examPeriod, results) => {
                total: 0,
            }
 
-           var total50 = parseInt(result.Reading) + parseInt(result.WritingPart1) + parseInt(result.WritingPart2) + parseInt(result.WritingPart3);
+           var total50 = (result.Reading?parseInt(result.Reading):0) +
+                         (result.WritingPart1?parseInt(result.WritingPart1):0) +
+                         (result.WritingPart2?parseInt(result.WritingPart2):0) +
+                         (result.WritingPart3?parseInt(result.WritingPart3):0);
+
            total50 = (total50 * 5)/6;
 
-           var totalL25 = parseInt(result.Listening);
-           var totalS25 = parseInt(result.Speaking) * 5;
+
+
+           var totalL25 = result.Listening?parseInt(result.Listening):0;
+           var totalS25 = (result.Speaking?parseInt(result.Speaking):0) * 5
 
            studentRecord.total = parseInt(total50) + parseInt(totalL25) + parseInt(totalS25);
            studentRecord.total = parseFloat(studentRecord.total)
+
 
            if(studentRecord.total >= 90 && studentRecord.total <= 100){
               studentRecord.level = "Pass with Distinction(B2)"
