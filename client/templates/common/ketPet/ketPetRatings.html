@@ -16,6 +16,9 @@
 
                         </div>
 
+                        <div class="form-group" style="float: right">
+                            <a class="btn btn-success" id="export">Export</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,7 +45,7 @@
                     <tr>
                         <td>{{math @index "+" 1}}</td>
                         <td style="text-align:center;">{{schoolId}}</td>
-                        <td style="text-align: center;">{{schoolName schoolId}}</td>
+                        <td>{{schoolName schoolId}}</td>
                         <td style="text-align: center;">{{round "2" total7Grade}} %</td>
                         <td style="text-align: center;">{{total7Level}}</td>
                         <td style="text-align: center;">{{round "2" total8Grade}} %</td>

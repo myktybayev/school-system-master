@@ -8,6 +8,7 @@ Template.adminSettings.onCreated(function() {
     template.subscribe('schools')
     template.subscribe("configs")
     template.subscribe('kboKeysGeneral')
+    template.subscribe('ketPetRating');
     template.subscribe('kboGenelResults',academicYear.get())
     template.autorun(()=>{
 
@@ -40,6 +41,19 @@ Template.adminSettings.helpers({
 });
 
 Template.adminSettings.events({
+
+    'click #totalKetPetRating'(event,template) {
+      Meteor.call("KetPet.totalRating", academicYear.get(), function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Жасалды")
+          }
+      });
+    },
+      
     "click #reCalc"() {
           Meteor.call("UbtResults.reCalcRating", academicYear.get(),function (err) {
               if (err) {

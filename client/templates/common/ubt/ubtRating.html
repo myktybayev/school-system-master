@@ -136,45 +136,33 @@
 
                     <tr>
                         <!-- Average -->
-                        <td style="position: absolute; width: 20pt; background-color: white; text-align: center;  border: 1px solid white">{{math @index "+" 1}}</td>
-                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center; font-size: 14px;">Оқушы саны</td>
-                        <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt;">ave / 140</td>
+                        <td style="position: absolute; width: 20pt; background-color: white; text-align: center;  border: 1px solid white; z-index:1">{{math @index "+" 1}}</td>
+                        <td style="position: absolute; width: 80pt; margin-left: 20pt;background-color: white; text-align: center; font-size: 14px; z-index:1">Оқушы саны</td>
+                        <td style="position: absolute; width: 250pt; margin-left: 100pt; background-color: white; text-align: right; padding-right: 10pt; z-index:1">ave / 140</td>
 
                         <td style="text-align: center; padding-left: 355pt">{{total}}</td>
                         <td style="text-align: center;">{{ubt1}}</td>
-                        <td style="text-align: center;">{{ubt2}}</td>
-                        <td style="text-align: center;">{{ubt3}}</td>
-                        <td style="text-align: center;">{{ubt4}}</td>
-                        <td style="text-align: center;">{{ubt5}}</td>
-                        <td style="text-align: center;">{{ubt6}}</td>
-                        <td style="text-align: center;">{{ubt7}}</td>
-                        <td style="text-align: center;">{{ubt8}}</td>
-                        <td style="text-align: center;">{{ubt9}}</td>
-                        <td style="text-align: center;">{{ubt10}}</td>
-                        <td style="text-align: center;">{{ubt11}}</td>
-                        <td style="text-align: center;">{{ubt12}}</td>
-                        <td style="text-align: center;">{{ubt13}}</td>
-                        <td style="text-align: center;">{{ubt14}}</td>
-                        <td style="text-align: center;">{{ubt15}}</td>
-                        <td style="text-align: center;">{{ubt16}}</td>
-                        <td style="text-align: center;">{{ubt17}}</td>
-                        <td style="text-align: center;">{{ubt18}}</td>
-                        <td style="text-align: center;">{{ubt19}}</td>
-                        <td style="text-align: center;">{{ubt20}}</td>
-                        <td style="text-align: center;">{{ubt21}}</td>
-                        <td style="text-align: center;">{{ubt22}}</td>
-                        <td style="text-align: center;">{{ubt23}}</td>
-                        <td style="text-align: center;">{{ubt24}}</td>
-                        <td style="text-align: center;">{{ubt25}}</td>
-                        <td style="text-align: center;">{{ubt26}}</td>
-                        <td style="text-align: center;">{{ubt27}}</td>
-                        <td style="text-align: center;">{{ubt28}}</td>
-                        <td style="text-align: center;">{{ubt29}}</td>
-                        <td style="text-align: center;">{{ubt30}}</td>
-                        <td style="text-align: center;">{{ubt31}}</td>
-                        <td style="text-align: center;">{{ubt32}}</td>
-                        <td style="text-align: center;">{{ubt33}}</td>
-                        <td style="text-align: center;">{{ubt34}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt2}}{{#if strelki ubt1 ubt2}} <i class="glyphicon glyphicon-arrow-up" style="color:green; z-index: 0"></i>{{else}} {{#if notZero ubt2}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt3}}{{#if strelki ubt2 ubt3}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt3}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt4}}{{#if strelki ubt3 ubt4}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt4}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt5}}{{#if strelki ubt4 ubt5}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt5}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt6}}{{#if strelki ubt5 ubt6}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt6}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt7}}{{#if strelki ubt6 ubt7}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt7}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt8}}{{#if strelki ubt7 ubt8}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt8}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt9}}{{#if strelki ubt8 ubt9}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt9}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt10}}{{#if strelki ubt9 ubt10}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt10}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt11}}{{#if strelki ubt10 ubt11}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt11}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt12}}{{#if strelki ubt11 ubt12}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt12}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt13}}{{#if strelki ubt12 ubt13}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt13}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt14}}{{#if strelki ubt13 ubt14}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt14}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt15}}{{#if strelki ubt14 ubt15}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt15}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt16}}{{#if strelki ubt15 ubt16}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt16}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt17}}{{#if strelki ubt16 ubt17}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt17}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt18}}{{#if strelki ubt17 ubt18}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt18}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt19}}{{#if strelki ubt18 ubt19}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt19}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt20}}{{#if strelki ubt19 ubt20}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt20}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+                        <td style="text-align: center; white-space: nowrap;">{{ubt21}}{{#if strelki ubt20 ubt21}} <i class="glyphicon glyphicon-arrow-up" style="color:green"></i>{{else}} {{#if notZero ubt21}} <i class="glyphicon glyphicon-arrow-down" style="color:red"></i> {{/if}} {{/if}}</td>
+
                     </tr>
 
                     <tr style="border-bottom: 2px solid black">
@@ -235,6 +223,7 @@
                         <th>Мектеп аты</th>
                     </tr>
                 </thead>
+
                 <tbody>
 
                     {{#each schoolNotUploaded}}

@@ -17,7 +17,6 @@ Template.ketPet10Results.onCreated(function() {
     })
 
     Session.setDefault('Sort',{total:-1});
-
 })
 
 var sortTotal = -1;
@@ -42,9 +41,10 @@ Template.ketPet10Results.helpers({
   grade8(){
       return "8" == Template.instance().grade.get()
   },
-
+  
   results() {
-      return KetPetResults.find({},{sort: Session.get('Sort')})
+      return KetPetResults.find({})
+      // return KetPetResults.find({},{sort: {total: -1}, limit: 10})
   },
   schools() {
       return Schools.find({},{sort:{schoolId:1}})

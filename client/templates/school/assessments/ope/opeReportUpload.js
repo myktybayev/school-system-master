@@ -6,19 +6,23 @@ import XLSX from 'xlsx';
 
 Template.opeReportUpload.onCreated(function() {
     let template = this
-    document.title = "OPE Репорт";
+    document.title = "OPE Репорт Жүктеу";
     template.reportPeriod = new ReactiveVar('16.11 - 30.11')
     template.grade = new ReactiveVar('7')
     template.results = new ReactiveVar([])
     state = new ReactiveDict();
     state.set('directorClickedYes', false)
     template.subscribe('opes');
-    template.subscribe('opeReport');
+    // template.subscribe('opeReport');
     template.subscribe('configs');
+    template.subscribe('schools');
 
     // template.autorun(() => {
     //     template.subscribe("opeReports", academicYear.get(), template.reportPeriod.get())
     // })
+    template.autorun(() => {
+        template.subscribe("opeReports", academicYear.get(), template.reportPeriod.get())
+    })
 
 })
 
@@ -31,16 +35,17 @@ Template.opeReportUpload.helpers({
   },
   results() {
       return Template.instance().results.get()
+  },
+  opeAlreadyResults() {
+      return OpeReports.find({})
   }
 });
 
 Template.opeReportUpload.events({
-
-
   'change #select'(event,template) {
       template.reportPeriod.set(event.target.value)
   },
-  'click #director_yes': function(){
+  'click #director_yes'(){
       state.set('directorClickedYes', true)
   },
 
@@ -77,6 +82,8 @@ Template.opeReportUpload.events({
           return
       }
       alert("Файл таңдалмады немесе қателер табылды")
+
+
    },
 
   'click #dnload' () {
@@ -130,21 +137,60 @@ Template.opeReportUpload.events({
           FlowRouter.redirect('/school/ope/reportResults/')
       }
 
-      const file = event.currentTarget.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const data = e.target.result;
-          const name = file.name;
+      let school = Schools.findOne({userId: Meteor.userId()});
+      let recordInDb = OpeReports.findOne({academicYear:academicYear.get(), schoolId:school.schoolId, reportPeriod:template.reportPeriod.get()})
 
-          Meteor.call('upload', data, name, function(err, wb) {
-              if(err) alert(err);
-              else {
-                  res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : 0})
-                  template.results.set(res)
+      if (recordInDb) {
+          bootbox.confirm({
+              title : template.reportPeriod.get()+" күнге жүктеу жасалған",
+              message : "Нәтижелерді өзгерткіңіз келеді ма?",
+              buttons : {
+                  confirm : {
+                      label : "Иә",
+                      className: "btn-warning"
+                  },
+                  cancel : {
+                      label : "Жоқ",
+                      className: "btn-success"
+                  }
+              },
+              callback: function(result) {
+                  if(result){ //true, ok button clicked
+                    const file = event.currentTarget.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const data = e.target.result;
+                        const name = file.name;
+
+                        Meteor.call('upload', data, name, function(err, wb) {
+                            if(err) alert(err);
+                            else {
+                                res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : 0})
+                                template.results.set(res)
+                            }
+                        });
+                    };
+                    reader.readAsBinaryString(file);
+                  }
               }
           });
-      };
-      reader.readAsBinaryString(file);
+      }else{
+        const file = event.currentTarget.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const data = e.target.result;
+            const name = file.name;
+
+            Meteor.call('upload', data, name, function(err, wb) {
+                if(err) alert(err);
+                else {
+                    res = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header : 0})
+                    template.results.set(res)
+                }
+            });
+        };
+        reader.readAsBinaryString(file);
+      }
   },
   'click .editItem': function(){
     Session.set('editItemId', this._id);

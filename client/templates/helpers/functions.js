@@ -80,6 +80,16 @@ Blaze.registerHelper("swapToChars2", function(index, value) {
     return value;
 })
 
+Blaze.registerHelper("strelki", function(ubtPrev, ubtNext) {
+    ubtPrev = parseInt(ubtPrev)
+    ubtNext = parseInt(ubtNext)
+    
+    if(ubtNext != 0){
+      if(ubtPrev < ubtNext) return true;
+	       // return new Blaze.SafeString('<i class="glyphicon glyphicon-arrow-up"></i>');
+    }
+})
+
 Blaze.registerHelper("round", function(value,number) {
     return number.toFixed(value)
 })

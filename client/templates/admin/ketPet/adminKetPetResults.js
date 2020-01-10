@@ -66,38 +66,83 @@ Template.adminKetPetResults.events({
       template.examPeriod.set(event.target.value)
   },
 
-  'click #dnload' () {
-      const html = document.getElementById('out').innerHTML;
+  "click #export"(event,template) {
+    const html = document.getElementById('out').innerHTML;
 
-      var data = [];
-      var headers = ['report_name',	'math', 'physics', 'chemistry', 'biology', 'english', 'geography', 'kazakh_history',
-      'informatic', 'kazakh_lang', 'turkish_lang', 'russian_lang', 'huhuk'];
-      var reportNameList = ['Мұғалім түсіндірген сабақ сағаты',
-                            'Басқа мұғалім түсіндірген сабақ сағаты',
-                            'Жасалған емтихан саны',
-                            'Мұғалім мотивация программ сағаты',
-                            'Мұғалімнің кандидат саны(10 сынып)',
-                            'Мұғалімнің кандидат саны(11 сынып)',
-                            'Жалпы Олимпиадчик оқушы саны',
-                            'Область дәрежесіне жеткен оқушы саны',
-                            'Республика дәрежесіне жеткен оқушы саны',
-                            'Дүние дәрежесіне жеткен оқушы саны',
-                            'Әкімшіліктің мотивация программ сағаты',
-                            'Олимпиада мұғалімдерімен жиналыс сағаты']
+    var resultStore = KetPetResults.find({},{sort: Session.get('Sort')}).fetch()
+
+    var data = [];
+    var curGrade = resultStore[0].grade;
+    let okuJyly = academicYear.get();
+
+
+
+    let mektepAty  = Schools.findOne({schoolId: template.schoolId_select.get()}) ? Schools.findOne({schoolId: template.schoolId_select.get()}).shortName : undefined;
+    schoolInfo = ["Мектеп аты", mektepAty];
+    data.push(schoolInfo);
+
+    if(curGrade == '7'){
+      headers = ["#", "Оқу жылы","Оқушы ID", "Сынып", "Аты Жөні", "Жалпы", "Level", "Reading And Writing",
+      "Writing task 9", "Listening", "Speaking"];
 
       data.push(headers);
 
-      reportNameList.forEach(reportName =>{
-        let content = [reportName];
-        data.push(content);
-      });
+        for(var i = 0; i < resultStore.length; i++){
+          let idN = i+1;
+          let studentInfo = resultStore[i].surname+" "+resultStore[i].name.trim();
+          let classN = resultStore[i].grade+" "+resultStore[i].division;
+          let studentId = resultStore[i].studentId;
+          let total = resultStore[i].total;
 
-      Meteor.call('download', data, (err, wb) => {
-        if (err) throw err;
+          let level = resultStore[i].level;
+          let ReadingAndWriting = resultStore[i].ReadingAndWriting;
+          let WritingTask9 = resultStore[i].WritingTask9;
+          let Listening = resultStore[i].Listening;
+          let Speaking = resultStore[i].Speaking;
 
-        let sName = 'ope_report.xlsx';
-        XLSX.writeFile(wb, sName);
-      });
+          let content = [idN, okuJyly, studentId, classN, studentInfo, total, level, ReadingAndWriting,
+            WritingTask9, Listening, Speaking];
+
+          data.push(content);
+        }
+
+    }else if (curGrade == '8') {
+      headers = ["#", "Оқу жылы","Оқушы ID", "Сынып", "Аты Жөні","Жалпы", "Level", "Reading", "Writing Part 1",
+        "Writing Part 2", "Writing Part 3", "Listening", "Speaking"];
+
+        data.push(headers);
+
+        for(var i = 0; i < resultStore.length; i++){
+          let idN = i+1;
+          let studentInfo = resultStore[i].surname+" "+resultStore[i].name.trim();
+          let classN = resultStore[i].grade+" "+resultStore[i].division;
+          let studentId = resultStore[i].studentId;
+          let total = resultStore[i].total;
+          let level = resultStore[i].level;
+
+          let Reading = resultStore[i].Reading;
+          let WritingPart1 = resultStore[i].WritingPart1;
+          let WritingPart2 = resultStore[i].WritingPart2;
+          let WritingPart3 = resultStore[i].WritingPart3;
+
+          let Listening = resultStore[i].Listening;
+          let Speaking = resultStore[i].Speaking;
+
+          let content = [idN, okuJyly, studentId, classN, studentInfo, total, level, Reading,
+            WritingPart1, WritingPart2, WritingPart3,Listening, Speaking];
+
+          data.push(content);
+
+        }
+
+    }
+
+    Meteor.call('download', data, (err, wb) => {
+      if (err) throw err;
+
+      let sName = 'KET-PET results '+template.grade.get()+'сынып, '+template.examPeriod.get()+' токсан '+okuJyly+'.xlsx';
+      XLSX.writeFile(wb, sName);
+    });
 
   },
 

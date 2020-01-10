@@ -1,8 +1,8 @@
 //calculaint ope rating
 
-export const rating = (academicYear, schoolId) => {
+export const rating = (academicYear, schoolId, reportPeriod) => {
 
-    opeReports = OpeReports.find({academicYear:academicYear, schoolId:schoolId}).fetch()
+    opeReports = OpeReports.find({academicYear:academicYear, schoolId:schoolId, reportPeriod:reportPeriod}).fetch()
 
     var totalMathReportType = [0,0,0,0,0,0,0,0,0,0,0];
     var totalPhysicsReportType = [0,0,0,0,0,0,0,0,0,0,0];
@@ -35,21 +35,22 @@ export const rating = (academicYear, schoolId) => {
       }
 
       if(reportIndex < 11){
-        totalMathReportType[reportIndex] += parseInt(report.mathematic)
-        totalPhysicsReportType[reportIndex] += parseInt(report.physics)
-        totalChemistryReportType[reportIndex] += parseInt(report.chemistry)
+      // if(reportIndex <= 4){
+        totalMathReportType[reportIndex] += parseInt(report.mathematic)?parseInt(report.mathematic):0
+        totalPhysicsReportType[reportIndex] += parseInt(report.physics)?parseInt(report.physics):0
+        totalChemistryReportType[reportIndex] += parseInt(report.chemistry)?parseInt(report.chemistry):0
 
-        totalBiologyReportType[reportIndex] += parseInt(report.biology)
-        totalInformaticReportType[reportIndex] += parseInt(report.informatic)
-        totalEnglishReportType[reportIndex] += parseInt(report.english)
+        totalBiologyReportType[reportIndex] += parseInt(report.biology)?parseInt(report.biology):0
+        totalInformaticReportType[reportIndex] += parseInt(report.informatic)?parseInt(report.informatic):0
+        totalEnglishReportType[reportIndex] += parseInt(report.english)?parseInt(report.english):0
 
-        totalGeographyReportType[reportIndex] += parseInt(report.geography)
-        totalKazakh_historyReportType[reportIndex] += parseInt(report.kazakh_history)
-        totalKazakh_langReportType[reportIndex] += parseInt(report.kazakh_lang)
+        totalGeographyReportType[reportIndex] += parseInt(report.geography)?parseInt(report.geography):0
+        totalKazakh_historyReportType[reportIndex] += parseInt(report.kazakh_history)?parseInt(report.kazakh_history):0
+        totalKazakh_langReportType[reportIndex] += parseInt(report.kazakh_lang)?parseInt(report.kazakh_lang):0
 
-        totalTurkish_langReportType[reportIndex] += parseInt(report.turkish_lang)
-        totalRussian_langReportType[reportIndex] += parseInt(report.russian_lang)
-        totalHuhuk_langReportType[reportIndex] += parseInt(report.huhuk)
+        totalTurkish_langReportType[reportIndex] += parseInt(report.turkish_lang)?parseInt(report.turkish_lang):0
+        totalRussian_langReportType[reportIndex] += parseInt(report.russian_lang)?parseInt(report.russian_lang):0
+        totalHuhuk_langReportType[reportIndex] += parseInt(report.huhuk)?parseInt(report.huhuk):0
 
         totalReportType[reportIndex] +=
 
@@ -69,9 +70,6 @@ export const rating = (academicYear, schoolId) => {
             totalRussian_langReportType[reportIndex]+
             totalHuhuk_langReportType[reportIndex];
 
-// Олимпиада Дайындық Емтиханы(OPE) жасалды - 2 %
-// 3 күн олимпиада дайындық камп жасалды ма? - 3 %
-
       }else if(reportIndex == 11){
         report11 += parseInt(report.mathematic)
 
@@ -88,7 +86,7 @@ export const rating = (academicYear, schoolId) => {
       reportIndex++;
 
     })
-      
+
     let subjectIdStore = ['01','02','03','04','05','06','07','08','09','10','11','12']
 
     _.each(subjectIdStore,(sId) => {
@@ -126,6 +124,7 @@ export const rating = (academicYear, schoolId) => {
         let subjectRating = {
             academicYear:academicYear,
             schoolId: schoolId,
+            reportPeriod: reportPeriod,
             subjectId: sId,
             reportType1: reportArray[1],
             reportType2: reportArray[2],
@@ -147,6 +146,7 @@ export const rating = (academicYear, schoolId) => {
         var sameSubjectRating = OpeRatings.findOne({
             academicYear: academicYear,
             schoolId: schoolId,
+            reportPeriod: reportPeriod,
             subjectId: sId
         })
 
@@ -157,19 +157,231 @@ export const rating = (academicYear, schoolId) => {
         }
 
     })
-    // 1 Мұғалім түсіндірген сабақ сағаты(0.1%)
-    // 2 Басқа мұғалім түсіндірген сабақ сағаты(0.1%)
-    // 3 Жасалған емтихан саны(0.25%)
-    // 4 Мұғалім мотивация программ сағаты(0.25%)
-    // 5 Мұғалімнің кандидат саны(10 сынып)(1%)
-    // 6 Мұғалімнің кандидат саны(11 сынып)(1%)
-    // 7 Жалпы Олимпиадчик оқушы саны(0.1%)
-    // 8 Область дәрежесіне жеткен оқушы саны
-    // 9 Республика дәрежесіне жеткен оқушы саны
-    // 10 Дүние дәрежесіне жеткен оқушы саны
-    // 11 Әкімшіліктің мотивация программ сағаты(2.5%)
-    // 12 Олимпиада мұғалімдерімен жиналыс сағаты(2.5%)
-    //
+
+    _.each(subjectIdStore,(sId) => {
+      let allSubjectRating = {
+          academicYear:academicYear,
+          schoolId: schoolId,
+          reportPeriod: "all",
+          subjectId: sId,
+          reportType1: 0,
+          reportType2: 0,
+          reportType3: 0,
+          reportType4: 0,
+          reportType5: 0,
+          reportType6: 0,
+          reportType7: 0,
+          reportType8: 0,
+          reportType9: 0,
+          reportType10: 0,
+          reportType11: 0,
+          reportType12: 0,
+          reportType13: 0,
+          reportType14: 0,
+          total: 0
+      }
+
+      var subjectReports = OpeRatings.find({academicYear:academicYear, schoolId:schoolId, subjectId:sId, reportPeriod: { $not: /^all.*/ } }).fetch()
+
+      if(subjectReports){
+          _.each(subjectReports,(report) => {
+
+              allSubjectRating.reportType1 += report.reportType1;
+              allSubjectRating.reportType2 += report.reportType2;
+              allSubjectRating.reportType3 += report.reportType3;
+              allSubjectRating.reportType4 += report.reportType4;
+              allSubjectRating.reportType5  = report.reportType5;
+              allSubjectRating.reportType6  = report.reportType6;
+              allSubjectRating.reportType7  = report.reportType7;
+              allSubjectRating.reportType8  = report.reportType8;
+              allSubjectRating.reportType9  = report.reportType9;
+              allSubjectRating.reportType10 = report.reportType10;
+              allSubjectRating.reportType11 += report.reportType11;
+              allSubjectRating.reportType12 += report.reportType12;
+              allSubjectRating.reportType13 += report.reportType13;
+              allSubjectRating.reportType14 += report.reportType14;
+          })
+
+          allSubjectRating.total = allSubjectRating.reportType1 * 0.1 + allSubjectRating.reportType2 * 0.1 +
+                                   allSubjectRating.reportType3 * 0.25 + allSubjectRating.reportType4 * 0.25 +
+                                   allSubjectRating.reportType5 + allSubjectRating.reportType6 +
+                                   allSubjectRating.reportType7 * 0.1 + allSubjectRating.reportType11 * 2.5 +
+                                   allSubjectRating.reportType12 * 2.5 + allSubjectRating.reportType13 * 2 +
+                                   allSubjectRating.reportType14 * 3;
+
+          var sameSubjectRating = OpeRatings.findOne({
+              academicYear: academicYear,
+              schoolId: schoolId,
+              reportPeriod: "all",
+              subjectId: sId
+          })
+
+          if (sameSubjectRating) {
+              OpeRatings.update({_id:sameSubjectRating._id},{$set:allSubjectRating})
+          } else {
+              OpeRatings.insert(allSubjectRating)
+          }
+      }
+    })
+
+
+    let totalRating = {
+        academicYear:academicYear,
+        schoolId: schoolId,
+        reportPeriod: "all",
+        subjectId: "all",
+        reportType1: 0,
+        reportType2: 0,
+        reportType3: 0,
+        reportType4: 0,
+        reportType5: 0,
+        reportType6: 0,
+        reportType7: 0,
+        reportType8: 0,
+        reportType9: 0,
+        reportType10: 0,
+        reportType11: 0,
+        reportType12: 0,
+        reportType13: 0,
+        reportType14: 0,
+        total: 0
+    }
+
+    var subjectsTotal = OpeRatings.find({academicYear:academicYear, schoolId:schoolId, reportPeriod: "all", subjectId: { $not: /^all.*/ } }).fetch()
+
+    if(subjectsTotal){
+        _.each(subjectsTotal,(subject) => {
+          totalRating.reportType1 += subject.reportType1;
+          totalRating.reportType2 += subject.reportType2;
+          totalRating.reportType3 += subject.reportType3;
+          totalRating.reportType4 += subject.reportType4;
+          totalRating.reportType5 += subject.reportType5;
+          totalRating.reportType6 += subject.reportType6;
+          totalRating.reportType7 += subject.reportType7;
+          totalRating.reportType8 += subject.reportType8;
+          totalRating.reportType9 += subject.reportType9;
+          totalRating.reportType10 += subject.reportType10;
+          totalRating.reportType11 = subject.reportType11;
+          totalRating.reportType12 = subject.reportType12;
+          totalRating.reportType13 = subject.reportType13;
+          totalRating.reportType14 = subject.reportType14;
+        })
+
+        totalRating.total = totalRating.reportType1 * 0.1 + totalRating.reportType2 * 0.1 +
+                                 totalRating.reportType3 * 0.25 + totalRating.reportType4 * 0.25 +
+                                 totalRating.reportType5 + totalRating.reportType6 +
+                                 totalRating.reportType7 * 0.1 + totalRating.reportType11 * 2.5 +
+                                 totalRating.reportType12 * 2.5 + totalRating.reportType13 * 2 +
+                                 totalRating.reportType14 * 3;
+
+         var sameTotalRating = OpeRatings.findOne({
+             academicYear: academicYear,
+             schoolId: schoolId,
+             reportPeriod: "all",
+             subjectId: "all"
+         })
+
+         if (sameTotalRating) {
+             OpeRatings.update({_id:sameTotalRating._id},{$set:totalRating})
+         } else {
+             OpeRatings.insert(totalRating)
+         }
+    }
+
+
+    let periodList = ['16.11 - 30.11','30.11 - 14.12','14.12 - 28.12','28.12 - 11.01','11.01 - 25.01','25.01 - 08.02','08.02 - 22.02','22.02 - 07.03','07.03 - 21.03','21.03 - 04.04','04.04 - 18.04','18.04 - 02.05','02.05 - 16.05','16.05 - 30.05']
+
+    _.each(periodList,(period) => {
+
+      let allPeriodRating = {
+          academicYear:academicYear,
+          schoolId: schoolId,
+          reportPeriod: period,
+          subjectId: "all",
+          reportType1: 0,
+          reportType2: 0,
+          reportType3: 0,
+          reportType4: 0,
+          reportType5: 0,
+          reportType6: 0,
+          reportType7: 0,
+          reportType8: 0,
+          reportType9: 0,
+          reportType10: 0,
+          reportType11: 0,
+          reportType12: 0,
+          reportType13: 0,
+          reportType14: 0,
+          total: 0
+      }
+
+      var periodReports = OpeRatings.find({academicYear:academicYear, schoolId:schoolId, reportPeriod:period, subjectId: { $not: /^all.*/ } }).fetch()
+
+      if(periodReports){
+          _.each(periodReports,(report) => {
+
+              allPeriodRating.reportType1 += report.reportType1;
+              allPeriodRating.reportType2 += report.reportType2;
+              allPeriodRating.reportType3 += report.reportType3;
+              allPeriodRating.reportType4 += report.reportType4;
+              allPeriodRating.reportType5 += report.reportType5;
+              allPeriodRating.reportType6 += report.reportType6;
+              allPeriodRating.reportType7 += report.reportType7;
+              allPeriodRating.reportType8 += report.reportType8;
+              allPeriodRating.reportType9 += report.reportType9;
+              allPeriodRating.reportType10 = report.reportType10;
+              allPeriodRating.reportType11 = report.reportType11;
+              allPeriodRating.reportType12 = report.reportType12;
+              allPeriodRating.reportType13 = report.reportType13;
+              allPeriodRating.reportType14 = report.reportType14;
+          })
+
+          allPeriodRating.total = allPeriodRating.reportType1 * 0.1 + allPeriodRating.reportType2 * 0.1 +
+                                   allPeriodRating.reportType3 * 0.25 + allPeriodRating.reportType4 * 0.25 +
+                                   allPeriodRating.reportType5 + allPeriodRating.reportType6 +
+                                   allPeriodRating.reportType7 * 0.1 + allPeriodRating.reportType11 * 2.5 +
+                                   allPeriodRating.reportType12 * 2.5 + allPeriodRating.reportType13 * 2 +
+                                   allPeriodRating.reportType14 * 3;
+
+          var samePeriodRating = OpeRatings.findOne({
+              academicYear: academicYear,
+              schoolId: schoolId,
+              reportPeriod: period,
+              subjectId: "all"
+          })
+
+          if (samePeriodRating) {
+              OpeRatings.update({_id:samePeriodRating._id},{$set:allPeriodRating})
+          } else {
+              OpeRatings.insert(allPeriodRating)
+          }
+      }
+    })
+}
+//end
+
+    /*
+
+          var totalRating = OpeRatings.find({ academicYear: academicYear, schoolId: schoolId }).fetch();
+          let periodList = ['16.11 - 30.11',
+                            '30.11 - 14.12',
+                            '14.12 - 28.12',
+                            '28.12 - 11.01',
+                            '11.01 - 25.01',
+                            '25.01 - 08.02',
+                            '08.02 - 22.02',
+                            '22.02 - 07.03',
+                            '07.03 - 21.03',
+                            '21.03 - 04.04',
+                            '04.04 - 18.04',
+                            '18.04 - 02.05',
+                            '02.05 - 16.05',
+                            '16.05 - 30.05']
+
+          _.each(periodList,(period) => {
+
+          })
+
     let totalOfTotal = totalReportType[1] * 0.1  +
                        totalReportType[2] * 0.1  +
                        totalReportType[3] * 0.25 +
@@ -182,10 +394,17 @@ export const rating = (academicYear, schoolId) => {
                        report13 * 2 +
                        report14 * 3;
 
+    var sameAllSchoolsRating = OpeRatings.findOne({
+        academicYear: academicYear,
+        schoolId: schoolId,
+        reportPeriod: reportPeriod
+    })
+
     let allSchoolsRating = {
         academicYear:academicYear,
         schoolId: schoolId,
-        subjectId: 'all',
+        reportPeriod: reportPeriod,
+        subjectId: "all",
         reportType1: totalReportType[1],
         reportType2: totalReportType[2],
         reportType3: totalReportType[3],
@@ -203,297 +422,75 @@ export const rating = (academicYear, schoolId) => {
         total: totalOfTotal
     }
 
-    var sameAllSchoolsRating = OpeRatings.findOne({
-        academicYear: academicYear,
-        schoolId: schoolId,
-        subjectId: 'all'
-    })
-
     if (sameAllSchoolsRating) {
         OpeRatings.update({_id:sameAllSchoolsRating._id},{$set:allSchoolsRating})
     } else {
         OpeRatings.insert(allSchoolsRating)
     }
+    console.log(totalRating);
+    */
 
-
-
-
-            /*
-            if(report.reportId == 'reportType1') {
-              totalMathReportType[1] += parseInt(report.mathematic)
-              totalPhysicsReportType[1] += parseInt(report.physics)
-              totalChemistryReportType[1] += parseInt(report.chemistry)
-
-              totalReportType[1] +=
-                  totalMathReportType[1] +
-                  totalPhysicsReportType[1] +
-                  totalChemistryReportType[1];
-            }
-
-            if(report.reportId == 'reportType2') {
-              totalMathReportType[2] += parseInt(report.mathematic)
-              totalPhysicsReportType[2] += parseInt(report.physics)
-              totalChemistryReportType[2] += parseInt(report.chemistry)
-
-              totalReportType[2] +=
-                  totalMathReportType[2] +
-                  totalPhysicsReportType[2] +
-                  totalChemistryReportType[2];
-
-            }
-
-            if(report.reportId == 'reportType3') {
-              totalMathReportType[3] += parseInt(report.mathematic)
-              totalPhysicsReportType[3] += parseInt(report.physics)
-              totalChemistryReportType[3] += parseInt(report.chemistry)
-
-              totalReportType[3] +=
-                  totalMathReportType[3] +
-                  totalPhysicsReportType[3] +
-                  totalChemistryReportType[3];
-            }
-            */
 
     /*
-
-    // if(report.reportId == 'reportType1') {
-    //   totalRating.totalMathReportType1 += parseInt(report.mathematic)
-    //   totalRating.totalPhysicsReportType1 += parseInt(report.physics)
-    //   totalRating.totalChemistryReportType1 += parseInt(report.chemistry)
-    //
-    //   totalRating.totalReportType1 +=
-    //       totalRating.totalMathReportType1 +
-    //       totalRating.totalPhysicsReportType1 +
-    //       totalRating.totalPhysicsReportType1;
-    // }
-    //
-    // if(report.reportId == 'reportType2') {
-    //   totalRating.totalMathReportType2 += parseInt(report.mathematic)
-    //   totalRating.totalPhysicsReportType2 += parseInt(report.physics)
-    //   totalRating.totalChemistryReportType2 += parseInt(report.chemistry)
-    //
-    //   totalRating.totalReportType2 +=
-    //       totalRating.totalMathReportType2 +
-    //       totalRating.totalPhysicsReportType2 +
-    //       totalRating.totalPhysicsReportType2;
-    //
-    // }
-    //
-    // if(report.reportId == 'reportType3') {
-    //   totalRating.totalMathReportType3 += parseInt(report.mathematic)
-    //   totalRating.totalPhysicsReportType3 += parseInt(report.physics)
-    //   totalRating.totalChemistryReportType3 += parseInt(report.chemistry)
-    //
-    //   totalRating.totalReportType3 +=
-    //       totalRating.totalMathReportType3 +
-    //       totalRating.totalPhysicsReportType3 +
-    //       totalRating.totalPhysicsReportType3;
-    // }
-
-    function compareNumbers(a, b) {
-      return a - b;
-    }
-
-    let totalRating = {
-        academicYear:academicYear,
+    let allSchoolsRating = {
+        academicYear: academicYear,
         schoolId: schoolId,
-        countOfStudents: 0,
-        countOfStudentTakingUbt: 0,
-        totalInProcent: 0,
-        ubt1PassedStudents: 0,
-        ubt2PassedStudents: 0,
-        ubt3PassedStudents: 0,
-        ubt4PassedStudents: 0,
-        ubt5PassedStudents: 0,
-        ubt6PassedStudents: 0,
-        ubt7PassedStudents: 0,
-        ubt8PassedStudents: 0,
-        ubt9PassedStudents: 0,
-        ubt10PassedStudents: 0,
-        ubt11PassedStudents: 0,
-        ubt12PassedStudents: 0,
-        ubt13PassedStudents: 0,
-        ubt14PassedStudents: 0,
-        ubt15PassedStudents: 0,
-        ubt16PassedStudents: 0,
-        ubt17PassedStudents: 0,
-        ubt18PassedStudents: 0,
-        ubt19PassedStudents: 0,
-        ubt20PassedStudents: 0,
-        ubt21PassedStudents: 0,
-        ubt22PassedStudents: 0,
-        ubt23PassedStudents: 0,
-        ubt24PassedStudents: 0,
-        ubt25PassedStudents: 0,
-        ubt26PassedStudents: 0,
-        ubt27PassedStudents: 0,
-        ubt28PassedStudents: 0,
-        ubt29PassedStudents: 0,
-        ubt30PassedStudents: 0,
-        ubt31PassedStudents: 0,
-        ubt32PassedStudents: 0,
-        median: 0,
-        total: 0
-    }
-
-    counter = [];
-
-    for (var i = 1; i <= 34; i++) {
-            var n = 'ubt' + i;
-            totalRating[n] = 0;
-            counter.push(0)
-        }
-
-    var counterTotal = 0;
-
-    ubtResults = UhdResults.find({academicYear:academicYear, schoolId:schoolId}).fetch()
-
-    totalRating.countOfStudents = Students.find({schoolId:schoolId, grade: '11'}).count()
-    totalRating.countOfStudentTakingUbt = ubtResults.length
-
-    var ubtPassedStudentCounters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-
-    _.each(ubtResults,(result) => {
-        for (var i = 1; i <= 34; i++) {
-            var n = 'ubt' + i;
-
-            if (parseInt(result[n]) > 0) {
-                totalRating[n] += parseInt(result[n]);
-                counter[i-1]++;
-            }else {
-                totalRating[n] += parseInt(result[n]);
-            }
-
-        }
-
-        for(var j = 1; j <= 34; j++){
-          var ubtNumber = 'ubt'+j;
-          if(parseInt(result[ubtNumber]) > 0) ubtPassedStudentCounters[j]++;
-        }
-
-    })
-
-    totalRating.ubt1PassedStudents  = ubtPassedStudentCounters[1];
-    totalRating.ubt2PassedStudents  = ubtPassedStudentCounters[2];
-    totalRating.ubt3PassedStudents  = ubtPassedStudentCounters[3];
-    totalRating.ubt4PassedStudents  = ubtPassedStudentCounters[4];
-    totalRating.ubt5PassedStudents  = ubtPassedStudentCounters[5];
-    totalRating.ubt6PassedStudents  = ubtPassedStudentCounters[6];
-    totalRating.ubt7PassedStudents  = ubtPassedStudentCounters[7];
-    totalRating.ubt8PassedStudents  = ubtPassedStudentCounters[8];
-    totalRating.ubt9PassedStudents  = ubtPassedStudentCounters[9];
-    totalRating.ubt10PassedStudents  = ubtPassedStudentCounters[10];
-    totalRating.ubt11PassedStudents  = ubtPassedStudentCounters[11];
-    totalRating.ubt12PassedStudents  = ubtPassedStudentCounters[12];
-    totalRating.ubt13PassedStudents  = ubtPassedStudentCounters[13];
-    totalRating.ubt14PassedStudents  = ubtPassedStudentCounters[14];
-    totalRating.ubt15PassedStudents  = ubtPassedStudentCounters[15];
-    totalRating.ubt16PassedStudents  = ubtPassedStudentCounters[16];
-    totalRating.ubt17PassedStudents  = ubtPassedStudentCounters[17];
-    totalRating.ubt18PassedStudents  = ubtPassedStudentCounters[18];
-    totalRating.ubt19PassedStudents  = ubtPassedStudentCounters[19];
-    totalRating.ubt20PassedStudents  = ubtPassedStudentCounters[20];
-    totalRating.ubt21PassedStudents  = ubtPassedStudentCounters[21];
-    totalRating.ubt22PassedStudents  = ubtPassedStudentCounters[22];
-    totalRating.ubt23PassedStudents  = ubtPassedStudentCounters[23];
-    totalRating.ubt24PassedStudents  = ubtPassedStudentCounters[24];
-    totalRating.ubt25PassedStudents  = ubtPassedStudentCounters[25];
-    totalRating.ubt26PassedStudents  = ubtPassedStudentCounters[26];
-    totalRating.ubt27PassedStudents  = ubtPassedStudentCounters[27];
-    totalRating.ubt28PassedStudents  = ubtPassedStudentCounters[28];
-    totalRating.ubt29PassedStudents  = ubtPassedStudentCounters[29];
-    totalRating.ubt30PassedStudents  = ubtPassedStudentCounters[30];
-    totalRating.ubt31PassedStudents  = ubtPassedStudentCounters[31];
-    totalRating.ubt32PassedStudents  = ubtPassedStudentCounters[32];
-
-    console.log("schoolId: "+schoolId);
-    console.log("ubt1 count: "+ubtPassedStudentCounters[1]);
-    console.log("ubt2 count: "+ubtPassedStudentCounters[2]);
-    console.log("ubt3 count: "+ubtPassedStudentCounters[3]);
-
-    var totalOfMediansStore = [];
-    var t = 0;
-    for (var i = 1; i <= 34; i++) {
-        var n = 'ubt' + i;
-        var medianName = 'median' + i;
-        var medianStore = [];
-        var c = 0;
-
-        _.each(ubtResults,(result) => {
-            if(result[n] > 0){
-              medianStore[c] = result[n];
-              c++;
-            }
-        })
-
-        medianStore.sort(compareNumbers)
-
-        let length = medianStore.length
-        let medianRes = 0;
-
-        if(length != 0){
-          if(length % 2 == 0){
-            medianRes = (parseInt(medianStore[parseInt(length/2)]) + parseInt(medianStore[parseInt(length/2) - 1])) / 2
-          }else{
-            medianRes = parseInt(medianStore[parseInt(length/2)])
-          }
-        }
-
-        totalRating[medianName] = medianRes;
-
-        if(medianRes!=0) {
-          totalOfMediansStore[t] = medianRes;
-          t++;
-        }
-
-    }
-
-    totalOfMediansStore.sort(compareNumbers)
-    let length = totalOfMediansStore.length
-
-    if(length != 0){
-      if(length % 2 == 0){
-        totalRating["totalMedian"] = (parseInt(totalOfMediansStore[parseInt(length/2)]) + parseInt(totalOfMediansStore[parseInt(length/2) - 1])) / 2
-      }else{
-        totalRating["totalMedian"] = parseInt(totalOfMediansStore[parseInt(length/2)])
-      }
-    }
-
-    // console.log("schoolId: "+schoolId);
-    // console.log("median: "+totalRating[medianName]);
+        reportPeriod: reportPeriod,
+        subjectId: "all",
+        reportType1: totalRating.totalReportType[1],
+        reportType2: totalReportType[2],
+        reportType3: totalReportType[3],
+        reportType4: totalReportType[4],
+        reportType5: totalReportType[5],
+        reportType6: totalReportType[6],
+        reportType7: totalReportType[7],
+        reportType8: totalReportType[8],
+        reportType9: totalReportType[9],
+        reportType10: totalReportType[10],
+        reportType11: report11,
+        reportType12: report12,
+        reportType13: report13,
+        reportType14: report14,
+        total: totalOfTotal
+    }*/
+// Must reat here
+// rating by reportPeriod i soninda gana all-ga barin kosip wigartu
 
 
-    for (var i = 1; i <= 34; i++) {
-            var n = 'ubt' + i;
 
-            if (totalRating[n] != 0) {
-                totalRating[n] = parseInt((totalRating[n] / counter[i-1]).toFixed(1))
+/*
+let totalOfTotal = (sameAllSchoolsRating.reportType1 + totalReportType[1]) * 0.1  +
+                   (sameAllSchoolsRating.reportType2 + totalReportType[2]) * 0.1  +
+                   (sameAllSchoolsRating.reportType3 + totalReportType[3]) * 0.25 +
+                   (sameAllSchoolsRating.reportType4 + totalReportType[4]) * 0.25 +
+                   totalReportType[5] +
+                   totalReportType[6] +
+                   totalReportType[7] * 0.1 +
+                   (sameAllSchoolsRating.reportType11 + report11) * 2.5 +
+                   (sameAllSchoolsRating.reportType12 + report12) * 2.5 +
+                   (sameAllSchoolsRating.reportType13 + report13) * 2 +
+                   (sameAllSchoolsRating.reportType14 + report14) * 3;
 
-                totalRating.total += parseInt(totalRating[n]);
-                counterTotal++;
-            }
-            else {
-                totalRating[n] = 0
-            }
-    }
+  let allSchoolsRating = {
+      academicYear:academicYear,
+      schoolId: schoolId,
+      subjectId: 'all',
+      reportType1: sameAllSchoolsRating.reportType1 + totalReportType[1],
+      reportType2: sameAllSchoolsRating.reportType2 + totalReportType[2],
+      reportType3: sameAllSchoolsRating.reportType3 + totalReportType[3],
+      reportType4: sameAllSchoolsRating.reportType4 + totalReportType[4],
+      reportType5: totalReportType[5],
+      reportType6: totalReportType[6],
+      reportType7: totalReportType[7],
+      reportType8: totalReportType[8],
+      reportType9: totalReportType[9],
+      reportType10: totalReportType[10],
+      reportType11: sameAllSchoolsRating.reportType11 + report11,
+      reportType12: sameAllSchoolsRating.reportType12 + report12,
+      reportType13: sameAllSchoolsRating.reportType13 + report13,
+      reportType14: sameAllSchoolsRating.reportType14 + report14,
+      total: totalOfTotal
+  }
 
-    totalRating.total = (totalRating.total / counterTotal).toFixed(1)
 
-    totalRating.total = parseFloat(totalRating.total)
-    totalRating.totalInProcent = totalRating.total * 100 / 140;
-    totalRating.totalInProcent = parseFloat(totalRating.totalInProcent)
-
-    // insert total rating to db
-    var sameSchoolRating = UhdSchoolRatings.findOne({
-        schoolId: schoolId,
-        academicYear: academicYear
-    })
-
-    if (sameSchoolRating) {
-        UhdSchoolRatings.update({_id:sameSchoolRating._id},{$set:totalRating})
-    } else {
-        UhdSchoolRatings.insert(totalRating)
-    }
-
-    */
-}
+*/

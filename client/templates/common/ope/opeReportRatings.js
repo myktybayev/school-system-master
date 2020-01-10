@@ -7,7 +7,7 @@ import XLSX from 'xlsx';
 Template.opeReportRatings.onCreated(function() {
     let template = this
     document.title = "OPE Репорт Рейтинг";
-    template.reportPeriod = new ReactiveVar('16.11 - 30.11')
+    template.reportPeriod = new ReactiveVar('all')
     template.subjectId = new ReactiveVar('all')
     template.subscribe('opes');
     template.subscribe("opeReport")
@@ -17,7 +17,7 @@ Template.opeReportRatings.onCreated(function() {
     // template.subscribe('opeReport');
 
     template.autorun(() => {
-        template.subscribe("opeReportRatingsByFilter", academicYear.get(), template.subjectId.get())
+        template.subscribe("opeReportRatingsByFilter", academicYear.get(), template.subjectId.get(), template.reportPeriod.get())
     })
 
 })
@@ -29,15 +29,46 @@ Template.opeReportRatings.helpers({
   clickedYes(){
     return !state.get('directorClickedYes')
   },
+
   results() {
+
+      var schoolStore = new Map();
+      var schoolArray = [];
+
+      let schools = Schools.find().fetch()
+      let cursorKboRatings = OpeRatings.find({},{sort: Session.get('Sort')}).fetch()
+
+      schools.forEach(school =>{
+        schoolStore.set(school.schoolId, school.shortName);
+      });
+
+      for(var i = 0; i < cursorKboRatings.length; i++){
+          schoolStore.delete(cursorKboRatings[i].schoolId);
+      }
+      schoolStore.delete("042");
+
+      for (const [key, value] of schoolStore.entries()) {
+        schoolArray.push(value)
+      }
+
+      schoolArray2 = schoolArray;
+
       return OpeRatings.find({},{sort: Session.get('Sort')})
   },
+
   schools() {
       return Schools.find({},{sort:{schoolId:1}})
+  },
+  schoolNotUploaded(){
+    return schoolArray2;
   }
 });
 
+var schoolArray2 = [];
 Template.opeReportRatings.events({
+  'change #reportPeriod'(event,template) {
+      template.reportPeriod.set(event.target.value)
+  },
 
   'change #subjectId'(event,template) {
       template.subjectId.set(event.target.value)

@@ -1,3 +1,4 @@
+import { rating } from "../../modules/ope/rating";
 
 export const upload = (academicYear, schoolId, reportPeriod, results) => {
 
@@ -45,8 +46,7 @@ export const upload = (academicYear, schoolId, reportPeriod, results) => {
 
       // OpeReports.insert(opeRecord)
 
-      let recordInDb = OpeReports.findOne({academicYear:academicYear,schoolId:schoolId,reportPeriod:reportPeriod,
-        reportName:result.report_name})
+      let recordInDb = OpeReports.findOne({academicYear:academicYear,schoolId:schoolId,reportPeriod:reportPeriod, reportName:result.report_name})
 
       if (recordInDb) {
           OpeReports.update({_id:recordInDb._id},{$set:opeRecord})
@@ -55,6 +55,8 @@ export const upload = (academicYear, schoolId, reportPeriod, results) => {
       }
 
     })
+
+    rating(academicYear, schoolId, reportPeriod);
     /*
     _.each(results,(result) => {
 

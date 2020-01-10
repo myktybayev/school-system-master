@@ -12,8 +12,8 @@ Meteor.publish('opeReportRatings',function() {
       return OpeRatings.find()
 })
 
-Meteor.publish('opeReportRatingsByFilter', function(academicYear, subjectId) {
-      return OpeRatings.find({academicYear:academicYear, subjectId:subjectId})
+Meteor.publish('opeReportRatingsByFilter', function(academicYear, subjectId, reportPeriod) {
+      return OpeRatings.find({academicYear:academicYear, subjectId:subjectId, reportPeriod:reportPeriod})
 })
 
 Meteor.publish('adminOpeResults',function(subjectId, grade) {
@@ -79,7 +79,8 @@ Meteor.publish('ketPetResults',function(academicYear,grade,examPeriod) {
 
 Meteor.publish('ketPet10Results',function(academicYear,grade,examPeriod) {
     if (this.userId) {
-        let cursor = KetPetResults.find({academicYear:academicYear, grade:grade, examPeriod:examPeriod})
+        // let cursor = KetPetResults.find({academicYear:academicYear, grade:grade, examPeriod:examPeriod})
+        let cursor = KetPetResults.find({academicYear:academicYear, grade:grade, examPeriod:examPeriod}, {sort: {total: -1}, limit: 10})
         return cursor
     }
     return this.ready()

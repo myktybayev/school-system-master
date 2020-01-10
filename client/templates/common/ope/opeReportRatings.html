@@ -7,21 +7,6 @@
                     <div class="form-inline">
                         <div class="form-group" style="margin-right: 15pt">
 
-                          <!--
-                          <label style="margin-left: 10pt;">Репорт уақыты</label>
-                          <select class="form-control" id="reportPeriod">
-                              <option value="16.11 - 30.11">Жалпы</option>
-                              <option value="16.11 - 30.11">16.11 - 30.11</option>
-                              <option value="30.11 - 14.12">30.11 - 14.12</option>
-                              <option value="14.12 - 28.12">14.12 - 28.12</option>
-                              <option value="28.12 - 11.01">28.12 - 11.01</option>
-                              <option value="11.01 - 25.01">11.01 - 25.01</option>
-                              <option value="25.01 - 08.02">25.01 - 08.02</option>
-                              <option value="08.01 - 22.02">08.01 - 22.02</option>
-                              <option value="22.02 - 07.03">22.02 - 07.03</option>
-                          </select>
-                          -->
-
                           <label>Сабақты таңдаңыз</label>
                           <select class="form-control" id="subjectId">
                               <option value="all">Жалпы</option>
@@ -39,6 +24,24 @@
                               <option value="12">Құқық</option>
                           </select>
 
+                          <label style="margin-left: 10pt;">Репорт уақыты</label>
+                          <select class="form-control" id="reportPeriod">
+                              <option value="all">Жалпы</option>
+                              <option value="16.11 - 30.11">16.11 - 30.11</option>
+                              <option value="30.11 - 14.12">30.11 - 14.12</option>
+                              <option value="14.12 - 28.12">14.12 - 28.12</option>
+                              <option value="28.12 - 11.01">28.12 - 11.01</option>
+                              <option value="11.01 - 25.01">11.01 - 25.01</option>
+                              <option value="25.01 - 08.02">25.01 - 08.02</option>
+                              <option value="08.01 - 22.02">08.02 - 22.02</option>
+                              <option value="22.02 - 07.03">22.02 - 07.03</option>
+                              <option value="07.03 - 21.03">07.03 - 21.03</option>
+                              <option value="21.03 - 04.04">21.03 - 04.04</option>
+                              <option value="04.04 - 18.04">04.04 - 18.04</option>
+                              <option value="18.04 - 02.05">18.04 - 02.05</option>
+                              <option value="02.05 - 16.05">02.05 - 16.05</option>
+                              <option value="16.05 - 30.05">16.05 - 30.05</option>
+                          </select>
                         </div>
 
                     </div>
@@ -269,6 +272,30 @@
                     </tr>
 
                 </tbody> -->
+              </table>
+            </div>
+            
+            <h4 style="text-align: center;">Енгізбеген мектептер</h4>
+            <div class="table table-responsive" id="out">
+              <table class="table table-striped  table-bordered table-hover table-condensed"  border=1 cellpadding=0 cellspacing=0 width=100%>
+
+                <thead>
+                    <tr class="bts-header" style="white-space: nowrap">
+                        <th>#</th>
+                        <th>Мектеп аты</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {{#each schoolNotUploaded}}
+                    <tr>
+                        <td>{{math @index "+" 1}}</td>
+                        <td>{{this}}</td>
+                    </tr>
+                    {{/each}}
+
+
+                </tbody>
               </table>
             </div>
 

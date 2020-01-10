@@ -14,8 +14,14 @@
                               <option value="28.12 - 11.01">28.12 - 11.01</option>
                               <option value="11.01 - 25.01">11.01 - 25.01</option>
                               <option value="25.01 - 08.02">25.01 - 08.02</option>
-                              <option value="08.01 - 22.02">08.01 - 22.02</option>
+                              <option value="08.02 - 22.02">08.02 - 22.02</option>
                               <option value="22.02 - 07.03">22.02 - 07.03</option>
+                              <option value="07.03 - 21.03">07.03 - 21.03</option>
+                              <option value="21.03 - 04.04">21.03 - 04.04</option>
+                              <option value="04.04 - 18.04">04.04 - 18.04</option>
+                              <option value="18.04 - 02.05">18.04 - 02.05</option>
+                              <option value="02.05 - 16.05">02.05 - 16.05</option>
+                              <option value="16.05 - 30.05">16.05 - 30.05</option>
                           </select>
 
                             <a style="margin-right: 15pt; margin-left: 15pt;" class="btn btn-default" id="dnload">Үлгі</a>
@@ -52,30 +58,30 @@
                 </thead>
 
                 <tbody>
-                    {{#each results}}
-                    <tr>
-                        <td class="absolute-style" style="width: 230pt; background-color: white;">{{report_name}}</td>
-                        <td  style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{mathematic}}</td>
-                        <td style="text-align: center;">{{physics}}</td>
-                        <td style="text-align: center;">{{chemistry}}</td>
-                        <td style="text-align: center;">{{biology}}</td>
-                        <td style="text-align: center;">{{english}}</td>
-                        <td style="text-align: center;">{{geography}}</td>
-                        <td style="text-align: center;">{{kazakh_history}}</td>
-                        <td style="text-align: center;">{{informatic}}</td>
-                        <td style="text-align: center;">{{kazakh_lang}}</td>
-                        <td style="text-align: center;">{{turkish_lang}}</td>
-                        <td style="text-align: center;">{{russian_lang}}</td>
-                        <td style="text-align: center;">{{huhuk}}</td>
-                    </tr>
-                    {{/each}}
                     {{#if results}}
-                    <tr>
-                        <td class="absolute-style" style="width: 230pt; height: 35pt; white-space: nowrap;">Директор растады ма?</td>
-                        <td style="padding-left: 240pt; white-space: nowrap;"><a class="btn btn-success" style="width: 50pt;" id="director_yes">Иә</a></td>
-                        {{#if clickedYes}}<td style="text-align:center" ><a class="btn btn-primary" style="width: 50pt;" id="director_no">Жоқ</a></td> {{/if}}
+                      {{#each results}}
+                      <tr>
+                          <td class="absolute-style" style="width: 230pt; background-color: white;">{{report_name}}</td>
+                          <td  style="padding-left: 240pt; white-space: nowrap; text-align:center; ">{{mathematic}}</td>
+                          <td style="text-align: center;">{{physics}}</td>
+                          <td style="text-align: center;">{{chemistry}}</td>
+                          <td style="text-align: center;">{{biology}}</td>
+                          <td style="text-align: center;">{{english}}</td>
+                          <td style="text-align: center;">{{geography}}</td>
+                          <td style="text-align: center;">{{kazakh_history}}</td>
+                          <td style="text-align: center;">{{informatic}}</td>
+                          <td style="text-align: center;">{{kazakh_lang}}</td>
+                          <td style="text-align: center;">{{turkish_lang}}</td>
+                          <td style="text-align: center;">{{russian_lang}}</td>
+                          <td style="text-align: center;">{{huhuk}}</td>
+                      </tr>
+                      {{/each}}
+                      <tr>
+                          <td class="absolute-style" style="width: 230pt; height: 35pt; white-space: nowrap;">Директор растады ма?</td>
+                          <td style="padding-left: 240pt; white-space: nowrap;"><a class="btn btn-success" style="width: 50pt;" id="director_yes">Иә</a></td>
+                          {{#if clickedYes}}<td style="text-align:center" ><a class="btn btn-primary" style="width: 50pt;" id="director_no">Жоқ</a></td> {{/if}}
 
-                    </tr>
+                      </tr>
                     {{/if}}
                 </tbody>
 
