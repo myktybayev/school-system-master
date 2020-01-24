@@ -111,7 +111,7 @@ Meteor.methods({
         }
         if (assess.event == 'outdoor_event') {
         	SchoolAssessments.remove(assess);
-        	
+
         	if (assess.scope == 'city') {
                 schoolRating.outdoor_event--;
                 schoolRating.outdoor_event_points -= 9;
@@ -120,7 +120,7 @@ Meteor.methods({
                 schoolAnnualRating.outdoor_event--;
         		schoolAnnualRating.outdoor_event_points -= 9;
         		schoolAnnualRating.total_points -= 9;
-            } 
+            }
             else if (assess.scope == 'republic') {
                 schoolRating.outdoor_event--;
                 schoolRating.outdoor_event_points -= 18;
@@ -136,7 +136,7 @@ Meteor.methods({
         }
         if (assess.event == 'admin_participate') {
         	SchoolAssessments.remove(assess);
-        	
+
         	if (assess.scope == 'vice-principal') {
                 schoolRating.admin_participate--;
                 schoolRating.admin_participate_points -= 0.5;
@@ -145,7 +145,7 @@ Meteor.methods({
                 schoolAnnualRating.admin_participate--;
         		schoolAnnualRating.admin_participate_points -= 0.5;
         		schoolAnnualRating.total_points -= 0.5;
-            } 
+            }
             else if (assess.scope == 'principal') {
                 schoolRating.admin_participate--;
                 schoolRating.admin_participate_points -= 1;
@@ -180,24 +180,24 @@ Meteor.methods({
 		                    natBronzeOlymp: 0,
 		                    natSilverOlymp: 0,
 		                    natGoldOlymp: 0,
-							natTotalOlymp: 0,
-							regJunBronzeOlymp: 0,
+												natTotalOlymp: 0,
+												regJunBronzeOlymp: 0,
 		                    regJunSilverOlymp: 0,
 		                    regJunGoldOlymp: 0,
 		                    regJunTotalOlymp: 0,
 		                    natJunBronzeOlymp: 0,
 		                    natJunSilverOlymp: 0,
 		                    natJunGoldOlymp: 0,
-		                    natJunTotalOlymp: 0, 
-							jautBronzeOlymp: 0,
+		                    natJunTotalOlymp: 0,
+												jautBronzeOlymp: 0,
 		                    jautSilverOlymp: 0,
 		                    jautGoldOlymp: 0,
-							jautTotalOlymp: 0,
-							mendBronzeOlymp: 0,
+												jautTotalOlymp: 0,
+												mendBronzeOlymp: 0,
 		                    mendSilverOlymp: 0,
 		                    mendGoldOlymp: 0,
-							mendTotalOlymp: 0,
-							aphoBronzeOlymp: 0,
+												mendTotalOlymp: 0,
+												aphoBronzeOlymp: 0,
 		                    aphoSilverOlymp: 0,
 		                    aphoGoldOlymp: 0,
 							aphoTotalOlymp: 0,
@@ -262,12 +262,12 @@ Meteor.methods({
 		                    ijsoGoldOlymp: 0,
 		                    ijsoTotalOlymp: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -299,7 +299,7 @@ Meteor.methods({
 		                    natJunBronzeOlymp: 0,
 		                    natJunSilverOlymp: 0,
 		                    natJunGoldOlymp: 0,
-		                    natJunTotalOlymp: 0, 
+		                    natJunTotalOlymp: 0,
 							jautBronzeOlymp: 0,
 		                    jautSilverOlymp: 0,
 		                    jautGoldOlymp: 0,
@@ -373,12 +373,12 @@ Meteor.methods({
 		                    ijsoGoldOlymp: 0,
 		                    ijsoTotalOlymp: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -411,7 +411,7 @@ Meteor.methods({
 		                    natJunBronzeOlymp: 0,
 		                    natJunSilverOlymp: 0,
 		                    natJunGoldOlymp: 0,
-		                    natJunTotalOlymp: 0, 
+		                    natJunTotalOlymp: 0,
 							jautBronzeOlymp: 0,
 		                    jautSilverOlymp: 0,
 		                    jautGoldOlymp: 0,
@@ -485,12 +485,12 @@ Meteor.methods({
 		                    ijsoGoldOlymp: 0,
 		                    ijsoTotalOlymp: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -500,14 +500,14 @@ Meteor.methods({
 
 		            results = OlympiadResults.find({schoolId:school.schoolId, academicYear:academicYear, subjectId:subject.subjectId, attendedFor:grade}).fetch()
 		            _.each(results,(result) => {
-		                
+
 		                if (result.olympiadType == 'science') {
 		                	if (result.olympiadRegion == 'regional') {
 		                		if (result.medal == 'bronze') {
 		                			olympiadRating.regBronzeOlymp++
 		                			olympiadTotalRating.regBronzeOlymp++
 		                			olympiadGradeTotalRating.regBronzeOlymp++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.regSilverOlymp++
 		                			olympiadTotalRating.regSilverOlymp++
@@ -520,14 +520,16 @@ Meteor.methods({
 		                		}
 		                		olympiadRating.regTotalOlymp++;
 		                		olympiadTotalRating.regTotalOlymp++
-		                		olympiadGradeTotalRating.regTotalOlymp++
-							}
-							if (result.olympiadRegion == 'regionalJunior') {
+		                		olympiadGradeTotalRating.regTotalOlymp++ // all, all
+
+
+										}
+										if (result.olympiadRegion == 'regionalJunior') {
 		                		if (result.medal == 'bronze') {
 		                			olympiadRating.regJunBronzeOlymp++
 		                			olympiadTotalRating.regJunBronzeOlymp++
 		                			olympiadGradeTotalRating.regJunBronzeOlymp++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.regJunSilverOlymp++
 		                			olympiadTotalRating.regJunSilverOlymp++
@@ -548,7 +550,7 @@ Meteor.methods({
 		                			olympiadRating.natBronzeOlymp++
 		                			olympiadTotalRating.natBronzeOlymp++
 		                			olympiadGradeTotalRating.natBronzeOlymp++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.natSilverOlymp++
 		                			olympiadTotalRating.natSilverOlymp++
@@ -563,13 +565,13 @@ Meteor.methods({
 		                		olympiadTotalRating.natTotalOlymp++
 		                		olympiadGradeTotalRating.natTotalOlymp++
 							}
-							
+
 							if (result.olympiadRegion == 'nationalJunior') {
 		                		if (result.medal == 'bronze') {
 		                			olympiadRating.natJunBronzeOlymp++
 		                			olympiadTotalRating.natJunBronzeOlymp++
 		                			olympiadGradeTotalRating.natJunBronzeOlymp++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.natJunSilverOlymp++
 		                			olympiadTotalRating.natJunSilverOlymp++
@@ -641,7 +643,7 @@ Meteor.methods({
 									olympiadRating.ijsoBronzeOlymp++
 		                			olympiadTotalRating.ijsoBronzeOlymp++
 		                			olympiadGradeTotalRating.ijsoBronzeOlymp++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.jautSilverOlymp++
 		                			olympiadTotalRating.jautSilverOlymp++
@@ -811,7 +813,7 @@ Meteor.methods({
 		                	}
 		                	c++;
 		                	cTotal++;
-		                	cGrade++; 	
+		                	cGrade++;
 		                }
 		                else {
 		                	if (result.olympiadRegion == 'regional') {
@@ -819,7 +821,7 @@ Meteor.methods({
 		                			olympiadRating.regBronzeProject++
 		                			olympiadTotalRating.regBronzeProject++
 		                			olympiadGradeTotalRating.regBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.regSilverProject++
 		                			olympiadTotalRating.regSilverProject++
@@ -840,7 +842,7 @@ Meteor.methods({
 		                			olympiadRating.natBronzeProject++
 		                			olympiadTotalRating.natBronzeProject++
 		                			olympiadGradeTotalRating.natBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.natSilverProject++
 		                			olympiadTotalRating.natSilverProject++
@@ -854,14 +856,14 @@ Meteor.methods({
 		                		olympiadRating.natTotalProject++;
 		                		olympiadTotalRating.natTotalProject++;
 		                		olympiadGradeTotalRating.natTotalProject++;
-		                	}     
+		                	}
 
 		                	if (result.olympiadRegion == 'international') {
 		                		if (result.medal == 'bronze') {
 		                			olympiadRating.interBronzeProject++
 		                			olympiadTotalRating.interBronzeProject++
 		                			olympiadGradeTotalRating.interBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.interSilverProject++
 		                			olympiadTotalRating.interSilverProject++
@@ -878,7 +880,7 @@ Meteor.methods({
 		                	}
 		                	c++;
 		                	cTotal++;
-		                	cGrade++; 
+		                	cGrade++;
 		                }
 		            })
 
@@ -903,7 +905,9 @@ Meteor.methods({
 		            		OlympiadRatings.insert(olympiadTotalRating)
 		            }
 		    })
-			
+
+			olympiadGradeTotalRating["totalPoint"] = olympiadGradeTotalRating.regGoldOlymp*4 + olympiadGradeTotalRating.regSilverOlymp*2 + olympiadGradeTotalRating.regBronzeOlymp;
+
 			let sameGradeTotalRating = OlympiadRatings.findOne({academicYear:academicYear, schoolId:school.schoolId, subjectId:'all', grade:'all'})
 
 		            if (sameGradeTotalRating) {
@@ -913,13 +917,13 @@ Meteor.methods({
 		            	if (cGrade > 0)
 		            		OlympiadRatings.insert(olympiadGradeTotalRating)
 		            }
-       		
+
        		// calculates average olympiad rating for all grades but each subject
 		    calculateTotalGradeSubjectOlymp(school.schoolId,academicYear)
 
         })
 	},
-	
+
 	"calculateJobaRating": function(academicYear) {
         schools = Schools.find().fetch()
         _.each(schools,(school) => {
@@ -939,18 +943,18 @@ Meteor.methods({
 		                    natBronzeJoba: 0,
 		                    natSilverJoba: 0,
 		                    natGoldJoba: 0,
-		                    natTotalJoba: 0, 
+		                    natTotalJoba: 0,
 		                    interBronzeJoba: 0,
 		                    interSilverJoba: 0,
 		                    interGoldJoba: 0,
 		                    interTotalJoba: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -974,18 +978,18 @@ Meteor.methods({
 		                    natBronzeJoba: 0,
 		                    natSilverJoba: 0,
 		                    natGoldJoba: 0,
-		                    natTotalJoba: 0, 
+		                    natTotalJoba: 0,
 		                    interBronzeJoba: 0,
 		                    interSilverJoba: 0,
 		                    interGoldJoba: 0,
 		                    interTotalJoba: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -1010,18 +1014,18 @@ Meteor.methods({
 		                    natBronzeJoba: 0,
 		                    natSilverJoba: 0,
 		                    natGoldJoba: 0,
-		                    natTotalJoba: 0, 
+		                    natTotalJoba: 0,
 		                    interBronzeJoba: 0,
 		                    interSilverJoba: 0,
 		                    interGoldJoba: 0,
 		                    interTotalJoba: 0,
 		                    regBronzeProject: 0,
-		                    regSilverProject: 0, 
+		                    regSilverProject: 0,
 		                    regGoldProject: 0,
 		                    regTotalProject: 0,
 		                    natBronzeProject: 0,
 		                    natSilverProject: 0,
-		                    natGoldProject: 0, 
+		                    natGoldProject: 0,
 		                    natTotalProject: 0,
 		                    interBronzeProject: 0,
 		                    interSilverProject: 0,
@@ -1031,14 +1035,14 @@ Meteor.methods({
 
 		            results = JobaResults.find({schoolId:school.schoolId, academicYear:academicYear, subjectId:subject.subjectId, attendedFor:grade}).fetch()
 		            _.each(results,(result) => {
-		                
+
 		                if (result.jobaType == 'science') {
 		                	if (result.jobaRegion == 'regional') {
 		                		if (result.medal == 'bronze') {
 		                			jobaRating.regBronzeJoba++
 		                			jobaTotalRating.regBronzeJoba++
 		                			jobaGradeTotalRating.regBronzeJoba++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			jobaRating.regSilverJoba++
 		                			jobaTotalRating.regSilverJoba++
@@ -1059,7 +1063,7 @@ Meteor.methods({
 		                			jobaRating.natBronzeJoba++
 		                			jobaTotalRating.natBronzeJoba++
 		                			jobaGradeTotalRating.natBronzeJoba++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			jobaRating.natSilverJoba++
 		                			jobaTotalRating.natSilverJoba++
@@ -1073,14 +1077,14 @@ Meteor.methods({
 		                		jobaRating.natTotalJoba++;
 		                		jobaTotalRating.natTotalJoba++
 		                		jobaGradeTotalRating.natTotalJoba++
-		                	}     
+		                	}
 
 		                	if (result.jobaRegion == 'international') {
 		                		if (result.medal == 'bronze') {
 		                			jobaRating.interBronzeJoba++
 		                			jobaTotalRating.interBronzeJoba++
 		                			jobaGradeTotalRating.interBronzeJoba++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			jobaRating.interSilverJoba++
 		                			jobaTotalRating.interSilverJoba++
@@ -1097,7 +1101,7 @@ Meteor.methods({
 		                	}
 		                	c++;
 		                	cTotal++;
-		                	cGrade++; 	
+		                	cGrade++;
 		                }
 		                else {
 		                	if (result.olympiadRegion == 'regional') {
@@ -1105,7 +1109,7 @@ Meteor.methods({
 		                			olympiadRating.regBronzeProject++
 		                			olympiadTotalRating.regBronzeProject++
 		                			olympiadGradeTotalRating.regBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.regSilverProject++
 		                			olympiadTotalRating.regSilverProject++
@@ -1126,7 +1130,7 @@ Meteor.methods({
 		                			olympiadRating.natBronzeProject++
 		                			olympiadTotalRating.natBronzeProject++
 		                			olympiadGradeTotalRating.natBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.natSilverProject++
 		                			olympiadTotalRating.natSilverProject++
@@ -1140,14 +1144,14 @@ Meteor.methods({
 		                		olympiadRating.natTotalProject++;
 		                		olympiadTotalRating.natTotalProject++;
 		                		olympiadGradeTotalRating.natTotalProject++;
-		                	}     
+		                	}
 
 		                	if (result.olympiadRegion == 'international') {
 		                		if (result.medal == 'bronze') {
 		                			olympiadRating.interBronzeProject++
 		                			olympiadTotalRating.interBronzeProject++
 		                			olympiadGradeTotalRating.interBronzeProject++
-		                		} 
+		                		}
 		                		if (result.medal == 'silver') {
 		                			olympiadRating.interSilverProject++
 		                			olympiadTotalRating.interSilverProject++
@@ -1164,7 +1168,7 @@ Meteor.methods({
 		                	}
 		                	c++;
 		                	cTotal++;
-		                	cGrade++; 
+		                	cGrade++;
 		                }
 		            })
 
@@ -1189,7 +1193,7 @@ Meteor.methods({
 		            		JobaRatings.insert(jobaTotalRating)
 		            }
 		    })
-			
+
 			let sameGradeTotalRating = JobaRatings.findOne({academicYear:academicYear, schoolId:school.schoolId, subjectId:'all', grade:'all'})
 
 		            if (sameGradeTotalRating) {
@@ -1199,7 +1203,7 @@ Meteor.methods({
 		            	if (cGrade > 0)
 		            		JobaRatings.insert(jobaGradeTotalRating)
 		            }
-       		
+
        		// calculates average olympiad rating for all grades but each subject
 		    calculateTotalGradeSubjectJoba(school.schoolId,academicYear)
 

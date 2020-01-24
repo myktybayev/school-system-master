@@ -1,6 +1,5 @@
 import { upload0 } from "../../modules/bts/upload0";
 import { calculateRating } from "../../modules/bts/rating";
-import { calcTotalRating } from "../../modules/bts/totalRating";
 
 Meteor.methods({
     'BtsResults.Upload':function(academicYear,btsNo,day,results) {
@@ -21,6 +20,7 @@ Meteor.methods({
         if (school) {
             upload0(academicYear,btsNo,day,school.schoolId,results)
             calculateRating(academicYear,btsNo,day,school.schoolId)
+            
         }
 
     },

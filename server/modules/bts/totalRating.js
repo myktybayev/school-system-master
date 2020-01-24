@@ -26,7 +26,7 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
 
     _.each(grades,(grade) => {
 
-      let records = BtsResults.find({academicYear:academicYear, schoolId: schoolId, grade: grade}).fetch()
+      let records = BtsResults.find({academicYear:academicYear, btsNo: btsNo, schoolId: schoolId, grade: grade}).fetch()
       let totalPoint = pointsDict[grade];
       let sumOfPoints = 0;
       let countOfStudents = records.length;
@@ -41,16 +41,16 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
 
       if(grade == '7'){
         grade7AveAndStudentCount[0] = countOfStudents
-        grade7AveAndStudentCount[1] = res
+        grade7AveAndStudentCount[1] = res?res:0;
       }else if(grade == '8'){
         grade8AveAndStudentCount[0] = countOfStudents
-        grade8AveAndStudentCount[1] = res
+        grade8AveAndStudentCount[1] = res?res:0;
       }else if(grade == '9'){
         grade9AveAndStudentCount[0] = countOfStudents
-        grade9AveAndStudentCount[1] = res
+        grade9AveAndStudentCount[1] = res?res:0;
       }else if(grade == '10'){
         grade10AveAndStudentCount[0] = countOfStudents
-        grade10AveAndStudentCount[1] = res
+        grade10AveAndStudentCount[1] = res?res:0;
       }
 
       // console.log("grade: "+grade);
@@ -72,9 +72,9 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
           btsNo: btsNo,
           grade: grade
       })
-
+      
       if (!sameRating){
-          BtsRatings.insert(ratingObj)
+          BtsRatings.insert(totalRatingObj)
       }else {
           BtsRatings.update({_id:sameRating._id}, {$set: totalRatingObj})
       }
@@ -97,7 +97,7 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
                     grade9AveAndStudentCount[0]*grade9AveAndStudentCount[1]+
                     grade10AveAndStudentCount[0]*grade10AveAndStudentCount[1];
 
-                    
+
     let totalOfSchool2 = sumOfPoint / allStudentsCount;
 
     console.log("allStudentsCount: "+allStudentsCount);
@@ -122,7 +122,7 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
     })
 
     if (!sameRating){
-        BtsRatings.insert(ratingObj)
+        BtsRatings.insert(totalRatingObj)
     }else {
         BtsRatings.update({_id:sameRating._id}, {$set: totalRatingObj})
     }

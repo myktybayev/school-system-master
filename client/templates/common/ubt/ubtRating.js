@@ -7,10 +7,11 @@ import XLSX from 'xlsx';
 
 Template.ubtRating.onCreated(function(){
     let template = this
-
     document.title = "ҰБТ Рейтинг";
     template.subscribe("schools")
     template.subscribe("Configs")
+    template.subscribe("uhdResults", academicYear.get())
+
     template.autorun(()=>{
         template.subscribe("uhdSchoolRatings",academicYear.get())
     })
@@ -61,7 +62,7 @@ Template.ubtRating.helpers({
 })
 
 Template.ubtRating.events({
-  
+
   "click #export"(event,template) {
     const html = document.getElementById('out').innerHTML;
 

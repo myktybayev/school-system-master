@@ -1,33 +1,41 @@
-<template name="schoolMenu1">
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid" style="margin-right: 15pt; margin-left: 15pt">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+<template name="schoolMenu2">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header" >
+          <button type="button" class= "navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
           </button>
+          <!-- <div id="logo" class="wow pulse"><a  style="color: white" href="index.php">КОМПЛЕКСНЫЕ СИСТЕМЫ БЕЗОПАСНОСТИ</a></div> -->
         </div>
 
-        <!-- <div id="navbar" class="navbar-collapse collapse"> -->
-
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <div class="row">
+        <!-- <nav className="navbar-collapse collapse" id="responsine-menu" > -->
+        <div class="navbar-collapse collapse" id="responsine-menu" >
           <ul class="nav navbar-nav">
             <li class=""><a href="/"><span class="glyphicon glyphicon-home"> </span> Басты бет</a></li>
+
+
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user">
-              </span> Оқушы<span class="caret"></span></a>
+
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user">
+                </span> Students<span class="caret"></span></a>
+
               <ul class="dropdown-menu">
                 <li><a href="/school/students">Оқушылар тізімі</a></li>
                 <li role="separator" class="divider"></li>
-                <!-- <li class="dropdown-header">Оқушы тіркеу</li> -->
                 <li><a href="/school/student/add">Жаңа оқушылар жүктеу</a></li>
                 <li><a href="/school/students/transfer">Трансфер тізімі</a></li>
                 <li><a href="/school/students/graduate">Түлектер</a></li>
               </ul>
+
             </li>
+
+
+
+
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-briefcase"></span> Мұғалім<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -223,9 +231,8 @@
             <li><a href="/school/profile"><span class="glyphicon glyphicon-cog"></span> Баптаулар</a></li>
             <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Шығу</a></li>
           </ul>
-
         </div>
-        </nav><!--/.nav-collapse -->
       </div>
+
     </nav>
 </template>

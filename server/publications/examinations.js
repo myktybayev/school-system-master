@@ -125,6 +125,14 @@ Meteor.publish('turkishAllResults',function(academicYear,grade) {
     return this.ready()
 })
 
+Meteor.publish('btsRatingAll',function(academicYear) {
+    if (this.userId) {
+        let cursor = BtsRatings.find({academicYear:academicYear})
+        return cursor
+    }
+    return this.ready()
+})
+
 
 Meteor.publish('btsRating',function(academicYear,grade,btsNo) {
     if (this.userId) {

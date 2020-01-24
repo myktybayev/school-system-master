@@ -1,26 +1,27 @@
-import { calculateRating } from "../../modules/bts/rating";
 import { recheck } from "../../modules/bts/recheck";
 import { calculateObj } from "../../modules/bts/calculateObj"
 import { calcTotalRating } from "../../modules/bts/totalRating"
+import { calculateReRating } from "../../modules/bts/reRating"
 
 
 Meteor.methods({
 
-    'BtsResults.calcTotalRating':function(academicYear) {
-        let btsNo = "1"
-        let btsRatings = BtsRatings.find({academicYear: academicYear, grade: "all"}).fetch()
-        
+    'BtsResults.calcTotalRating':function(academicYear, btsNo) {
+        // let btsNo = "2"
+        let btsRatings = BtsRatings.find({academicYear: academicYear, btsNo:btsNo, grade: "all"}).fetch()
+
         _.each(btsRatings,(btsRating) => {
           calcTotalRating(academicYear, btsRating.schoolId, btsNo)
         })
+    },
 
-        // let school = Schools.findOne({
-        //     userId: this.userId
-        // })
-        //
-        // if (school) {
-        //     calcTotalRating(academicYear,btsNo,day,school.schoolId)
-        // }
+    'BtsResults.calcSubjectRating':function(academicYear, btsNo) {
+        let schools = BtsRatings.find({academicYear:academicYear, btsNo:btsNo, grade: "all"}).fetch()
+        console.log('calculateReRating');
+        _.each(schools,(school) => {
+            calculateRating(academicYear,btsNo,school.schoolId,school.grade)
+
+        })
     },
 
     "BtsAnswerKeys.Insert": function (answerKeys) {

@@ -102,7 +102,7 @@ export const calculateReRating = (academicYear,btsNo,schoolId) => {
                   firstDayTotal += (record.day_1_total || 0)
                 }
             })
-
+            
         }else if(ratingObj.grade == '8' || ratingObj.grade == '9'){
             _.each(records,(record) => {
 
@@ -602,7 +602,7 @@ export const calculateReRating = (academicYear,btsNo,schoolId) => {
             // russianTotal += gradeRating.russian_lang;
             // russianCount++;
     })
-      
+
       totalRating.mathematic     /= (mathematicCount|| 1);
       totalRating.mathematicA    /= (mathematicCount|| 1);
       totalRating.mathematicB    /= (mathematicCount|| 1);

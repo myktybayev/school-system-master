@@ -41,6 +41,11 @@ Template.kboRating.helpers({
         for(var i = 0; i < cursorKboRatings.length; i++){
             schoolStore.delete(cursorKboRatings[i].schoolId);
         }
+
+        schoolStore.delete("033");
+        schoolStore.delete("028");
+        schoolStore.delete("032");
+        schoolStore.delete("041");
         schoolStore.delete("042");
 
         for (const [key, value] of schoolStore.entries()) {
@@ -166,9 +171,6 @@ Template.kboRating.events({
     },
     'click #sortKaz'(event,template) {
         Session.set('Sort',{'07':-1});
-    },
-    'click #sortKazRus'(event,template) {
-        Session.set('Sort',{'09':-1});
     },
     'click #sortTurkish'(event,template) {
         Session.set('Sort',{'10':-1});

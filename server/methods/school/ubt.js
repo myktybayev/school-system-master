@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { upload } from "../../modules/ubt/upload";
 import { calculateRating } from "../../modules/ubt/rating";
+import { ubtResultsAverageCalc } from "../../modules/ubt/ubtResultsAverageCalc";
 import XLSX from 'xlsx';
 
 Meteor.methods({
@@ -21,7 +22,7 @@ Meteor.methods({
 
         if (school) {
             upload(academicYear,school.schoolId,results)
-            calculateRating(academicYear,school.schoolId)
+            // calculateRating(academicYear,school.schoolId)
         }
   },
 
@@ -39,7 +40,7 @@ Meteor.methods({
         });
 
 				schoolStore.forEach(schoolId =>{
-          calculateRating(academicYear, schoolId)
+          ubtResultsAverageCalc(academicYear, schoolId)
         });
   }
 });

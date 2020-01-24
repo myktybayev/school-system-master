@@ -9,7 +9,7 @@ Template.olympiadsRating.onCreated(function() {
     template.subject = new ReactiveVar("all")
     template.grade = new ReactiveVar("all")
     template.schoolId_select = new ReactiveVar("")
-    
+
     template.subscribe('schools')
     template.subscribe('subjects')
     template.subscribe('olympiads')
@@ -32,7 +32,7 @@ Template.olympiadsRating.helpers({
         let subject = new RegExp(Template.instance().subject.get())
         let grade = new RegExp(Template.instance().grade.get())
         let schoolId_select = new RegExp(Template.instance().schoolId_select.get())
-        
+
         return OlympiadRatings.find({
             schoolId: schoolId_select,
             subjectId: subject,
@@ -117,4 +117,3 @@ Template.olympiadsRating.events({
         Session.set('Sort',{natJunTotalOlymp:-1});
     },
 })
-

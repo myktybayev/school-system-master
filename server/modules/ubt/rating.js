@@ -81,7 +81,6 @@ export const calculateRating = (academicYear,schoolId) => {
           var ubtNumber = 'ubt'+j;
           if(parseInt(result[ubtNumber]) > 0) ubtPassedStudentCounters[j]++;
         }
-
     })
 
     totalRating.ubt1PassedStudents  = ubtPassedStudentCounters[1];
@@ -155,7 +154,6 @@ export const calculateRating = (academicYear,schoolId) => {
           totalOfMediansStore[t] = medianRes;
           t++;
         }
-
     }
 
     totalOfMediansStore.sort(compareNumbers)
@@ -186,6 +184,59 @@ export const calculateRating = (academicYear,schoolId) => {
                 totalRating[n] = 0
             }
     }
+
+    // standard deviation start
+
+
+    for (var i = 1; i <= 34; i++) {
+        var n = 'ubt' + i;
+        console.log(n);
+        var sum = 0;
+
+        _.each(ubtResults,(result) => {
+
+          if(result[n]!=0){
+            var absAve = Math.abs(parseInt(totalRating[n])-parseInt(result[n]))
+
+            sum += parseInt(absAve)*parseInt(absAve);
+            // console.log(parseInt(absAve)*parseInt(absAve));
+          }
+
+        })
+
+        var variance = sum/(ubtPassedStudentCounters[i]-1)
+        var standarDev = Math.sqrt(variance)
+
+        totalRating["standarDev"+i] = standarDev
+
+        // console.log("average");
+        // console.log(totalRating[n]);
+        //
+        // console.log("count");
+        // console.log(ubtPassedStudentCounters[i]);
+        //
+        // console.log("variance");
+        // console.log(variance);
+        //
+        // console.log("standarDev");
+        // console.log(standarDev);
+
+        /*
+        console.log(result);
+        console.log(result["ubt1"]);
+        if(result["ubt1"]!=0){
+          var absAve = Math.abs(parseInt(totalRating["ubt1"])-parseInt(result["ubt1"]))
+
+
+          sum += parseInt(absAve)*parseInt(absAve);
+          console.log(parseInt(absAve)*parseInt(absAve));
+        }
+        */
+    }
+
+    // standard deviation end
+
+
     // countOfStudentTakingUbt
     // ubtPassedStudentCounters
     var c = 0;

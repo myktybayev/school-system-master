@@ -341,7 +341,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
             }
             else if (secondDayCounter != 0) {
-                  console.log("ratingObj.grade == '8' || ratingObj.grade == '9' || secondDayCounter != 0");
 
                   ratingObj.geography = (ratingObj.geography / secondDayCounter)
                   ratingObj.geographyA = (ratingObj.geographyA / secondDayCounter)
@@ -383,7 +382,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
             }
             else if (secondDayCounter != 0) {
-                  console.log("ratingObj.grade == '8' || ratingObj.grade == '9' || secondDayCounter != 0");
 
                   ratingObj.geography = (ratingObj.geography / secondDayCounter)
                   ratingObj.geographyA = (ratingObj.geographyA / secondDayCounter)
@@ -411,7 +409,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
         else if(ratingObj.grade == '10'){
           if (firstDayCounter != 0) {
 
-              console.log("ratingObj.grade == '10' firstDayCounter != 0");
               ratingObj.mathematic = (ratingObj.mathematic / firstDayCounter)
               ratingObj.mathematicA = (ratingObj.mathematicA / firstDayCounter)
               ratingObj.mathematicB = (ratingObj.mathematicB / firstDayCounter)
@@ -482,7 +479,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
     if(day == '1'){
         grades = gradesFirstDay;
-        console.log("gradesFirstDay");
 
         totalRating = {
             academicYear:academicYear,
@@ -526,7 +522,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
     }else{
         grades = gradesSecondDay;
-        console.log("gradesSecondDay");
 
         totalRating = {
             academicYear:academicYear,
@@ -596,7 +591,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
         }
         else if(grade == '8' || grade == '9'){
             if(day == '1'){
-                console.log("8 or 9 grade day 1");
                 totalRating.mathematic += (gradeRating.mathematic || 0)
                 totalRating.mathematicA += (gradeRating.mathematicA || 0)
                 totalRating.mathematicB += (gradeRating.mathematicB || 0)
@@ -615,7 +609,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
             }
             if(day == '2'){
-              console.log("8 or 9 grade day 2");
               totalRating.geography += (gradeRating.geography || 0)
               totalRating.geographyA += (gradeRating.geographyA || 0)
               totalRating.geographyB += (gradeRating.geographyB || 0)
@@ -692,7 +685,6 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
 
     if(day == '1'){
 
-      console.log("totalRating day 1");
       totalRating.mathematic     /= (mathematicCount|| 1);
       totalRating.mathematicA    /= (mathematicCount|| 1);
       totalRating.mathematicB    /= (mathematicCount|| 1);
@@ -728,17 +720,18 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
       totalRating.biologyA /= (biologyCount || 1);
       totalRating.biologyB /= (biologyCount || 1);
 
-      totalRating.total = totalRating.mathematic + totalRating.turkish_lang + totalRating.russian_lang + totalRating.kazakh_history +    totalRating.world_history +     totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology +    totalRating.kazakh_lang;
-      totalRating.total_1_day = totalRating.total
-      totalRating.totalInProcent = 999;
+      // totalRating.total = totalRating.mathematic + totalRating.turkish_lang + totalRating.russian_lang + totalRating.kazakh_history +    totalRating.world_history +     totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology +    totalRating.kazakh_lang;
+      // totalRating.total_1_day = totalRating.total
+      // totalRating.totalInProcent = 999;
 
       /*
 
 
       */
 
-    }else if(day == '2'){
-      console.log("totalRating day 2");
+    }
+
+    else if(day == '2'){
       totalRating.geography /= (geographyCount || 1);
       totalRating.geographyA /= (geographyCount || 1);
       totalRating.geographyB /= (geographyCount || 1);
@@ -753,9 +746,8 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
       totalRating.biologyB /= (biologyCount || 1);
 
       // total_1_day = totalRating.mathematic + totalRating.turkish_lang + totalRating.kazakh_lang + totalRating.kazakh_history;
-      console.log("sameSchoolRating2['total_1_day'] "+ sameSchoolRating2["total_1_day"]);
-      totalRating.total =  sameSchoolRating2["total_1_day"] // + totalRating.geography +    totalRating.physics +    totalRating.chemistry +    totalRating.biology;
 
+      // totalRating.total =  (sameSchoolRating2["total_1_day"] || 0)
       totalRating.totalInProcent = 888;
     }
 
@@ -770,26 +762,8 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
     if (sameSchoolRating) {
         BtsRatings.update({_id:sameSchoolRating._id},{$set:totalRating})
     } else {
-        console.log("rating insert");
         BtsRatings.insert(totalRating)
     }
 
     console.log("================================================================");
 }
-
-
-    // console.log("mathTotal: "+mathTotal);
-    // // let mathTotalProcent = 100 * mathTotal / (mathCount * 20);
-    // let mathTotalProcent = mathTotal / mathCount;
-    // console.log("mathTotalProcent: "+mathTotalProcent);
-    //
-    // console.log("turkishCount: "+turkishCount);
-    // console.log("turkishTotal: "+turkishTotal);
-    // // let tTotalProcent = 100 * turkishTotal / (turkishCount * 20);
-    // let tTotalProcent = turkishTotal / turkishCount;
-    // console.log("tTotalProcent: "+tTotalProcent);
-    //
-    // console.log("russianCount: "+russianCount);
-    // console.log("russianTotal: "+russianTotal);
-    // // let rTotalProcent = 100 * russianTotal / (russianCount * 20);
-    // let rTotalProcent = russianTotal / russianCount;

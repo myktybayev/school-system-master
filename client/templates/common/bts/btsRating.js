@@ -10,6 +10,7 @@ Template.btsRating.onCreated(function(){
     document.title = "БТС Рейтинг";
     template.grade = new ReactiveVar("all")
     template.subscribe("schools")
+    // template.subscribe("btsRatingAll",academicYear.get())
     template.autorun(()=>{
         template.subscribe("btsRating",academicYear.get(),template.grade.get(),FlowRouter.getParam("btsNo"))
     })
@@ -38,6 +39,12 @@ Template.btsRating.helpers({
         for(var i = 0; i < cursorKboRatings.length; i++){
             schoolStore.delete(cursorKboRatings[i].schoolId);
         }
+
+        schoolStore.delete("033");
+        schoolStore.delete("028");
+        schoolStore.delete("032");
+        schoolStore.delete("041");
+        schoolStore.delete("042");
         // schoolStore.delete("042");
 
         for (const [key, value] of schoolStore.entries()) {

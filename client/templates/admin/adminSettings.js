@@ -4,6 +4,7 @@ import './adminSettings.html';
 Template.adminSettings.onCreated(function() {
     let template = this
     template.reportPeriod = new ReactiveVar('16.11 - 30.11')
+    document.title = "Баптаулар";
     template.subscribe('subjects')
     template.subscribe('schools')
     template.subscribe("configs")
@@ -53,8 +54,9 @@ Template.adminSettings.events({
           }
       });
     },
-      
+
     "click #reCalc"() {
+          SUIBlock.block('Саналуда...');
           Meteor.call("UbtResults.reCalcRating", academicYear.get(),function (err) {
               if (err) {
                   bootbox.alert(err.reason);
@@ -77,8 +79,61 @@ Template.adminSettings.events({
         })
     },
 
-    'click #reCalcTotalRating'(event,template) {
-      Meteor.call("BtsResults.calcTotalRating", academicYear.get(), function (err) {
+    'click #reCalcTotalRating1'(event,template) {
+      SUIBlock.block('Саналуда...');
+      Meteor.call("BtsResults.calcTotalRating", academicYear.get(),"1", function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Сақталды")
+          }
+      });
+    },
+
+    'click #reCalcSubjectRating2'(event,template) {
+      SUIBlock.block('Саналуда...');
+      Meteor.call("BtsResults.calcSubjectRating", academicYear.get(), "2", function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Сақталды")
+          }
+      });
+    },
+
+
+    'click #reCalcTotalRating2'(event,template) {
+      SUIBlock.block('Саналуда...');
+      Meteor.call("BtsResults.calcTotalRating", academicYear.get(),"2", function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Сақталды")
+          }
+      });
+    },
+
+    'click #reCalcTotalRating3'(event,template) {
+      SUIBlock.block('Саналуда...');
+      Meteor.call("BtsResults.calcTotalRating", academicYear.get(),"3", function (err) {
+          if (err) {
+              alert(err.reason)
+              SUIBlock.unblock();
+          } else {
+              SUIBlock.unblock();
+              alert("Сақталды")
+          }
+      });
+    },
+    'click #reCalcTotalRating4'(event,template) {
+      SUIBlock.block('Саналуда...');
+      Meteor.call("BtsResults.calcTotalRating", academicYear.get(), "4", function (err) {
           if (err) {
               alert(err.reason)
               SUIBlock.unblock();

@@ -36,10 +36,6 @@ Template.btsUpload.events({
           // window.location.reload();
         }else {
             SUIBlock.block('Жүктелуде...');
-
-            // console.log("BTS No: "+template.btsNo.get());
-            // console.log("BTS day: "+template.day.get());
-
             Meteor.call("BtsResults.Upload",academicYear.get(),template.btsNo.get(),template.day.get(),template.results.get(),function (err) {
                 if (err) {
                     alert(err.reason)
@@ -62,7 +58,7 @@ Template.btsUpload.events({
     },
     "change #file"(event,template) {
         let btsNo = Template.instance().btsNo.get()
-        let day = Template.instance().day.get()
+        let dayNo = Template.instance().day.get()
 
         function handleFiles(files) {
             // Check for the various File API support.
@@ -102,27 +98,42 @@ Template.btsUpload.events({
                       isValid: true
                   }
 
-                  let variant = BtsAnswerKeys.findOne({variant: studObj.variant, academicYear:academicYear.get()});
+                  let variant = BtsAnswerKeys.findOne({variant: studObj.variant, quarter:btsNo, day:dayNo, academicYear:academicYear.get()});
                   let student = Students.findOne({studentId: parseInt(studObj.studentId)})
+
+                  // console.log("dayNo");
+                  // console.log(dayNo);
+                  //
+                  // console.log("=================");
+                  // console.log("btsNo");
+                  // console.log(btsNo);
+                  // console.log("variant.quarter");
+                  // console.log(variant.quarter);
+                  //
+                  // console.log("=================");
+                  // console.log("student.grade");
+                  // console.log(student.grade);
+                  // console.log("variant.grade");
+                  // console.log(variant.grade);
+                  // console.log("=================");
 
                   if (!student) {
                       studObj.isValid = false
                       template.errors.set(true)
                       alert("Келесі окушының id нөмірі дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
                   }
-                  
+
                   else if (!variant || btsNo != variant.quarter || student.grade != variant.grade) {
                       studObj.isValid = false
                       template.errors.set(true)
-                      alert("Келесі окушының варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
+                      alert("Окушының БТС номері, таңдалға күн немесе варианты дұрыс емес \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
 
-                  }else if (!variant || btsNo != variant.quarter || (student.grade == 10 &&
-                     !student.electiveGroup)) {
+                  }else if (!variant || btsNo != variant.quarter || (student.grade == 10 && !student.electiveGroup)) {
                       studObj.isValid = false
                       template.errors.set(true)
                       alert("Келесі окушының БТС сабақтары таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)
 
-                  }else if (variant.day != day) {
+                  }else if (variant.day != dayNo) {
                       studObj.isValid = false
                       template.errors.set(true)
                       alert("Келесі окушыға күн дұрыс таңдалмады \n" + studObj.studentId + " " + studObj.name + " " + studObj.surname)

@@ -1,9 +1,9 @@
 <template name="olympiadRegionResults">
     <div class="row">
         <div class="col-md-12">
-        <h4 style="margin-bottom: 15pt">Облыстық олимпиада нәтижелері</h4>
+        <h4 style="text-align: center; padding-bottom: 15pt">Облыстық олимпиада нәтижелері</h4>
             <div class="form-group">
-                <div class="form-inline" style="padding-bottom: 10pt">   
+                <div class="form-inline" style="padding-bottom: 10pt">
                     <div class="form-group" style="margin-right: 10pt">
                         {{> academicYear}}
                     </div>
@@ -16,7 +16,8 @@
                         {{/each}}
                         </select>
                     </div>
-                    <div style="float: right;" class="btn btn-primary" id='window' data-toggle="tooltip" title="Ақпарат қосу"><span class="glyphicon glyphicon-chevron-down"></span>
+                    <div style="float: right;" class="btn btn-primary" id='window' data-toggle="tooltip" title="Ақпарат қосу">
+                      <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
                 {{#if clickedButton}}
@@ -62,11 +63,11 @@
                             </div>
                             <div style="float: right;vertical-align:10pt" class="btn btn-success" id='save'>Қосу</div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 {{/if}}
             </div>
-        </div>      
+        </div>
 
     {{#if Template.subscriptionsReady}}
         <div class="col-md-12">
@@ -152,7 +153,7 @@
                             </select>
                         </td>
                         <td><a class="btn btn-danger" id="delete" style="float: right;">Өшіру</a></td>
-                        
+
                     </tr>
                     {{/each}}
                 </tbody>

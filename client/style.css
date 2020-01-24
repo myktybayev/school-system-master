@@ -73,19 +73,24 @@ span.drop-icon {
   .navbar-default .navbar-toggle .icon-bar {
 
   }
-  .navbar-default .navbar-nav .dropdown-menu > li > a {
-    color: red;
 
+  .dropdown:hover >.dropdown-menu{
+    display: block;
+  }
+  .header{
+    height: 60px;
+    background-color: DarkSlateGrey;
+  }
+
+  .navbar-default .navbar-nav .dropdown-menu > li > a {
+    color: black;
     border-radius: 4px;
     margin-top: 2px;
   }
    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
      color: #333;
    }
-   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-
-   }
+  
 
    .navbar-nav .open .dropdown-menu {
      border-bottom: 1px solid white;

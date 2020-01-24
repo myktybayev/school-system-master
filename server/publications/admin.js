@@ -9,6 +9,15 @@ Meteor.publish('opeAdminReports', function(academicYear, schoolId, reportPeriod)
     return this.ready()
 })
 
+Meteor.publish('ubtAdminResults',function(academicYear, schoolId) {
+    if (this.userId) {
+        let cursor = UhdResults.find({academicYear:academicYear,schoolId:schoolId})
+        return cursor
+    } else {
+        return this.ready()
+    }
+})
+
 Meteor.publish('btsKeys', function(academicYear, quarter){
 	if (this.userId) {
 		return BtsAnswerKeys.find({academicYear:academicYear,quarter:quarter})

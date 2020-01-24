@@ -1,19 +1,17 @@
+export const ubtResultsAverageCalc = (academicYear,schoolId) => {
 
-export const upload = (academicYear,schoolId,results) => {
-    _.each(results,(studentObj) => {
-        let student = Students.findOne({studentId:parseInt(studentObj.studentId)});
+    let ubtResults = UhdResults.find({academicYear:academicYear, schoolId:schoolId}).fetch()
 
-        if (!student || student.schoolId != schoolId){
-            return;
-        }
+    //---------------------------------------------
+    _.each(ubtResults,(studentObj) => {
 
         let studentRecord = {
             academicYear: academicYear,
-            studentId: student.studentId,
+            studentId: studentObj.studentId,
             schoolId: schoolId,
-            name: student.name,
-            surname: student.surname,
-            grade: student.grade + student.division,
+            name: studentObj.name,
+            surname: studentObj.surname,
+            grade: studentObj.grade,
             total: 0,
         }
 
@@ -34,7 +32,7 @@ export const upload = (academicYear,schoolId,results) => {
         studentRecord.total = (totalPoints / totalAmount || 0).toFixed(1)
         studentRecord.total = parseFloat(studentRecord.total)
 
-        let recordInDb = UhdResults.findOne({academicYear:academicYear,studentId:student.studentId,schoolId:schoolId})
+        let recordInDb = UhdResults.findOne({academicYear:academicYear,studentId:studentObj.studentId,schoolId:schoolId})
 
         if (recordInDb) {
             UhdResults.update({_id:recordInDb._id},{$set:studentRecord})
@@ -42,4 +40,6 @@ export const upload = (academicYear,schoolId,results) => {
             UhdResults.insert(studentRecord)
         }
     })
+
+    //---------------------------------------------
 }

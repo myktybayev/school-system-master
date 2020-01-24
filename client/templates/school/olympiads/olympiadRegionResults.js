@@ -5,13 +5,13 @@ import './olympiadRegionResults.html';
 Template.olympiadRegionResults.onCreated(function() {
     let template = this
     template.subject = new ReactiveVar("")
-
+    document.title = "Облыстық олимпиада нәтижелері"
     template.state = new ReactiveVar('unclicked')
     template.olympiadToChoose = new ReactiveVar("")
     template.subjectToChoose = new ReactiveVar("")
     template.studentToChoose = new ReactiveVar("")
     template.grade = new ReactiveVar("")
-    
+
     template.subscribe('students')
     template.subscribe('teachers')
     template.subscribe('schools')
@@ -49,7 +49,7 @@ Template.olympiadRegionResults.helpers({
     },
     results() {
         let subject = new RegExp(Template.instance().subject.get())
-        
+
         return OlympiadResults.find({
             olympiadType:'science',
             subjectId:subject,
@@ -91,7 +91,7 @@ Template.olympiadRegionResults.events({
         template.subjectToChoose.set(template.find('[name=subjectToChoose]').value)
         template.studentToChoose.set(template.find('[name=studentToChoose]').value)
         template.grade.set(template.find('[name=grade]').value)
-        
+
         let subject = FlowRouter.getParam('_id')
         let olympiadToChoose = FlowRouter.getParam('_id')
         let subjectToChoose = FlowRouter.getParam('_id')
@@ -176,4 +176,3 @@ Template.olympiadRegionResults.events({
 Template.olympiadRegionResults.onRendered(function() {
     this.$('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
 });
-

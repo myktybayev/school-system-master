@@ -165,10 +165,6 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
                 studentRecord["biologyB"] = checkB(parseAnswerKey(answerKey.biology), studentObj.keys.slice(300,400), parseLevelKey(levelKey.biology));
 
                 studentRecord["day_2_total"] = studentRecord["geography"] + studentRecord["physics"] + studentRecord["chemistry"] + studentRecord["biology"]
-                studentRecord["total"] += studentRecord["day_2_total"]
-
-
-                studentRecord["day_2_total"] = studentRecord["geography"] + studentRecord["physics"] + studentRecord["chemistry"] + studentRecord["biology"]
                 studentRecord["day_2_total_A"] = studentRecord["geographyA"] + studentRecord["physicsA"] + studentRecord["chemistryA"] + studentRecord["biologyA"]
                 studentRecord["day_2_total_B"] = studentRecord["geographyB"] + studentRecord["physicsB"] + studentRecord["chemistryB"] + studentRecord["biologyB"]
 
@@ -181,7 +177,6 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
           case '10':
             console.log("grade: 10");
             if (day == '1'){
-              console.log("day 1");
 
               studentRecord["mathematic"]   = check(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100))
               studentRecord["mathematicA"]  = checkA(parseAnswerKey(answerKey.mathematic), studentObj.keys.slice(0,100),parseLevelKey(levelKey.mathematic))
@@ -202,7 +197,6 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
               let electiveGroupId = studentRecord["electiveGroup"];
 
               if(electiveGroupId == "01"){ //География - Физика
-                console.log("electiveGroupId 01");
 
                 studentRecord["geography"] = check(parseAnswerKey(answerKey.geography), studentObj.keys.slice(300,400))
                 studentRecord["geographyA"] = checkA(parseAnswerKey(answerKey.geography), studentObj.keys.slice(300,400),parseLevelKey(levelKey.geography))
@@ -314,9 +308,7 @@ export const upload0 = (academicYear,btsNo,day,schoolId,results) => {
             break;
         }
 
-        // console.log(studentRecord);
-
-        let recordInDb = BtsResults.findOne({academicYear:academicYear,btsNo:btsNo,studentId:student.studentId,schoolId:schoolId})
+        let recordInDb = BtsResults.findOne({academicYear:academicYear, btsNo:btsNo, studentId:student.studentId, schoolId:schoolId})
 
         if (recordInDb) {
             if (day == 1) {

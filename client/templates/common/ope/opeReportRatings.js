@@ -45,7 +45,6 @@ Template.opeReportRatings.helpers({
       for(var i = 0; i < cursorKboRatings.length; i++){
           schoolStore.delete(cursorKboRatings[i].schoolId);
       }
-      schoolStore.delete("042");
 
       for (const [key, value] of schoolStore.entries()) {
         schoolArray.push(value)
