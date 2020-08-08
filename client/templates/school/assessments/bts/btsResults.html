@@ -34,18 +34,19 @@
                         <th class="absolute-style" style="width: 50pt;  margin-left: 69pt;">Сынып</th>
                         <th class="absolute-style" style="width: 80pt;  margin-left: 109pt;">Аты</th>
                         <th class="absolute-style" style="width: 80pt;  margin-left: 180pt;">Жөні</th>
-                        <th style="white-space: nowrap; padding-left: 262pt;">Жалпы</th>
-                        <th>Математика</th>
+                        <th style="white-space: nowrap; padding-left: 262pt; text-align: center;">Республика бойынша орны</th>
+                        <th style="white-space: nowrap;" id="sortTotal">Жалпы</th>
+                        <th id="sortMath">Математика</th>
 
                         {{#if grade7 }}
                           {{#if btsNo1_or_2 }}
-                            <th>Қазақ тілі</th>
-                            <th>Түрік тілі</th>
-                            <th>Орыс тілі</th>
+                            <th id="sortKazakh">Қазақ тілі</th>
+                            <th id="sortTur">Түрік тілі</th>
+                            <th id="sortRus">Орыс тілі</th>
                           {{else}}
-                            <th>Физика</th>
-                            <th>Химия</th>
-                            <th>Биология</th>
+                            <th id="sortPhysics">Физика</th>
+                            <th id="sortChemistry">Химия</th>
+                            <th id="sortBio">Биология</th>
                           {{/if}}
                           <!-- <th>Ағылшын тілі</th>
                           <th>Қазақ әдебиеті</th>
@@ -58,23 +59,23 @@
                           <th>География</th> -->
                         {{else}}
                           {{#if grade8_or_9 }}
-                            <th>Қазақ тілі</th>
-                            <th>Түрік тілі</th>
-                            <th>Қазақстан тарихы</th>
-                            <th>География</th>
-                            <th>Физика</th>
-                            <th>Химия</th>
-                            <th>Биология</th>
+                            <th id="sortKazakh">Қазақ тілі</th>
+                            <th id="sortTur">Түрік тілі</th>
+                            <th id="sortHistory">Қазақстан тарихы</th>
+                            <th id="sortGeography">География</th>
+                            <th id="sortPhysics">Физика</th>
+                            <th id="sortChemistry">Химия</th>
+                            <th id="sortBio">Биология</th>
 
                             {{else}} <!-- 10 grade -->
                               {{#if grade10 }}
-                                <th>Қазақ тілі</th>
-                                <th>Қазақстан тарихы</th>
-                                <th>География</th>
-                                <th>Физика</th>
-                                <th>Химия</th>
-                                <th>Биология</th>
-                                <th>Дүние тарихы</th>
+                                <th id="sortKazakh">Қазақ тілі</th>
+                                <th id="sortHistory">Қазақстан тарихы</th>
+                                <th id="sortGeography">География</th>
+                                <th id="sortPhysics">Физика</th>
+                                <th id="sortChemistry">Химия</th>
+                                <th id="sortBio">Биология</th>
+                                <th id="sortPhysics">Дүние тарихы</th>
                               {{/if}}
                           {{/if}}
                         {{/if}}
@@ -88,7 +89,8 @@
                         <td class="absolute-style" style="width: 50pt;  margin-left: 69pt; ">{{grade}}{{division}}</td>
                         <td class="absolute-style" style="width: 80pt;  margin-left: 109pt;">{{name}}</td>
                         <td class="absolute-style" style="width: 80pt;  margin-left: 180pt;">{{surname}}</td>
-                        <td class="center" style="white-space: nowrap; padding-left: 262pt;">{{total}}</td>
+                        <td class="center" style="white-space: nowrap; padding-left: 262pt;">{{place}}</td>
+                        <td class="center" style="white-space: nowrap;">{{total}}</td>
                         <td class="center">{{mathematic}}</td>
 
                         {{#if grade7 }}

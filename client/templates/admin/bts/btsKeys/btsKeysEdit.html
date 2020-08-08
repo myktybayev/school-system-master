@@ -13,21 +13,86 @@
 
             {{#if btsNo1_or_2 keys.quarter}}
 
+
 							<div class="form-group">
 								<label for="name">Математика</label>
 								<input type="text" class="form-control" name="mathematic" value="{{keys.mathematic}}">
+
+								<thead>
+									<tr class="bts-header" style="white-space: nowrap">
+										{{#each mathKeysStore}}
+											<th style="text-align: center">{{math @index "+" 1}}</th>
+										{{/each}}
+									</tr>
+								</thead>
+
+								<tbody>
+										<tr>
+											{{#each mathKeysStore}}
+													<td><input type="text" class="form-control" id="mathematic{{math @index '+' 1}}" value="{{this}}"></td>
+											{{/each}}
+										</tr>
+								</tbody>
+
 							</div>
 							<div class="form-group">
 							    <label for="name">Қазақ тілі</label>
 							    <input type="text" class="form-control" name="kazakh_lang" value="{{keys.kazakh_lang}}">
+
+									<thead>
+										<tr class="bts-header" style="white-space: nowrap">
+											{{#each kazakhKeysStore}}
+												<th style="text-align: center">{{math @index "+" 1}}</th>
+											{{/each}}
+										</tr>
+									</thead>
+
+									<tbody>
+											<tr>
+												{{#each kazakhKeysStore}}
+														<td><input type="text" class="form-control" id="kazakh_lang{{math @index '+' 1}}" value="{{this}}"></td>
+												{{/each}}
+											</tr>
+									</tbody>
 							</div>
 							<div class="form-group">
 						      <label for="name">Түрік тілі</label>
 						      <input type="text" class="form-control" name="turkish_lang" value="{{keys.turkish_lang}}">
+									<thead>
+										<tr class="bts-header" style="white-space: nowrap">
+											{{#each turkishKeysStore}}
+												<th style="text-align: center">{{math @index "+" 1}}</th>
+											{{/each}}
+										</tr>
+									</thead>
+
+									<tbody>
+											<tr>
+												{{#each turkishKeysStore}}
+														<td><input type="text" class="form-control" id="turkish_lang{{math @index '+' 1}}" value="{{this}}"></td>
+												{{/each}}
+											</tr>
+									</tbody>
 						  </div>
 							<div class="form-group">
 						      <label for="name">Орыс тілі</label>
 						      <input type="text" class="form-control" name="russian_lang" value="{{keys.russian_lang}}">
+									<thead>
+										<tr class="bts-header" style="white-space: nowrap">
+											{{#each russianKeysStore}}
+												<th style="text-align: center">{{math @index "+" 1}}</th>
+											{{/each}}
+										</tr>
+									</thead>
+
+									<tbody>
+											<tr>
+												{{#each russianKeysStore}}
+														<td><input type="text" class="form-control" id="russian_lang{{math @index '+' 1}}" value="{{this}}"></td>
+												{{/each}}
+											</tr>
+									</tbody>
+
 						  </div>
             {{else}} <!-- BTS No 3-->
 							<div class="form-group">
@@ -61,10 +126,45 @@
 								<div class="form-group">
 									<label for="name">Математика</label>
 									<input type="text" class="form-control" name="mathematic" value="{{keys.mathematic}}">
+
+									<thead>
+										<tr class="bts-header" style="white-space: nowrap">
+											{{#each mathKeysStore}}
+												<th style="text-align: center">{{math @index "+" 1}}</th>
+											{{/each}}
+										</tr>
+									</thead>
+
+									<tbody>
+											<tr>
+												{{#each mathKeysStore}}
+														<td><input type="text" class="form-control" id="mathematic{{math @index '+' 1}}" value="{{this}}"></td>
+												{{/each}}
+											</tr>
+									</tbody>
+									<button style="margin-top: 10pt" class="btn btn-primary" id="saveMath">Save Math</button>
+
 								</div>
 								<div class="form-group">
 								    <label for="name">Қазақ тілі</label>
 								    <input type="text" class="form-control" name="kazakh_lang" value="{{keys.kazakh_lang}}">
+
+										<thead>
+											<tr class="bts-header" style="white-space: nowrap">
+												{{#each kazakhKeysStore}}
+													<th style="text-align: center">{{math @index "+" 1}}</th>
+												{{/each}}
+											</tr>
+										</thead>
+
+										<tbody>
+												<tr>
+													{{#each kazakhKeysStore}}
+															<td><input type="text" class="form-control" id="kazakh_lang{{math @index '+' 1}}" value="{{this}}"></td>
+													{{/each}}
+												</tr>
+										</tbody>
+
 								</div>
 								<div class="form-group">
 							      <label for="name">Түрік тілі</label>
@@ -142,6 +242,7 @@
           {{/if}}
         {{/if}}
 
+			<button class="btn btn-primary" id="saveKeys">Save Keys</button>
       <button class="btn btn-primary" id="save">Сақтау</button>
       {{else}}
       <p>Loading...</p>

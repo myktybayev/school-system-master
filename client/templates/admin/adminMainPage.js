@@ -8,6 +8,7 @@ Template.adminMainPage.onCreated(function() {
     document.title = "Басты бет";
     template.subscribe('subjects')
     template.subscribe('schools')
+    template.subscribe('userList')
     template.autorun(()=>{
         template.subscribe('allSchoolPerformaRatings', academicYear.get())
     })
@@ -25,6 +26,9 @@ Template.adminMainPage.helpers({
     },
     schools() {
         return Schools.find({},{sort:{schoolId:1}})
+    },
+    isEdlight() {
+        return Roles.userIsInRole(Meteor.userId(),['edlight'])
     },
 });
 

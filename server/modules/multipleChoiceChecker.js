@@ -187,7 +187,7 @@ export const check = (ansKeys,studentKeys) => {
 
         let stKeys=studentKeys.slice(i*5,i*5+5)
         stKeys = stKeys.replace(/\s/g,'').split("")
-
+        
         let p=0
         let sum=0
 

@@ -7,6 +7,7 @@ Meteor.publish('allTeachers',function() {
 Meteor.publish('teachers', function(){
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         if(school) {
             let cursor = Teachers.find({schoolId:school.schoolId})
             return cursor
@@ -35,6 +36,7 @@ Meteor.publish("transferTeachers",function() {
 Meteor.publish("teacherPerformaRating",function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         cursor = TeacherPerformaRating.find({academicYear:academicYear,schoolId:school.schoolId})
         return cursor
     } else {
@@ -53,6 +55,7 @@ Meteor.publish("teacherGeneralPerformaRating",function(academicYear,quarter) {
 Meteor.publish("teacherAssessments",function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         cursor = TeacherAssessments.find({academicYear:academicYear,schoolId:school.schoolId})
         return cursor
     } else {

@@ -1,9 +1,14 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Meteor } from 'meteor/meteor';
+
 import './settings.html';
 Template.schoolSettings.onCreated(function() {
     let template = this
     template.subscribe("subjects")
+    template.subscribe("configs")
+    // template.subscribe("userList")
+    template.subscribe("schools")
 })
 
 Template.schoolSettings.events({
@@ -19,9 +24,21 @@ Template.schoolSettings.events({
                     alert(err.reason)
                 } else {
                     alert("Құпиясөз өзгертілді")
+
+                    let school = Schools.findOne({userId: Meteor.userId()})
+
+                    Meteor.call("updateSchoolPassword", school, newp,function(err) {
+                        if (err) {
+                            alert(err.reason)
+                        } else {
+                          console.log('good job');
+                        }
+                    })
+
                 }
             })
         }
+
     },
     "click #upgrade"(event,template) {
         event.preventDefault()

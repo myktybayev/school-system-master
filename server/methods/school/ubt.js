@@ -12,7 +12,9 @@ Meteor.methods({
 
 	'UbtResults.Upload':function(academicYear,results) {
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+		if(!Roles.userIsInRole(this.userId,'school') &&
+				!Roles.userIsInRole(this.userId,'schoolCoordinator'))
+
             throw new Meteor.Error('access-denied', 'Access denied!')
 
 
@@ -40,7 +42,8 @@ Meteor.methods({
         });
 
 				schoolStore.forEach(schoolId =>{
-          ubtResultsAverageCalc(academicYear, schoolId)
+          calculateRating(academicYear, schoolId)
+					// ubtResultsAverageCalc(academicYear, schoolId)
         });
   }
 });

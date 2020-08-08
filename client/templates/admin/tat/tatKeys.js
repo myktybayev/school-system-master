@@ -39,9 +39,9 @@ Template.tatKeys.events({
             tatNo: template.find("[name=tatNo]").value,
             variant: template.find("[name=variant]").value,
             subjectId: template.find("[name=subjectId]").value,
-            keys: template.find("[name=keys]").value,
+            keys: template.find("[name=keys]").value.replace(/\s/g,''),
         }
-
+        console.log(answerKey);
         Meteor.call("TatAnswerKeys.Insert",answerKey,function(err) {
             if (err) {
                 alert(err.reason)

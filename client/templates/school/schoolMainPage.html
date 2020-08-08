@@ -21,7 +21,9 @@
     <div class="col-md-12">
         {{#each school}}
         <h4 style="text-align: center; padding-bottom: 20pt">Қош келдіңіздер!</h4>
-        <h4 style="text-align: center; padding-bottom: 20pt">{{schoolName schoolId}}</h4>
+        <h4 style="text-align: center; padding-bottom: 20pt">{{schoolName schoolId}} {{#if isSchoolCoordinator}}<br>(Мектеп Жауаптылары){{/if}}
+
+        </h4>
         {{/each}}
 
         <div class="col-md-10">

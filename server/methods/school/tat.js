@@ -9,9 +9,10 @@ Meteor.methods({
         if (tat[tatNo] == 'disabled')
             throw new Meteor.Error('upload-disabled', 'TAT жүктеу жабық.Өтініш, IT Department-ке хабарласыңыз.')
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') && !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             throw new Meteor.Error('access-denied', 'Access denied!')
 
+        // upload(academicYear,tatNo,'040',rows)
 
         let school = Schools.findOne({
             userId: this.userId

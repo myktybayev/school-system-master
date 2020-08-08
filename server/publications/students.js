@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor'
 Meteor.publish('students', function(){
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         if(school) {
             let cursor = Students.find({schoolId:school.schoolId, grade: { $in: [ "6","7","8","9","10","11"] }}) //$in: [ "7","8","9","10","11"]
             return cursor

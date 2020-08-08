@@ -45,7 +45,6 @@ Template.btsRating.helpers({
         schoolStore.delete("032");
         schoolStore.delete("041");
         schoolStore.delete("042");
-        // schoolStore.delete("042");
 
         for (const [key, value] of schoolStore.entries()) {
           // console.log(key);
@@ -55,7 +54,7 @@ Template.btsRating.helpers({
         schoolArray2 = schoolArray;
         console.log(schoolArray2);
 
-        return BtsRatings.find({schoolId: {$nin: ['004']}},{sort: Session.get('Sort')});
+        return BtsRatings.find({},{sort: Session.get('Sort')});
     },
     schoolNotUploaded(){
       return schoolArray2;
@@ -73,6 +72,21 @@ Template.btsRating.helpers({
         return "10" == Template.instance().grade.get()
     }
 })
+
+
+var sortMathematic = -1;
+var sortPhysics = -1;
+var sortChemistry = -1;
+var sortBio = -1;
+
+var sortHistory = -1;
+var sortKazakh = -1;
+var sortTur = -1;
+var sortRus = -1;
+var sortHistory = -1;
+var sortGeography = -1;
+var sortWorldHistory = -1;
+var sortTotal = -1;
 
 Template.btsRating.events({
     "change #select"(event,template) {
@@ -92,10 +106,11 @@ Template.btsRating.events({
           selectedLesson = lessons[parseInt(template.grade.get()) - 7]
       }
 
-      var headers = ["#", "Оқу жылы", "Мектеп аты",
-      "Жалпы", "Физика", "Химия", "Биология", "Ағылшын тілі",
-      "Қазақ тілі", "Қазақ әдебиеті", "Орыс тілі", "Алгебра", "Геометрия",
-      "Информатика", "Жалпы тарих", "Тарих", "География"];
+      var headers = ["#", "Оқу жылы", "Мектеп аты", "Жалпы",
+      "Математика", "Қазақ тілі",       "Түрік тілі",
+      "Орыс тілі",  "Қазақcтан тарихы", "Дүние тарихы",
+      "География",  "Физика",           "Химия",        "Биология"];
+
 
       data.push(headers);
       var btsStore = BtsRatings.find({},{sort:Session.get('Sort')}).fetch();
@@ -105,36 +120,32 @@ Template.btsRating.events({
       for(var i = 0; i < btsStore.length; i++){
         let idN = i+1;
         let mektepAty  = Schools.findOne({schoolId: btsStore[i].schoolId}) ? Schools.findOne({schoolId: btsStore[i].schoolId}).shortName : undefined;
-        let total = btsStore[i].total.toFixed(2);
-        let physics = btsStore[i].physics.toFixed(2);
-        let chemistry = btsStore[i].chemistry.toFixed(2);
-        let biology = btsStore[i].biology.toFixed(2);
-        let english = btsStore[i].english.toFixed(2);
-        let kazakh = btsStore[i].kazakh.toFixed(2);
-        let kazakh_literature = btsStore[i].kazakh_literature ? btsStore[i].kazakh_literature.toFixed(2) : 0;
-        let russian = btsStore[i].russian.toFixed(2);
-        let algebra = btsStore[i].algebra.toFixed(2);
-        let geometry = btsStore[i].geometry.toFixed(2);
-        let computer = btsStore[i].computer.toFixed(2);
-        let world_history = btsStore[i].world_history.toFixed(2);
-        let kazakh_history = btsStore[i].kazakh_history.toFixed(2);
-        let geography = btsStore[i].geography.toFixed(2);
+        let total = btsStore[i].total?btsStore[i].total.toFixed(2):0;
+        let mathematic = btsStore[i].mathematic?btsStore[i].mathematic.toFixed(2):0;
+        let kazakh_lang = btsStore[i].kazakh_lang?btsStore[i].kazakh_lang.toFixed(2):0;
+        let turkish_lang = btsStore[i].turkish_lang?btsStore[i].turkish_lang.toFixed(2):0;
+        let russian_lang = btsStore[i].russian_lang?btsStore[i].russian_lang.toFixed(2):0;
+        let kazakh_history = btsStore[i].kazakh_history?btsStore[i].kazakh_history.toFixed(2):0;
+        let world_history = btsStore[i].world_history?btsStore[i].world_history.toFixed(2):0;
+        let geography = btsStore[i].geography?btsStore[i].geography.toFixed(2):0;
+        let physics = btsStore[i].physics?btsStore[i].physics.toFixed(2):0;
+        let chemistry = btsStore[i].chemistry?btsStore[i].chemistry.toFixed(2):0;
+        let biology = btsStore[i].biology?btsStore[i].biology.toFixed(2):0;
+
 
         let content = [idN, okuJyly, mektepAty,
           total,
+          mathematic,
+          kazakh_lang,
+          turkish_lang,
+          russian_lang,
+          kazakh_history,
+          world_history,
+          geography,
           physics,
           chemistry,
-          biology,
-          english,
-          kazakh,
-          kazakh_literature,
-          russian,
-          algebra,
-          geometry,
-          computer,
-          world_history,
-          kazakh_history,
-          geography];
+          biology
+        ];
 
         data.push(content);
       }
@@ -154,39 +165,47 @@ Template.btsRating.events({
     },
 
     'click #sortMath'(event,template) {
-        Session.set('Sort',{mathematic:-1});
+        sortMathematic *= (-1)
+        Session.set('Sort',{mathematic:sortMathematic});
     },
     'click #sortPhysics'(event,template) {
-        Session.set('Sort',{physics:-1});
+        sortPhysics *= (-1)
+        Session.set('Sort',{physics:sortPhysics});
     },
     'click #sortChemistry'(event,template) {
-        Session.set('Sort',{chemistry:-1});
+        sortChemistry *= (-1)
+        Session.set('Sort',{chemistry:sortChemistry});
     },
     'click #sortBio'(event,template) {
-        Session.set('Sort',{biology:-1});
-    },
-
-
-
-    'click #sortKazakh'(event,template) {
-        Session.set('Sort',{kazakh_lang:-1});
-    },
-    'click #sortTur'(event,template) {
-        Session.set('Sort',{turkish_lang:-1});
-    },
-    'click #sortRus'(event,template) {
-        Session.set('Sort',{russian_lang:-1});
+        sortBio *= (-1)
+        Session.set('Sort',{biology:sortBio});
     },
     'click #sortHistory'(event,template) {
-        Session.set('Sort',{world_history:-1});
+        sortHistory *= (-1)
+        Session.set('Sort',{kazakh_history:sortHistory});
+    },
+    'click #sortKazakh'(event,template) {
+        sortKazakh *= (-1)
+        Session.set('Sort',{kazakh_lang:sortKazakh});
+    },
+    'click #sortTur'(event,template) {
+        sortTur *= (-1)
+        Session.set('Sort',{turkish_lang:sortTur});
+    },
+    'click #sortRus'(event,template) {
+        sortRus *= (-1)
+        Session.set('Sort',{russian_lang:sortRus});
     },
     'click #sortGeography'(event,template) {
-        Session.set('Sort',{geography:-1});
+        sortGeography *= (-1)
+        Session.set('Sort',{geography:sortGeography});
     },
-    'click #sortWorlHistory'(event,template) {
-        Session.set('Sort',{world_history:-1});
+    'click #sortWorldHistory'(event,template) {
+        sortWorldHistory *= (-1)
+        Session.set('Sort',{world_history:sortWorldHistory});
     },
     'click #sortTotal'(event,template) {
-        Session.set('Sort',{total:-1});
+        sortTotal *= (-1)
+        Session.set('Sort',{total:sortTotal});
     },
 })

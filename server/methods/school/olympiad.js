@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 Meteor.methods({
     "Student.addOlympiadResult": function(academicYear, studentObj) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let school = Schools.findOne({userId:this.userId})
 
             let student = Students.findOne({studentId:parseInt(studentObj.studentId)})
@@ -13,17 +14,18 @@ Meteor.methods({
                 studentObj.surname = student.surname;
 
                 let sameStudent = OlympiadResults.findOne({studentId:studentObj.studentId,academicYear:studentObj.academicYear,olympiadRegion:studentObj.olympiadRegion, olympiadId:studentObj.olympiadId})
-                
+
                 if (sameStudent) {
                     throw new Meteor.Error('Duplicate error','The result already exists')
-                }    
+                }
                 OlympiadResults.insert(studentObj)
             }
         }
     },
 
     "Student.deleteOlympiadResult": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = OlympiadResults.findOne({_id:student_id})
             if(student) {
                 OlympiadResults.remove({_id:student_id})
@@ -37,7 +39,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+          if(!Roles.userIsInRole(this.userId,'school') &&
+                !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = OlympiadResults.findOne({_id:id})
         if(student) {
@@ -50,7 +53,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') &&
+            !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = OlympiadResults.findOne({_id:id})
         if(student) {
@@ -63,7 +67,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') &&
+            !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = OlympiadResults.findOne({_id:id})
         if(student) {
@@ -76,8 +81,10 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') &&
+            !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
+
         let student = OlympiadResults.findOne({_id:id})
         if(student) {
             student.absolutePlace = val
@@ -86,7 +93,8 @@ Meteor.methods({
     },
 
     "Student.editTeacher": function(student_id,teacherId) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = OlympiadResults.findOne({_id:student_id})
             let teacher = Teachers.findOne({teacherId:parseInt(teacherId)})
             if (student) {

@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 Meteor.methods({
     "Student.addJobaResult": function(academicYear, studentObj) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        
+        if(Roles.userIsInRole(this.userId,'school') ||
+              Roles.userIsInRole(this.userId,'schoolCoordinator')) {
             let school = Schools.findOne({userId:this.userId})
 
             let student = Students.findOne({studentId:parseInt(studentObj.studentId)})
@@ -13,17 +15,19 @@ Meteor.methods({
                 studentObj.surname = student.surname;
 
                 let sameStudent = JobaResults.findOne({studentId:studentObj.studentId,academicYear:studentObj.academicYear,jobaRegion:studentObj.jobaRegion, jobaId:studentObj.jobaId})
-                
+
                 if (sameStudent) {
                     throw new Meteor.Error('Duplicate error','The result already exists')
-                }    
+                }
                 JobaResults.insert(studentObj)
             }
         }
     },
 
     "Student.deleteJobaResult": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+
+      if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = JobaResults.findOne({_id:student_id})
             if(student) {
                 JobaResults.remove({_id:student_id})
@@ -37,7 +41,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') ||
+              !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = JobaResults.findOne({_id:id})
         if(student) {
@@ -50,7 +55,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') ||
+            !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = JobaResults.findOne({_id:id})
         if(student) {
@@ -63,7 +69,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') ||
+              !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = JobaResults.findOne({_id:id})
         if(student) {
@@ -76,7 +83,8 @@ Meteor.methods({
         if (!this.userId)
             return
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+        if(!Roles.userIsInRole(this.userId,'school') ||
+            !Roles.userIsInRole(this.userId,'schoolCoordinator'))
             return
         let student = JobaResults.findOne({_id:id})
         if(student) {
@@ -86,7 +94,8 @@ Meteor.methods({
     },
 
     "Student.editTeacherJoba": function(student_id,teacherId) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+              Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = JobaResults.findOne({_id:student_id})
             let teacher = Teachers.findOne({teacherId:parseInt(teacherId)})
             if (student) {

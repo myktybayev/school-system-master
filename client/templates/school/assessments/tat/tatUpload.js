@@ -31,6 +31,7 @@ Template.tatUpload.events({
                     template.results.set([])
                     SUIBlock.unblock();
                     alert("Сақталды")
+                    FlowRouter.redirect('/school/tat/results/'+template.tatNo.get())
                 }
             })
             return
@@ -88,14 +89,14 @@ Template.tatUpload.events({
                     alert("Келесі мұғалімнің варианты дұрыс емес \n" + teacherObj.teacherId + " " + teacherObj.name + " " + teacherObj.surname + " " + teacherObj.variant)
                     console.log(variant)
                 }
-                
+
                 let teacher = Teachers.findOne({teacherId: parseInt(teacherObj.teacherId)});
                 if (!teacher) {
                     teacherObj.isValid = false
                     template.errors.set(true)
                     alert("Келесі мұғалімнің id нөмірі дұрыс емес \n" + teacherObj.teacherId + " " + teacherObj.name + " " + teacherObj.surname)
                 }
-
+                
                 if (variant.subjectId != teacher.subjectId) {
                     teacherObj.isValid = false
                     template.errors.set(true)

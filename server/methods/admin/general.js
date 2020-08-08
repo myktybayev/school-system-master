@@ -1,13 +1,206 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-    resetSchoolPassword(schoolId) {
+    "resetSchoolPassword": function(schoolId, passwordTxt) {
+        let school = Schools.findOne({schoolId: schoolId})
+        if (school) {
+            Accounts.setPassword(school.userId, passwordTxt)
+
+            var schoolAccounts = {
+                schoolAccount: 'school'+schoolId,
+                schoolPassword: passwordTxt
+
+                // coordinatorsPassword:
+                // coordinatorsAccount:
+            }
+
+            Schools.update({_id:school._id}, {$set: schoolAccounts})
+
+        }
+    },
+
+    "resetGuestSchoolPassword": function(schoolId, passwordTxt) {
+        let school = GuestSchools.findOne({schoolId: schoolId})
+        if (school) {
+            Accounts.setPassword(school.userId, passwordTxt)
+
+            var schoolAccounts = {
+                schoolAccount: 'gSchool'+schoolId,
+                schoolPassword: passwordTxt
+            }
+
+            GuestSchools.update({_id:school._id}, {$set: schoolAccounts})
+
+        }
+    },
+
+    "addGuestSchool": function(schoolObj) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+            let school = schoolObj
+
+            let newUserData = {
+                username: "gSchool" + school.schoolId,
+                password: "gSchool" + school.schoolId
+            };
+
+            let userId = Accounts.createUser(newUserData);
+
+            Roles.addUsersToRoles(userId,['guestSchool'])
+            school.userId = userId
+            GuestSchools.insert(school)
+            console.log("guest school added:" + school.shortName)
+
+        }
+    },
+
+    "resetSchoolCoordinatorPassword": function(schoolId, passwordTxt) {
         //adminRequired()
         let school = Schools.findOne({schoolId: schoolId})
         if (school) {
-            Accounts.setPassword(school.userId,'school'+school.schoolId)
+            Accounts.setPassword(school.coordinatorId, passwordTxt)
+
+            var schoolAccounts = {
+                coordinatorAccount: 'school'+schoolId+"c",
+                coordinatorPassword: passwordTxt
+            }
+
+            Schools.update({_id:school._id}, {$set: schoolAccounts})
+
         }
     },
+
+    "addSchoolCoordinatorPassword": function(schoolId, passwordTxt) {
+        //adminRequired()
+        let school = Schools.findOne({schoolId: schoolId})
+        console.log('addSchoolCoordinatorPassword');
+
+        if(school && Roles.userIsInRole(this.userId,'admin')) {
+            let emailAddress = 'school'+schoolId+"c"
+
+            let newUserData = {
+                username: emailAddress,
+                password: passwordTxt
+            };
+
+            let userId = Accounts.createUser(newUserData);
+            Roles.addUsersToRoles(userId,['schoolCoordinator'])
+
+            var schoolAccounts = {
+                coordinatorId: userId,
+                coordinatorAccount: 'school'+schoolId+"c",
+                coordinatorPassword: passwordTxt
+            }
+
+            Schools.update({_id:school._id}, {$set: schoolAccounts})
+        }
+    },
+
+    "addAdminPassword": function(passwordTxt) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+
+            let emailAddress = "admin"
+            console.log('addAdminPassword');
+            let newUserData = {
+                username: emailAddress,
+                password: passwordTxt
+            };
+
+            let userId = Accounts.createUser(newUserData);
+            Roles.addUsersToRoles(userId,['admin'])
+
+            let newConf = {
+              "_id" : "accounts",
+              "adminUserId": userId,
+              "adminAccount": emailAddress,
+              "adminPassword": passwordTxt
+            }
+
+            var sameRating = Configs.findOne({
+                "_id" : "accounts",
+            })
+
+            if (!sameRating){
+                Configs.insert(newConf)
+            }else {
+                Configs.update({_id:sameRating._id}, {$set: newConf})
+            }
+        }
+    },
+
+    "editAdminPassword": function(passwordTxt) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+            let emailAddress = "admin"
+
+            var configAccounts = Configs.findOne({"_id" : "accounts"})
+            Accounts.setPassword(configAccounts.adminUserId, passwordTxt)
+            Accounts.setPassword('oyQTYpvHLosuaJcp3', passwordTxt)
+
+            let newConf = {
+              "_id" : "accounts",
+              "adminAccount": emailAddress,
+              "adminPassword": passwordTxt
+            }
+            Configs.update({_id:"accounts"}, {$set: newConf})
+
+        }
+    },
+
+    "addEdlightPassword": function(passwordTxt) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+            let emailAddress = "edlight"
+
+            let newUserData = {
+                username: emailAddress,
+                password: passwordTxt
+            };
+
+            let userId = Accounts.createUser(newUserData);
+            Roles.addUsersToRoles(userId,['edlight'])
+
+            let newConf = {
+              "_id" : "accounts",
+              "edlightUserId": userId,
+              "edlightAccount": emailAddress,
+              "edlightPassword": passwordTxt
+            }
+
+            var sameRating = Configs.findOne({
+                "_id" : "accounts",
+            })
+
+            if (!sameRating){
+                Configs.insert(newConf)
+            }else {
+                Configs.update({_id:sameRating._id}, {$set: newConf})
+            }
+        }
+    },
+
+    "editEdlightPassword": function(passwordTxt) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+            let emailAddress = "edlight"
+
+            var configAccounts = Configs.findOne({"_id" : "accounts"})
+            Accounts.setPassword(configAccounts.edlightUserId, passwordTxt)
+
+            let newConf = {
+              "_id" : "accounts",
+              "edlightAccount": emailAddress,
+              "edlightPassword": passwordTxt
+            }
+            Configs.update({_id:"accounts"}, {$set: newConf})
+
+        }
+    },
+
+    resetSchoolTjoPassword(schoolId) {
+        //adminRequired()
+        let school = SchoolsTjo.findOne({schoolId: schoolId})
+        if (school) {
+            Accounts.setPassword(school.userId,'school'+school.schoolId+'t')
+        }
+    },
+
     editConfig: function(id,num,val) {
         if (!this.userId)
             return
@@ -58,6 +251,22 @@ Meteor.methods({
     }
 */
 
+    "addNewTJO": function(schoolObj) {
+        if(Roles.userIsInRole(this.userId,'admin')) {
+            let school = schoolObj
+
+            let newUserData = {
+                username: "school" + school.schoolId+"t",
+                password: "school" + school.schoolId+"t"
+            };
+
+            let userId = Accounts.createUser(newUserData);
+            Roles.addUsersToRoles(userId,['tjo'])
+            school.userId = userId
+            SchoolsTjo.insert(school)
+            console.log("school tjo added:" + school.shortName)
+        }
+    },
     "addUsers": function(schoolObj) {
         if(Roles.userIsInRole(this.userId,'admin')) {
             let school = schoolObj
@@ -72,8 +281,9 @@ Meteor.methods({
             school.userId = userId
             Schools.insert(school)
             console.log("school added:" + school.shortName)
-            }
+        }
     },
+
 
     "lessonObjectives.Insert": function (objectives) {
         if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))

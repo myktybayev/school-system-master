@@ -17,6 +17,71 @@ Blaze.registerHelper("average", function(studentId) {
     return OpeResults.findOne({studentId:studentId}) ? OpeResults.findOne({studentId:studentId}).average : undefined
 })
 
+Blaze.registerHelper("getTotalStylе", function(total) {
+    var total = parseFloat(total)
+    if(total>=55){
+
+      return 'text-align: center; padding-left: 350pt; white-space: nowrap; background-color: #b2fab4'
+
+    }else if(total>=40 && total < 55){
+
+      return 'text-align: center; padding-left: 350pt; white-space: nowrap; background-color: #ffff8b'
+
+    }else{
+      return 'text-align: center; padding-left: 350pt; white-space: nowrap; background-color: #ff867c'
+    }
+})
+
+Blaze.registerHelper("getTotalCategoryStylе", function(total) {
+    var total = parseFloat(total)
+    if(total>=55){
+
+      return 'text-align: center; padding-left: 470pt; white-space: nowrap; background-color: #b2fab4'
+
+    }else if(total>=40 && total < 55){
+
+      return 'text-align: center; padding-left: 470pt; white-space: nowrap; background-color: #ffff8b'
+
+    }else{
+      return 'text-align: center; padding-left: 470pt; white-space: nowrap; background-color: #ff867c'
+    }
+})
+
+Blaze.registerHelper("getCategoryStylе", function(total) {
+    var total = parseFloat(total)
+    if(!total || total == 0.0){
+      return 'white-space: nowrap;'
+    }
+
+    if(total>=55){
+
+      return 'text-align: center; white-space: nowrap; background-color: #b2fab4'
+
+    }else if(total>=40 && total < 55){
+
+      return 'text-align: center; white-space: nowrap; background-color: #ffff8b'
+
+    }else{
+      return 'text-align: center; white-space: nowrap; background-color: #ff867c'
+    }
+})
+
+Blaze.registerHelper("getStylе", function(point) {
+    var point = parseFloat(point)
+    if(!point || point == 0.0){
+      return 'white-space: nowrap;'
+    }
+    if(point>=11){
+      return 'white-space: nowrap; background-color: #b2fab4'
+    }else if(point>=8 && point < 11){
+      return 'white-space: nowrap; background-color: #ffff8b'
+    }else{
+      return 'white-space: nowrap; background-color: #ff867c'
+    }
+})
+
+
+
 Blaze.registerHelper("subjectName", function(subjectId) {
     return Subjects.findOne({subjectId:subjectId}) ? Subjects.findOne({subjectId:subjectId}).name_kz : undefined
 })
@@ -83,7 +148,7 @@ Blaze.registerHelper("swapToChars2", function(index, value) {
 Blaze.registerHelper("strelki", function(ubtPrev, ubtNext) {
     ubtPrev = parseInt(ubtPrev)
     ubtNext = parseInt(ubtNext)
-    
+
     if(ubtNext != 0){
       if(ubtPrev < ubtNext) return true;
 	       // return new Blaze.SafeString('<i class="glyphicon glyphicon-arrow-up"></i>');
@@ -95,7 +160,7 @@ Blaze.registerHelper("round", function(value,number) {
 })
 
 Blaze.registerHelper("notZero", function(value) {
-    return value != 0
+    return value != null  &&  value != 0 && value != 0.00
 })
 
 Blaze.registerHelper("divide", function(value,number) {

@@ -48,7 +48,9 @@ Template.ubtUpload.events({
       var headers = ['studentId', 'grade', 'studentSurname', 'studentName', 'ubt1','ubt2','ubt3','ubt4','ubt5','ubt6','ubt7',
       'ubt8','ubt9','ubt10',
       'ubt11','ubt12','ubt13','ubt14','ubt15','ubt16','ubt17','ubt18','ubt19','ubt20','ubt21','ubt22','ubt23','ubt24',
-      'ubt25','ubt26','ubt27','ubt28','ubt29','ubt30','ubt31','ubt32','ubt33','ubt34'];
+      'ubt25','ubt26','ubt27','ubt28','ubt29','ubt30','ubt31','ubt32','ubt33','ubt34','ubt35','ubt36','ubt37','ubt38','ubt39',
+      'ubt40','ubt41','ubt42','ubt43','ubt44','ubt45','ubt46','ubt47','ubt48','ubt49','ubt50','ubt51','ubt52','ubt53',
+      'ubt54','ubt55','ubt56','ubt57','ubt58','ubt59','ubt60'];
 
       data.push(headers);
 
@@ -84,6 +86,7 @@ Template.ubtUpload.events({
                     template.results.set([])
                     SUIBlock.unblock();
                     bootbox.alert("Сақталды");
+                    FlowRouter.redirect('/school/ubt/results')
                 }
             });
 

@@ -30,8 +30,8 @@
                     <tr class="bts-header center">
                         <th class="absolute-style" style="width: 20pt;  text-align: center;">#</th>
                         <th class="absolute-style" style="width: 55pt;  margin-left: 20pt; ">Мектеп ID</th>
-                        <th class="absolute-style" style="width: 380pt; margin-left: 70pt; ">Мектеп аты</th>
-                        <th style="white-space: nowrap; padding-left: 470pt;"  id="sortTotal">Жалпы</th>
+                        <th class="absolute-style" style="width: 270pt; margin-left: 70pt; ">Мектеп аты</th>
+                        <th style="white-space: nowrap; padding-left: 350pt;"  id="sortTotal">Жалпы</th>
 
                         <th style="white-space: nowrap; text-align:right" id="sortMath">Математика</th>
 
@@ -47,8 +47,10 @@
                             <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
                             <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
                           {{/if}}
-                        {{else}}
-                          {{#if grade8_or_9}}
+
+                        {{/if}}
+
+                        {{#if grade8_or_9}}
 
                             <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
                             <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
@@ -58,12 +60,12 @@
                             <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
                             <th style="white-space: nowrap;" id="sortBio">Биология</th>
 
-                            {{else}}
+                        {{/if}}
 
-                              {{#if grade10}}
+                        {{#if grade10}}
                                 <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
                                 <th style="white-space: nowrap;" id="sortHistory">Қазақcтан тарихы</th>
-                                <th style="white-space: nowrap;" id="sortWorlHistory">Дүние тарихы</th>
+                                <th style="white-space: nowrap;" id="sortWorldHistory">Дүние тарихы</th>
                                 <th style="white-space: nowrap;" id="sortGeography">География</th>
                                 <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
                                 <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
@@ -71,27 +73,16 @@
 
                               {{else}}
 
-                                <th style="white-space: nowrap;" id="sortTur">Қазақ тілі</th>
+                                <th style="white-space: nowrap;" id="sortKazakh">Қазақ тілі</th>
                                 <th style="white-space: nowrap;" id="sortTur">Түрік тілі</th>
                                 <th style="white-space: nowrap;" id="sortRus">Орыс тілі</th>
-                                <th style="white-space: nowrap;" id="sortWHistory">Қазақcтан тарихы</th>
-                                <th style="white-space: nowrap;" id="sortWorlHistory">Дүние тарихы</th>
+                                <th style="white-space: nowrap;" id="sortHistory">Қазақcтан тарихы</th>
+                                <th style="white-space: nowrap;" id="sortWorldHistory">Дүние тарихы</th>
                                 <th style="white-space: nowrap;" id="sortGeography">География</th>
                                 <th style="white-space: nowrap;" id="sortPhysics">Физика</th>
                                 <th style="white-space: nowrap;" id="sortChemistry">Химия</th>
                                 <th style="white-space: nowrap;" id="sortBio">Биология</th>
-                              {{/if}}
-
                           {{/if}}
-
-                        {{/if}}
-
-                        <!-- <th style="white-space: nowrap;" id="sortEng">Ағылшын тілі</th>
-                        <th style="white-space: nowrap;" id="sortKazLit">Қазақ әдебиеті</th>
-                        <th style="white-space: nowrap;" id="sortAlgebra">Алгебра</th>
-                        <th style="white-space: nowrap;" id="sortGeometry">Геометрия</th>
-                        <th style="white-space: nowrap;" id="sortInf">Информатика</th>
-                        <th style="white-space: nowrap;" id="sortKZHistory">Тарих</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -99,8 +90,8 @@
                     <tr>
                         <td class="absolute-style" style="width: 20pt; ">{{math @index "+" 1}}</td>
                         <td class="absolute-style" style="width: 55pt;  margin-left: 20pt; text-align: center;">{{schoolId}}</td>
-                        <td class="absolute-style" style="width: 380pt; margin-left: 70pt; ">{{schoolName schoolId}}</td>
-                        <td style="padding-left: 470pt; white-space: nowrap;">{{round 2 total}} % </td>
+                        <td class="absolute-style" style="width: 270pt; margin-left: 70pt; ">{{schoolName schoolId}}</td>
+                        <td style="padding-left: 350pt; white-space: nowrap;">{{round 2 total}} % </td>
 
 
                         <td style="white-space: nowrap;">{{round 2 mathematic}}</td>
@@ -133,13 +124,13 @@
                             {{else}}
 
                               {{#if grade10}}
-                                <td style="white-space: nowrap;">{{round 2 kazakh_lang}}</td>
-                                <td style="white-space: nowrap;">{{round 2 kazakh_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 world_history}}</td>
-                                <td style="white-space: nowrap;">{{round 2 geography}}</td>
-                                <td style="white-space: nowrap;">{{round 2 physics}}</td>
-                                <td style="white-space: nowrap;">{{round 2 chemistry}}</td>
-                                <td style="white-space: nowrap;">{{round 2 biology}}</td>
+                                <td style="white-space: nowrap;">{{#if kazakh_lang}}    {{round 2 kazakh_lang}}     {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if kazakh_history}} {{round 2 kazakh_history}}  {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if world_history}}  {{round 2 world_history}}   {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if geography}}      {{round 2 geography}}       {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if physics}}        {{round 2 physics}}         {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if chemistry}}      {{round 2 chemistry}}       {{/if}}</td>
+                                <td style="white-space: nowrap;">{{#if biology}}        {{round 2 biology}}         {{/if}}</td>
 
                               {{else}}
 

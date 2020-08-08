@@ -19,7 +19,10 @@ Template.btsKeys.onCreated(function() {
 Template.btsKeys.helpers({
     keys() {
         return BtsAnswerKeys.find({}, { sort: { day: 1, grade: 1 } });
-    }
+    },
+    isAdmin() {
+        return Roles.userIsInRole(Meteor.userId(),['admin']) || Roles.userIsInRole(Meteor.userId(),['edlight'])
+    },
 });
 
 Template.btsKeys.events({

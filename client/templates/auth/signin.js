@@ -10,7 +10,7 @@ Template.signin.events({
         var password = $('[name=password]').val()
         Meteor.loginWithPassword(email,password,function(err) {
             if(err) {
-                alert(err.reason)
+                alert("Логин немесе құпия сөз дұрыс емес!")
             } else {
                 FlowRouter.redirect('/')
             }

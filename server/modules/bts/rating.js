@@ -1,10 +1,9 @@
 import { runInThisContext } from "vm";
-// 1 and 2 BTS exams needs to be changed if there are any changes, 3 and 4 were changed
-export const calculateRating = (academicYear,btsNo,day, schoolId) => {
-    //calculated bts rating here
+
+
+export const calculateRating = (academicYear,btsNo, day, schoolId) => {
     let gradesFirstDay = ["7","8","9","10"]
     let gradesSecondDay = ["8","9"]
-    //let grades = ["9","10"]
     var counter = 0;
 
     console.log("================================================================");
@@ -21,34 +20,67 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
               mathematic: 0,
               mathematicA: 0,
               mathematicB: 0,
+              mathematicJaksiCount: 0,
+              mathematicOrtawaCount: 0,
+              mathematicNawarCount: 0,
               turkish_lang: 0,
               turkish_langA: 0,
               turkish_langB: 0,
+              turkish_langJaksiCount: 0,
+              turkish_langOrtawaCount: 0,
+              turkish_langNawarCount: 0,
               kazakh_history: 0,
               kazakh_historyA: 0,
               kazakh_historyB: 0,
+              kazakh_historyJaksiCount: 0,
+              kazakh_historyOrtawaCount: 0,
+              kazakh_historyNawarCount: 0,
               world_history: 0,
               world_historyA: 0,
               world_historyB: 0,
+              world_historyJaksiCount: 0,
+              world_historyOrtawaCount: 0,
+              world_historyNawarCount: 0,
               geography: 0,
               geographyA: 0,
               geographyB: 0,
+              geographyJaksiCount: 0,
+              geographyOrtawaCount: 0,
+              geographyNawarCount: 0,
               physics: 0,
               physicsA: 0,
               physicsB: 0,
+              physicsJaksiCount: 0,
+              physicsOrtawaCount: 0,
+              physicsNawarCount: 0,
               chemistry: 0,
               chemistryA: 0,
               chemistryB: 0,
+              chemistryJaksiCount: 0,
+              chemistryOrtawaCount: 0,
+              chemistryNawarCount: 0,
               biology: 0,
               biologyA: 0,
               biologyB: 0,
+              biologyJaksiCount: 0,
+              biologyOrtawaCount: 0,
+              biologyNawarCount: 0,
               kazakh_lang: 0,
               kazakh_langA: 0,
               kazakh_langB: 0,
+              kazakh_langJaksiCount: 0,
+              kazakh_langOrtawaCount: 0,
+              kazakh_langNawarCount: 0,
               russian_lang: 0,
+              russian_langJaksiCount: 0,
+              russian_langOrtawaCount: 0,
+              russian_langNawarCount: 0,
               total: 0,
               totalA: 0,
-              totalB: 0
+              totalB: 0,
+              totalJaksiCount: 0,
+              totalOrtawaCount: 0,
+              totalNawarCount: 0
           }
         }else if(day == '2'){
           ratingObj = {
@@ -59,18 +91,33 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
               geography: 0,
               geographyA: 0,
               geographyB: 0,
+              geographyJaksiCount: 0,
+              geographyOrtawaCount: 0,
+              geographyNawarCount: 0,
               physics: 0,
               physicsA: 0,
               physicsB: 0,
+              physicsJaksiCount: 0,
+              physicsOrtawaCount: 0,
+              physicsNawarCount: 0,
               chemistry: 0,
               chemistryA: 0,
               chemistryB: 0,
+              chemistryJaksiCount: 0,
+              chemistryOrtawaCount: 0,
+              chemistryNawarCount: 0,
               biology: 0,
               biologyA: 0,
               biologyB: 0,
+              biologyJaksiCount: 0,
+              biologyOrtawaCount: 0,
+              biologyNawarCount: 0,
               total: 0,
               totalA: 0,
-              totalB: 0
+              totalB: 0,
+              totalJaksiCount: 0,
+              totalOrtawaCount: 0,
+              totalNawarCount: 0
           }
         }
 
@@ -88,6 +135,14 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
         let electiveGroup_6_Count = 0;
         let electiveGroup_7_Count = 0;
 
+        let mathematicJaksiCount = 0;
+        let mathematicOrtawaCount = 0;
+        let mathematicNawarCount = 0;
+
+        let kazakh_langJaksiCount = 0;
+        let kazakh_langOrtawaCount = 0;
+        let kazakh_langNawarCount = 0;
+
         if (ratingObj.grade == '7'){
             _.each(records,(record) => {
                 if (record.day_1_total){
@@ -96,17 +151,37 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   ratingObj.mathematicA += (record.mathematicA || 0)
                   ratingObj.mathematicB += (record.mathematicB || 0)
 
+                  if(record.mathematic >= 11) ratingObj.mathematicJaksiCount++;
+                  else if(record.mathematic >= 8 && record.mathematic <= 11) ratingObj.mathematicOrtawaCount++;
+                  else ratingObj.mathematicNawarCount++;
+
                   if (btsNo == '1' || btsNo == '2'){
 
                     ratingObj.kazakh_lang += (record.kazakh_lang || 0)
                     ratingObj.kazakh_langA += (record.kazakh_langA || 0)
                     ratingObj.kazakh_langB += (record.kazakh_langB || 0)
 
+                    if(record.kazakh_lang >= 11)  ratingObj.kazakh_langJaksiCount++;
+                    else if(record.kazakh_lang >= 8 && record.kazakh_lang <= 11) ratingObj.kazakh_langOrtawaCount++;
+                    else ratingObj.kazakh_langNawarCount++;
+
+
                     ratingObj.turkish_lang += (record.turkish_lang || 0)
                     ratingObj.turkish_langA += (record.turkish_langA || 0)
                     ratingObj.turkish_langB += (record.turkish_langB || 0)
 
+
+                    if(record.turkish_lang >= 11)  ratingObj.turkish_langJaksiCount++;
+                    else if(record.turkish_lang >= 8 && record.turkish_lang <= 11) ratingObj.turkish_langOrtawaCount++;
+                    else ratingObj.turkish_langNawarCount++;
+
+
+
                     ratingObj.russian_lang += (record.russian_lang || 0)
+
+                    if(record.russian_lang >= 11)  ratingObj.russian_langJaksiCount++;
+                    else if(record.russian_lang >= 8 && record.russian_lang <= 11) ratingObj.russian_langOrtawaCount++;
+                    else ratingObj.russian_langNawarCount++;
 
                   }
                   else if(btsNo == '3'){
@@ -114,13 +189,25 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                     ratingObj.physicsA += (record.physicsA || 0)
                     ratingObj.physicsB += (record.physicsB || 0)
 
+                    if(record.physics >= 11)  ratingObj.physicsJaksiCount++;
+                    else if(record.physics >= 8 && record.physics <= 11) ratingObj.physicsOrtawaCount++;
+                    else ratingObj.physicsNawarCount++;
+
                     ratingObj.chemistry += (record.chemistry ||0)
                     ratingObj.chemistryA += (record.chemistryA ||0)
                     ratingObj.chemistryB += (record.chemistryB ||0)
 
+                    if(record.chemistry >= 11)  ratingObj.chemistryJaksiCount++;
+                    else if(record.chemistry >= 8 && record.chemistry <= 11) ratingObj.chemistryOrtawaCount++;
+                    else ratingObj.chemistryNawarCount++;
+
                     ratingObj.biology += (record.biology || 0)
                     ratingObj.biologyA += (record.biologyA || 0)
                     ratingObj.biologyB += (record.biologyB || 0)
+
+                    if(record.biology >= 11)  ratingObj.biologyJaksiCount++;
+                    else if(record.biology >= 8 && record.biology <= 11) ratingObj.biologyOrtawaCount++;
+                    else ratingObj.biologyNawarCount++;
                   }
 
                   firstDayCounter++;
@@ -137,18 +224,34 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                     ratingObj.mathematicA += (record.mathematicA || 0)
                     ratingObj.mathematicB += (record.mathematicB || 0)
 
+                    if(record.mathematic >= 11) ratingObj.mathematicJaksiCount++;
+                    else if(record.mathematic >= 8 && record.mathematic <= 11) ratingObj.mathematicOrtawaCount++;
+                    else ratingObj.mathematicNawarCount++;
+
                     ratingObj.kazakh_lang += (record.kazakh_lang || 0)
                     ratingObj.kazakh_langA += (record.kazakh_langA || 0)
                     ratingObj.kazakh_langB += (record.kazakh_langB || 0)
+
+                    if(record.kazakh_lang >= 11)  ratingObj.kazakh_langJaksiCount++;
+                    else if(record.kazakh_lang >= 8 && record.kazakh_lang <= 11) ratingObj.kazakh_langOrtawaCount++;
+                    else ratingObj.kazakh_langNawarCount++;
 
                     ratingObj.turkish_lang += (record.turkish_lang || 0)
                     ratingObj.turkish_langA += (record.turkish_langA || 0)
                     ratingObj.turkish_langB += (record.turkish_langB || 0)
 
+                    if(record.turkish_lang >= 11)  ratingObj.turkish_langJaksiCount++;
+                    else if(record.turkish_lang >= 8 && record.turkish_lang <= 11) ratingObj.turkish_langOrtawaCount++;
+                    else ratingObj.turkish_langNawarCount++;
+
                     ratingObj.kazakh_history += (record.kazakh_history || 0)
                     ratingObj.kazakh_historyA += (record.kazakh_historyA || 0)
                     ratingObj.kazakh_historyB += (record.kazakh_historyB || 0)
 
+
+                    if(record.kazakh_history >= 11)  ratingObj.kazakh_historyJaksiCount++;
+                    else if(record.kazakh_history >= 8 && record.kazakh_history <= 11) ratingObj.kazakh_historyOrtawaCount++;
+                    else ratingObj.kazakh_historyNawarCount++;
 
                     firstDayCounter++;
                     firstDayTotal += (record.day_1_total || 0)
@@ -159,17 +262,35 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
 
-                    ratingObj.physics   += (record.physics || 0)
+                    if(record.geography >= 11)  ratingObj.geographyJaksiCount++;
+                    else if(record.geography >= 8 && record.geography <= 11) ratingObj.geographyOrtawaCount++;
+                    else ratingObj.geographyNawarCount++;
+
+                    ratingObj.physics  += (record.physics || 0)
                     ratingObj.physicsA += (record.physicsA || 0)
                     ratingObj.physicsB += (record.physicsB || 0)
+
+                    if(record.physics >= 11)  ratingObj.physicsJaksiCount++;
+                    else if(record.physics >= 8 && record.physics <= 11) ratingObj.physicsOrtawaCount++;
+                    else ratingObj.physicsNawarCount++;
 
                     ratingObj.chemistry += (record.chemistry ||0)
                     ratingObj.chemistryA += (record.chemistryA ||0)
                     ratingObj.chemistryB += (record.chemistryB ||0)
 
+
+                    if(record.chemistry >= 11)  ratingObj.chemistryJaksiCount++;
+                    else if(record.chemistry >= 8 && record.chemistry <= 11) ratingObj.chemistryOrtawaCount++;
+                    else ratingObj.chemistryNawarCount++;
+
                     ratingObj.biology += (record.biology || 0)
                     ratingObj.biologyA += (record.biologyA || 0)
                     ratingObj.biologyB += (record.biologyB || 0)
+
+
+                    if(record.biology >= 11)  ratingObj.biologyJaksiCount++;
+                    else if(record.biology >= 8 && record.biology <= 11) ratingObj.biologyOrtawaCount++;
+                    else ratingObj.biologyNawarCount++;
 
                     secondDayCounter++;
                     secondDayTotal += (record.day_2_total || 0)
@@ -187,94 +308,169 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   ratingObj.mathematicA += (record.mathematicA || 0)
                   ratingObj.mathematicB += (record.mathematicB || 0)
 
+                  if(record.mathematic >= 11)  ratingObj.mathematicCount++;
+                  else if(record.mathematic >= 8 && record.mathematic <= 11) ratingObj.mathematicOrtawaCount++;
+                  else ratingObj.mathematicNawarCount++;
+
                   ratingObj.kazakh_lang += (record.kazakh_lang || 0)
                   ratingObj.kazakh_langA += (record.kazakh_langA || 0)
                   ratingObj.kazakh_langB += (record.kazakh_langB || 0)
+
+
+                  if(record.kazakh_lang >= 11)  ratingObj.kazakh_langJaksiCount++;
+                  else if(record.kazakh_lang >= 8 && record.kazakh_lang <= 11) ratingObj.kazakh_langOrtawaCount++;
+                  else ratingObj.kazakh_langNawarCount++;
 
                   ratingObj.kazakh_history += (record.kazakh_history || 0)
                   ratingObj.kazakh_historyA += (record.kazakh_historyA || 0)
                   ratingObj.kazakh_historyB += (record.kazakh_historyB || 0)
 
+
+                  if(record.kazakh_history >= 11)  ratingObj.kazakh_historyJaksiCount++;
+                  else if(record.kazakh_history >= 8 && record.kazakh_history <= 11) ratingObj.kazakh_historyOrtawaCount++;
+                  else ratingObj.kazakh_historyNawarCount++;
+
+
                   if(record.electiveGroup == "01"){
-                    console.log("record.electiveGroup == '01'");
+                    // console.log("record.electiveGroup == '01'");
 
                     ratingObj.geography += (record.geography || 0)
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
 
+                    if(record.geography >= 11)  ratingObj.geographyJaksiCount++;
+                    else if(record.geography >= 8 && record.geography <= 11) ratingObj.geographyOrtawaCount++;
+                    else ratingObj.geographyNawarCount++;
+
                     ratingObj.physics   += (record.physics || 0)
                     ratingObj.physicsA += (record.physicsA || 0)
                     ratingObj.physicsB += (record.physicsB || 0)
+
+                    if(record.physics >= 11)  ratingObj.physicsJaksiCount++;
+                    else if(record.physics >= 8 && record.physics <= 11) ratingObj.physicsOrtawaCount++;
+                    else ratingObj.physicsNawarCount++;
+
                     electiveGroup_1_Count++;
                   }else if(record.electiveGroup == "02"){
 
-                    console.log("record.electiveGroup == '02'");
+                    // console.log("record.electiveGroup == '02'");
 
                     ratingObj.geography += (record.geography || 0)
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
 
+                    if(record.geography >= 11)  ratingObj.geographyJaksiCount++;
+                    else if(record.geography >= 8 && record.geography <= 11) ratingObj.geographyOrtawaCount++;
+                    else ratingObj.geographyNawarCount++;
+
                     ratingObj.chemistry += (record.chemistry ||0)
                     ratingObj.chemistryA += (record.chemistryA ||0)
                     ratingObj.chemistryB += (record.chemistryB ||0)
+
+                    if(record.chemistry >= 11)  ratingObj.chemistryJaksiCount++;
+                    else if(record.chemistry >= 8 && record.chemistry <= 11) ratingObj.chemistryOrtawaCount++;
+                    else ratingObj.chemistryNawarCount++;
+
                     electiveGroup_2_Count++;
 
                   }else if(record.electiveGroup == "03"){
-                    console.log("record.electiveGroup == '03'");
+                    // console.log("record.electiveGroup == '03'");
 
                     ratingObj.geography += (record.geography || 0)
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
 
+                    if(record.geography >= 11)  ratingObj.geographyJaksiCount++;
+                    else if(record.geography >= 8 && record.geography <= 11) ratingObj.geographyOrtawaCount++;
+                    else ratingObj.geographyNawarCount++;
+
                     ratingObj.biology += (record.biology || 0)
                     ratingObj.biologyA += (record.biologyA || 0)
                     ratingObj.biologyB += (record.biologyB || 0)
+
+                    if(record.biology >= 11)  ratingObj.biologyJaksiCount++;
+                    else if(record.biology >= 8 && record.biology <= 11) ratingObj.biologyOrtawaCount++;
+                    else ratingObj.biologyNawarCount++;
                     electiveGroup_3_Count++;
 
                   }else if(record.electiveGroup == "04"){
-                    console.log("record.electiveGroup == '04'");
+                    // console.log("record.electiveGroup == '04'");
 
                     ratingObj.physics   += (record.physics || 0)
                     ratingObj.physicsA += (record.physicsA || 0)
                     ratingObj.physicsB += (record.physicsB || 0)
 
+                    if(record.physics >= 11)  ratingObj.physicsJaksiCount++;
+                    else if(record.physics >= 8 && record.physics <= 11) ratingObj.physicsOrtawaCount++;
+                    else ratingObj.physicsNawarCount++;
+
                     ratingObj.chemistry += (record.chemistry ||0)
                     ratingObj.chemistryA += (record.chemistryA ||0)
                     ratingObj.chemistryB += (record.chemistryB ||0)
+
+                    if(record.chemistry >= 11)  ratingObj.chemistryJaksiCount++;
+                    else if(record.chemistry >= 8 && record.chemistry <= 11) ratingObj.chemistryOrtawaCount++;
+                    else ratingObj.chemistryNawarCount++;
                     electiveGroup_4_Count++;
 
                   }else if(record.electiveGroup == "05"){
-                    console.log("record.electiveGroup == '05'");
+                    // console.log("record.electiveGroup == '05'");
 
                     ratingObj.physics   += (record.physics || 0)
                     ratingObj.physicsA += (record.physicsA || 0)
                     ratingObj.physicsB += (record.physicsB || 0)
 
+                    if(record.physics >= 11)  ratingObj.physicsJaksiCount++;
+                    else if(record.physics >= 8 && record.physics <= 11) ratingObj.physicsOrtawaCount++;
+                    else ratingObj.physicsNawarCount++;
+
                     ratingObj.biology += (record.biology || 0)
                     ratingObj.biologyA += (record.biologyA || 0)
                     ratingObj.biologyB += (record.biologyB || 0)
+
+                    if(record.biology >= 11)  ratingObj.biologyJaksiCount++;
+                    else if(record.biology >= 8 && record.biology <= 11) ratingObj.biologyOrtawaCount++;
+                    else ratingObj.biologyNawarCount++;
+
                     electiveGroup_5_Count++;
 
                   }else if(record.electiveGroup == "06"){
-                    console.log("record.electiveGroup == '06'");
+                    // console.log("record.electiveGroup == '06'");
                     ratingObj.chemistry += (record.chemistry ||0)
                     ratingObj.chemistryA += (record.chemistryA ||0)
                     ratingObj.chemistryB += (record.chemistryB ||0)
 
+                    if(record.chemistry >= 11)  ratingObj.chemistryJaksiCount++;
+                    else if(record.chemistry >= 8 && record.chemistry <= 11) ratingObj.chemistryOrtawaCount++;
+                    else ratingObj.chemistryNawarCount++;
+
                     ratingObj.biology += (record.biology || 0)
                     ratingObj.biologyA += (record.biologyA || 0)
                     ratingObj.biologyB += (record.biologyB || 0)
+
+                    if(record.biology >= 11)  ratingObj.biologyJaksiCount++;
+                    else if(record.biology >= 8 && record.biology <= 11) ratingObj.biologyOrtawaCount++;
+                    else ratingObj.biologyNawarCount++;
                     electiveGroup_6_Count++;
 
                   }else if(record.electiveGroup == "07"){
-                    console.log("record.electiveGroup == '07'");
+                    // console.log("record.electiveGroup == '07'");
                     ratingObj.geography += (record.geography || 0)
                     ratingObj.geographyA += (record.geographyA || 0)
                     ratingObj.geographyB += (record.geographyB || 0)
+
+                    if(record.geography >= 11)  ratingObj.geographyJaksiCount++;
+                    else if(record.geography >= 8 && record.geography <= 11) ratingObj.geographyOrtawaCount++;
+                    else ratingObj.geographyNawarCount++;
 
                     ratingObj.world_history += (record.world_history || 0)
                     ratingObj.world_historyA += (record.world_historyA || 0)
                     ratingObj.world_historyB += (record.world_historyB || 0)
+
+                    if(record.world_history >= 11)  ratingObj.world_historyJaksiCount++;
+                    else if(record.world_history >= 8 && record.world_history <= 11) ratingObj.world_historyOrtawaCount++;
+                    else ratingObj.world_historyNawarCount++;
+
                     electiveGroup_7_Count++;
                   }
 
@@ -321,6 +517,21 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 }
 
                 ratingObj.total += firstDayTotal/firstDayCounter
+                // firstDayCounter = 37
+                // 4Lessons = 37 * 4 = 148
+                // 148 - 100
+                // 89  - x
+                // x = 89 * 100 / 148
+                // console.log("7 grade count: "+firstDayCounter);
+
+                ratingObj.totalJaksiCount = ratingObj.mathematicJaksiCount + ratingObj.kazakh_langJaksiCount + ratingObj.turkish_langJaksiCount + ratingObj.russian_langJaksiCount;
+                ratingObj.totalOrtawaCount = ratingObj.mathematicOrtawaCount + ratingObj.kazakh_langOrtawaCount + ratingObj.turkish_langOrtawaCount + ratingObj.russian_langOrtawaCount;
+                ratingObj.totalNawarCount = ratingObj.mathematicNawarCount + ratingObj.kazakh_langNawarCount + ratingObj.turkish_langNawarCount + ratingObj.russian_langNawarCount;
+
+                ratingObj.totalJaksiCount = (ratingObj.totalJaksiCount * 100) / (firstDayCounter * 4);
+                ratingObj.totalOrtawaCount = (ratingObj.totalOrtawaCount * 100) / (firstDayCounter * 4);
+                ratingObj.totalNawarCount = (ratingObj.totalNawarCount * 100) / (firstDayCounter * 4);
+
             }
         }else if(ratingObj.grade == '8'){
             if (firstDayCounter != 0) {
@@ -338,6 +549,10 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 ratingObj.kazakh_historyB = (ratingObj.kazakh_historyB / firstDayCounter)
 
                 ratingObj.total += firstDayTotal/firstDayCounter
+
+                ratingObj.totalJaksiCount = ratingObj.mathematicJaksiCount + ratingObj.kazakh_langJaksiCount + ratingObj.turkish_langJaksiCount + ratingObj.kazakh_historyJaksiCount;
+                ratingObj.totalOrtawaCount = ratingObj.mathematicOrtawaCount + ratingObj.kazakh_langOrtawaCount + ratingObj.turkish_langOrtawaCount + ratingObj.kazakh_historyOrtawaCount;
+                ratingObj.totalNawarCount = ratingObj.mathematicNawarCount + ratingObj.kazakh_langNawarCount + ratingObj.turkish_langNawarCount + ratingObj.kazakh_historyNawarCount;
 
             }
             else if (secondDayCounter != 0) {
@@ -361,6 +576,17 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'8',schoolId:schoolId})
 
                   ratingObj.total = secondDayTotal/secondDayCounter + totalSecondDay.total
+
+                  ratingObj.totalJaksiCount = ratingObj.geographyJaksiCount + ratingObj.physicsJaksiCount + ratingObj.chemistryJaksiCount + ratingObj.biologyJaksiCount + totalSecondDay.totalJaksiCount
+                  ratingObj.totalOrtawaCount = ratingObj.geographyOrtawaCount + ratingObj.physicsOrtawaCount + ratingObj.chemistryOrtawaCount + ratingObj.biologyOrtawaCount + totalSecondDay.totalOrtawaCount
+                  ratingObj.totalNawarCount = ratingObj.geographyNawarCount + ratingObj.physicsNawarCount + ratingObj.chemistryNawarCount + ratingObj.biologyNawarCount + totalSecondDay.totalNawarCount
+
+                  console.log("8 grade count: "+(firstDayCounter+secondDayCounter));
+                  var sCount = (firstDayCounter+secondDayCounter);
+
+                  ratingObj.totalJaksiCount = (ratingObj.totalJaksiCount * 100) / (sCount * 8);
+                  ratingObj.totalOrtawaCount = (ratingObj.totalOrtawaCount * 100) / (sCount * 8);
+                  ratingObj.totalNawarCount = (ratingObj.totalNawarCount * 100) / (sCount * 8);
             }
         }
         else if(ratingObj.grade == '9'){
@@ -379,6 +605,10 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                 ratingObj.kazakh_historyB = (ratingObj.kazakh_historyB / firstDayCounter)
 
                 ratingObj.total += firstDayTotal/firstDayCounter
+
+                ratingObj.totalJaksiCount = ratingObj.mathematicJaksiCount + ratingObj.kazakh_langJaksiCount + ratingObj.turkish_langJaksiCount + ratingObj.kazakh_historyJaksiCount;
+                ratingObj.totalOrtawaCount = ratingObj.mathematicOrtawaCount + ratingObj.kazakh_langOrtawaCount + ratingObj.turkish_langOrtawaCount + ratingObj.kazakh_historyOrtawaCount;
+                ratingObj.totalNawarCount = ratingObj.mathematicNawarCount + ratingObj.kazakh_langNawarCount + ratingObj.turkish_langNawarCount + ratingObj.kazakh_historyNawarCount;
 
             }
             else if (secondDayCounter != 0) {
@@ -403,6 +633,16 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
                   let totalSecondDay = BtsRatings.findOne({academicYear:academicYear,btsNo:btsNo,grade:'9',schoolId:schoolId})
 
                   ratingObj.total = secondDayTotal/secondDayCounter + totalSecondDay.total
+
+                  ratingObj.totalJaksiCount = ratingObj.geographyJaksiCount + ratingObj.physicsJaksiCount + ratingObj.chemistryJaksiCount + ratingObj.biologyJaksiCount + totalSecondDay.totalJaksiCount
+                  ratingObj.totalOrtawaCount = ratingObj.geographyOrtawaCount + ratingObj.physicsOrtawaCount + ratingObj.chemistryOrtawaCount + ratingObj.biologyOrtawaCount + totalSecondDay.totalOrtawaCount
+                  ratingObj.totalNawarCount = ratingObj.geographyNawarCount + ratingObj.physicsNawarCount + ratingObj.chemistryNawarCount + ratingObj.biologyNawarCount + totalSecondDay.totalNawarCount
+
+                  console.log("9 grade count: "+(firstDayCounter+secondDayCounter));
+                  var sCount = (firstDayCounter+secondDayCounter);
+                  ratingObj.totalJaksiCount = (ratingObj.totalJaksiCount * 100) / (sCount * 8);
+                  ratingObj.totalOrtawaCount = (ratingObj.totalOrtawaCount * 100) / (sCount * 8);
+                  ratingObj.totalNawarCount = (ratingObj.totalNawarCount * 100) / (sCount * 8);
 
             }
         }
@@ -441,9 +681,31 @@ export const calculateRating = (academicYear,btsNo,day, schoolId) => {
               ratingObj.world_historyB = (ratingObj.world_historyB / electiveGroup_7_Count)
 
               ratingObj.total = firstDayTotal/firstDayCounter
+              ratingObj.totalJaksiCount = ratingObj.mathematicJaksiCount + ratingObj.kazakh_langJaksiCount + ratingObj.kazakh_historyJaksiCount +
+                                          ratingObj.geographyJaksiCount + ratingObj.physicsJaksiCount + ratingObj.chemistryJaksiCount + ratingObj.biologyJaksiCount +
+                                          ratingObj.world_historyJaksiCount;
 
+              ratingObj.totalOrtawaCount = ratingObj.mathematicOrtawaCount + ratingObj.kazakh_langOrtawaCount + ratingObj.kazakh_historyOrtawaCount +
+                                          ratingObj.geographyOrtawaCount + ratingObj.physicsOrtawaCount + ratingObj.chemistryOrtawaCount + ratingObj.biologyOrtawaCount +
+                                          ratingObj.world_historyOrtawaCount;
+
+              ratingObj.totalNawarCount = ratingObj.mathematicNawarCount + ratingObj.kazakh_langNawarCount + ratingObj.kazakh_historyNawarCount +
+                                          ratingObj.geographyNawarCount + ratingObj.physicsNawarCount + ratingObj.chemistryNawarCount + ratingObj.biologyNawarCount +
+                                          ratingObj.world_historyNawarCount;
+
+
+             var sCount = electiveGroup_1_Count + electiveGroup_2_Count + electiveGroup_3_Count+
+             electiveGroup_4_Count + electiveGroup_5_Count + electiveGroup_6_Count + electiveGroup_7_Count;
+
+              console.log("10 grade count: "+sCount);
+             ratingObj.totalJaksiCount = (ratingObj.totalJaksiCount * 100) / (sCount * 5);
+             ratingObj.totalOrtawaCount = (ratingObj.totalOrtawaCount * 100) / (sCount * 5);
+             ratingObj.totalNawarCount = (ratingObj.totalNawarCount * 100) / (sCount * 5);
           }
         }
+
+        console.log("schoolId: "+schoolId);
+        // console.log("grade: "+ratingObj.grade);
 
         // insert rating to db
         var sameRating = BtsRatings.findOne({

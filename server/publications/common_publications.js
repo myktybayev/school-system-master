@@ -24,9 +24,15 @@ Meteor.publish('schools',function() {
     return Schools.find()
 })
 
+Meteor.publish('schoolsTjo',function() {
+    return SchoolsTjo.find()
+})
+
 Meteor.publish('school',function(){
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
         if(school) {
             let cursor = Schools.find({schoolId:school.schoolId})
             return cursor
@@ -39,6 +45,7 @@ Meteor.publish('school',function(){
 Meteor.publish('schoolAssessments',function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = SchoolAssessments.find({academicYear:academicYear,schoolId:school.schoolId})
         return cursor
     } else {
@@ -62,9 +69,13 @@ Meteor.publish("schoolAssessment",function(schoolId,academicYear) {
 })
 
 Meteor.publish('schoolPerformaRatings',function(academicYear) {
+    let school;
     if (this.userId) {
-        let school = Schools.findOne({userId:this.userId})
+        school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
+        
         let cursor = SchoolPerformaRatings.find({academicYear:academicYear,schoolId:school.schoolId})
+
         return cursor
     } else {
         return this.ready()
@@ -90,6 +101,7 @@ Meteor.publish('joba', function() {
 Meteor.publish('olympiadResults',function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         if(school) {
             let cursor = OlympiadResults.find({academicYear:academicYear,schoolId:school.schoolId})
             return cursor
@@ -102,6 +114,7 @@ Meteor.publish('olympiadResults',function(academicYear) {
 Meteor.publish('jobaResults',function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         if(school) {
             let cursor = JobaResults.find({academicYear:academicYear,schoolId:school.schoolId})
             return cursor

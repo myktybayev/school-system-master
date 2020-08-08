@@ -15,6 +15,32 @@ Meteor.methods({
             throw new Meteor.Error('access-denied','Access denied!');
         }
     },*/
+
+    'TatResults.teacherPlace':function(academicYear, tatNo, teacherId, place) {
+          if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
+              throw new Meteor.Error(401, 'Please login as administrator')
+
+          let tatResult = TatResults.findOne({academicYear:academicYear, teacherId:teacherId, tatNo:tatNo})
+          let teacher = Teachers.findOne({teacherId:teacherId})
+
+          tatResult.place = place;
+          tatResult.position = teacher.position;
+
+          TatResults.update({_id:tatResult._id},{$set:tatResult})
+
+    },
+
+    'TatResults.teacherSubjectAve':function(academicYear, tatNo, teacherId, subjectAverage) {
+          if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
+              throw new Meteor.Error(401, 'Please login as administrator')
+
+          let tatResult = TatResults.findOne({academicYear:academicYear, teacherId:teacherId, tatNo:tatNo})
+
+          tatResult.subjectAverage = subjectAverage;
+          TatResults.update({_id:tatResult._id},{$set:tatResult})
+
+    },
+
     "TatAnswerKeys.Insert": function(obj) {
         if (this.userId && Roles.userIsInRole(this.userId, ['admin'])) {
             sameKey = TatAnswerKeys.findOne({
@@ -44,7 +70,7 @@ Meteor.methods({
             }
         } else {
             throw new Meteor.Error(403, 'Access forbidden');
-        }  
+        }
     },
 
     "TatAnswerKeys.Delete": function(id) {

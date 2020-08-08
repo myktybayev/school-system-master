@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 Meteor.methods({
     "ubtAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+      if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -15,7 +16,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -38,7 +39,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.ubt == undefined) {
@@ -61,21 +62,21 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.ubt++;
                         rating.ubt_points += 3;
                         rating.total_points +=3
-                        
+
                         SchoolPerformaRatings.insert(rating)
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.ubt == undefined) {
-                            sameTotalRating.ubt = 0;                       
+                            sameTotalRating.ubt = 0;
                             sameTotalRating.ubt_points = 0;
 
                             if (sameTotalRating.total_points == undefined) {
@@ -93,7 +94,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.ubt++;
                         totalRating.ubt_points += 3;
@@ -111,17 +112,18 @@ Meteor.methods({
     },
 
     "ubtAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.ubt <= 0) {
                         sameRating.ubt = 0;
                         sameRating.ubt_points = 0;
-                        
+
                     } else {
                         sameRating.ubt--;
                         sameRating.ubt_points -= 3;
@@ -151,8 +153,9 @@ Meteor.methods({
     },
 
     "meetingAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+      if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -165,7 +168,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -188,7 +191,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.meeting == undefined) {
@@ -209,7 +212,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.meeting++;
                         rating.meeting_points += 9;
@@ -219,7 +222,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.meeting == undefined) {
@@ -240,7 +243,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.meeting++;
                         totalRating.meeting_points += 9;
@@ -259,13 +262,14 @@ Meteor.methods({
     },
 
     "meetingAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.meeting <= 0) {
                         sameRating.meeting = 0;
                         sameRating.meeting_points = 0;
@@ -297,8 +301,9 @@ Meteor.methods({
     },
 
     "seminarAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -311,7 +316,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -334,7 +339,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.seminar == undefined) {
@@ -355,7 +360,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.seminar++;
                         rating.seminar_points += 3;
@@ -365,7 +370,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.seminar == undefined) {
@@ -386,7 +391,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.seminar++;
                         totalRating.seminar_points += 3;
@@ -405,13 +410,14 @@ Meteor.methods({
     },
 
     "seminarAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.seminar <= 0) {
                         sameRating.seminar = 0;
                         sameRating.seminar_points = 0;
@@ -442,8 +448,9 @@ Meteor.methods({
     },
 
     "indoorEventAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -456,7 +463,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -479,7 +486,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.indoorEvent == undefined) {
@@ -500,7 +507,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.indoorEvent++;
                         rating.indoorEvent_points += 3;
@@ -510,7 +517,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.indoorEvent == undefined) {
@@ -531,7 +538,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.indoorEvent++;
                         totalRating.indoorEvent_points += 3;
@@ -550,13 +557,14 @@ Meteor.methods({
     },
 
     "indoorEventAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.indoorEvent <= 0) {
                         sameRating.indoorEvent = 0;
                         sameRating.indoorEvent_points = 0;
@@ -587,8 +595,9 @@ Meteor.methods({
     },
 
     "pblAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -602,7 +611,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -625,7 +634,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.pbl == undefined) {
@@ -646,7 +655,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.pbl++;
                         rating.pbl_points += 3;
@@ -656,7 +665,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.pbl == undefined) {
@@ -677,7 +686,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.pbl++;
                         totalRating.pbl_points += 3;
@@ -696,13 +705,14 @@ Meteor.methods({
     },
 
     "pblAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.pbl <= 0) {
                         sameRating.pbl = 0;
                         sameRating.pbl_points = 0;
@@ -731,10 +741,11 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
-    
+
     "olympiadAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -747,7 +758,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -770,7 +781,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.olympiad == undefined) {
@@ -791,7 +802,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.olympiad++;
                         rating.olympiad_points += 3;
@@ -801,7 +812,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.olympiad == undefined) {
@@ -822,7 +833,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.olympiad++;
                         totalRating.olympiad_points += 3;
@@ -841,13 +852,14 @@ Meteor.methods({
     },
 
     "olympiadAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.olympiad <= 0) {
                         sameRating.olympiad = 0;
                         sameRating.olympiad_points = 0;
@@ -878,8 +890,9 @@ Meteor.methods({
     },
 
     "subject_weekAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -892,7 +905,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -915,7 +928,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.subject_week == undefined) {
@@ -936,7 +949,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
                         rating.subject_week++;
                         rating.subject_week_points += 3;
@@ -946,7 +959,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.subject_week == undefined) {
@@ -967,7 +980,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
                         totalRating.subject_week++;
                         totalRating.subject_week_points += 3;
@@ -986,13 +999,14 @@ Meteor.methods({
     },
 
     "subject_weekAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.subject_week <= 0) {
                         sameRating.subject_week = 0;
                         sameRating.subject_week_points = 0;
@@ -1023,8 +1037,9 @@ Meteor.methods({
     },
 
     "outdoor_eventAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -1038,7 +1053,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -1063,7 +1078,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.outdoor_event == undefined) {
@@ -1098,9 +1113,9 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:sameRating})
-                        
+
                     } else {
-                        
+
                         if (rating.scope == 'city') {
                                 rating.outdoor_event++;
                                 rating.outdoor_event_points += 9;
@@ -1115,7 +1130,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.outdoor_event == undefined) {
@@ -1150,7 +1165,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
 
                         if (totalRating.scope == 'city') {
@@ -1176,13 +1191,14 @@ Meteor.methods({
     },
 
     "outdoor_eventAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.outdoor_event <= 0) {
                         sameRating.outdoor_event = 0;
                         sameRating.outdoor_event_points = 0;
@@ -1225,8 +1241,9 @@ Meteor.methods({
     },
 
     "admin_participateAssessments.Insert": function(details) {
-        if(Roles.userIsInRole(this.userId,'school')) {
-            
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
+
             let school = Schools.findOne({userId:this.userId})
 
             if(school) {
@@ -1240,7 +1257,7 @@ Meteor.methods({
                     schoolId: school.schoolId
                 });
                 if (!sameDetails) {
-                    
+
                     details.schoolId = school.schoolId
                     SchoolAssessments.insert(details)
 
@@ -1265,7 +1282,7 @@ Meteor.methods({
                         }
 
                     let sameRating = SchoolPerformaRatings.findOne({academicYear:rating.academicYear,month:rating.month,schoolId:rating.schoolId})
-                    
+
                     if (sameRating) {
 
                         if (sameRating.admin_participate == undefined) {
@@ -1300,9 +1317,9 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameRating._id},{$set:{admin_participate:sameRating.admin_participate,admin_participate_points:sameRating.admin_participate_points,total_points:sameRating.total_points}})
-                        
+
                     } else {
-                        
+
                         if (rating.scope == 'vice-principal') {
                                 rating.admin_participate++;
                                 rating.admin_participate_points += 0.5;
@@ -1317,7 +1334,7 @@ Meteor.methods({
                     }
 
                     let sameTotalRating = SchoolPerformaRatings.findOne({academicYear:totalRating.academicYear,month:totalRating.month,schoolId:totalRating.schoolId})
-                    
+
                     if (sameTotalRating) {
 
                         if (sameTotalRating.admin_participate == undefined) {
@@ -1352,7 +1369,7 @@ Meteor.methods({
                         }
 
                         SchoolPerformaRatings.update({_id:sameTotalRating._id},{$set:sameTotalRating})
-                        
+
                     } else {
 
                         if (totalRating.scope == 'vice-principal') {
@@ -1378,13 +1395,14 @@ Meteor.methods({
     },
 
     "admin_participateAssessments.Delete": function(id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+    Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let assessment = SchoolAssessments.findOne({_id:id})
             if(assessment) {
                 SchoolAssessments.remove({_id:id})
 
                 let sameRating = SchoolPerformaRatings.findOne({academicYear:assessment.academicYear,month:assessment.month,schoolId:assessment.schoolId})
-                    
+
                     if (sameRating.admin_participate <= 0) {
                         sameRating.admin_participate = 0;
                         sameRating.admin_participate_points = 0;

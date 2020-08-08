@@ -1,13 +1,22 @@
 <template name="adminMenu">
-  <nav class="navbar navbar-default navbar-fixed-top" id="menu">
+  {{#if isAdmin}}
+  <nav class="navbar navbar-default navbar-fixed-top" id="menu"  role="navigation">
     <!-- <a class="navbar-brand" href="/">Admin</a> -->
-    <ul class="main-menu clearfix">
-      <ul class="nav navbar-nav">
-        <li>
-            <a href="/"><span class="glyphicon glyphicon-home"></span> Басты бет</a>
-        </li>
 
-        <li class>
+      <div class="navbar-header" >
+        <button type="button" class= "navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+          <span class="icon-bar" ></span>
+          <span class="icon-bar" ></span>
+          <span class="icon-bar" ></span>
+        </button>
+        <!-- <div id="logo" class="wow pulse"><a  style="color: white" href="index.php">КОМПЛЕКСНЫЕ СИСТЕМЫ БЕЗОПАСНОСТИ</a></div> -->
+      </div>
+
+    <div class="navbar-collapse collapse" id="responsine-menu" >
+      <ul class="nav navbar-nav">
+        <li class=""><a href="/"><span class="glyphicon glyphicon-home"></span> Басты бет</a></li>
+
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">БТС<span class="caret"></span></a>
           <input type="checkbox" id="sm1">
           <ul class="sub-menu">
@@ -26,6 +35,8 @@
                 <!-- <li><a href="#">Рейтинг</a></li> -->
 
                 <li><a href="/school/bts/ratingByCategory/1">Рейтинг категориямен</a></li>
+                <li><a href="/admin/bts/ratingByQuaility/1">Рейтинг сапамен</a></li>
+                <li><a href="/admin/bts/ratingByCount/1">Рейтинг санмен</a></li>
                 <li><a href="/admin/bts/allResults/1">Нәтижелер</a></li>
                 <li><a href="/admin/bts/top10/1">ТОП-10</a></li>
                 <li><a href="/admin/bts/objectives/1">Сабақ мақсаттары</a></li>
@@ -65,8 +76,14 @@
               <input type="checkbox" id="sm3">
               <ul class="sub-menu">
                 <li><a href="/admin/bts/rating/2">Рейтинг</a></li>
+                <li><a href="/admin/bts/ratingByCategory/2">Рейтинг категориямен</a></li>
+                <li><a href="/admin/bts/ratingByQuaility/2">Рейтинг сапамен</a></li>
+                <li><a href="/admin/bts/ratingByCount/2">Рейтинг санмен</a></li>
                 <li><a href="/admin/bts/allResults/2">Нәтижелер</a></li>
-                <li><a href="/admin/bts/top10/2">ТОП-10</a></li>
+                <li><a href="/admin/bts/top100/2">ТОП-100</a></li>
+
+
+                <!--
                 <li><a href="/admin/bts/objectives/2">Сабақ мақсаттары</a></li>
 
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,6 +111,7 @@
                     <li><a href="/admin/bts/objectives/rating/2/10">10 сынып</a></li>
                   </ul>
                 </li>
+                -->
               </ul>
             </li>
 
@@ -318,6 +336,18 @@
                   <li><a href="/admin/olympiadsRatingInter">Рейтинг Халықаралық</a></li>
               </ul>
         </li>
+        {{#if isNotEdlight}}
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-lock"></span> ТЖО<span class="caret"></span></a>
+          <input type="checkbox" id="sm1">
+          <ul class="sub-menu">
+              <li><a href="/admin/tjoSettings">Баптаулар</a></li>
+          </ul>
+        </li>
+        {{/if}}
+
+        <!-- Жобалар -->
+        <!--
         <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-equalizer"></span> Жоба<span class="caret"></span></a>
           <input type="checkbox" id="sm1">
@@ -329,16 +359,28 @@
               <li role="separator" class="divider"></li>
               <li><a href="/admin/jobaRating">Рейтинг</a></li>
           </ul>
-    </li>
+        </li>
+  -->
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-              <li><a href="/admin/settings"><span class="glyphicon glyphicon-cog"></span> Баптаулар</a></li>
-              <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Шығу</a></li>
+          {{#if isNotEdlight}}
+            <!-- <li><a href="/admin/settings"> <span class="glyphicon glyphicon-cog"></span> Баптаулар</a></li> -->
+
+            <li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Баптаулар<span class="caret"></span></a>
+              <input type="checkbox" id="sm1">
+              <ul class="sub-menu">
+                  <li><a href="/admin/settings">БИЛ мектептер</a></li>
+                  <li><a href="/admin/guestSettings">Қонақ мектептер</a></li>
+              </ul>
+            </li>
+
+          {{/if}}
+
+          <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Шығу</a></li>
       </ul>
-    </ul>
-
-
-
-</nav>
+    </div>
+  </nav>
+  {{/if}}
 </template>

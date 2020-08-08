@@ -1,5 +1,21 @@
 import { Meteor } from 'meteor/meteor'
 
+Meteor.publish('userList', function (){
+  return Meteor.users.find({});
+});
+
+Meteor.publish('configAccounts', function (){
+  return Configs.find({_id: "accounts"});
+});
+
+Meteor.publish('guestSchools',function() {
+    return GuestSchools.find()
+})
+
+Meteor.publish('currentGuestSchools',function(userId) {
+    return GuestSchools.find({userId: userId})
+
+})
 
 Meteor.publish('opeAdminReports', function(academicYear, schoolId, reportPeriod) {
     if (this.userId) {

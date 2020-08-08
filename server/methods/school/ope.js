@@ -4,7 +4,8 @@ import { upload } from "../../modules/ope/upload";
 Meteor.methods({
     "Ope.updateOpeResults": function(student_id, editItem) {
 
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,'school') ||
+            Roles.userIsInRole(this.userId,'schoolCoordinator')) {
 
             let studId = Students.findOne({_id:student_id}).studentId
             let student = OpeResults.findOne({studentId:studId})
@@ -77,7 +78,7 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
-    
+
     'OpeReport.Upload':function(academicYear, reportPeriod, results) {
           ope = Configs.findOne({
               _id: 'opeUpload'
@@ -87,7 +88,8 @@ Meteor.methods({
           if (ope[reportId] == 'disabled')
               throw new Meteor.Error('upload-disabled', 'OPE'+reportPeriod+' күнгі жүктеу жабық. Өтініш, IT Department-ке хабарласыңыз.')
 
-          if (!Roles.userIsInRole(this.userId,"school"))
+          if(!Roles.userIsInRole(this.userId,'school') &&
+              !Roles.userIsInRole(this.userId,'schoolCoordinator'))
               throw new Meteor.Error('access-denied', 'Access denied!')
 
           let school = Schools.findOne({

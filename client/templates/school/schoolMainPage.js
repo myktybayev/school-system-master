@@ -14,17 +14,22 @@ Template.schoolMainPage.onCreated(function() {
     })
     //template.subscribe('allSchoolPerformaRatings', academicYear.get())
 })
-Template.schoolMainPage.helpers({
-	schoolResults() {
-		let month_select = new RegExp(Template.instance().month_select.get())
 
-		return SchoolPerformaRatings.find({month: month_select})
-	},
+Template.schoolMainPage.helpers({
+  	schoolResults() {
+  		let month_select = new RegExp(Template.instance().month_select.get())
+
+  		return SchoolPerformaRatings.find({month: month_select})
+  	},
     subjects() {
         return Subjects.find({},{sort:{subjectId:1}})
     },
     school() {
     	return Schools.find()
+    },
+
+    isSchoolCoordinator() {
+      return Roles.userIsInRole(Meteor.userId(),['schoolCoordinator'])
     }
 });
 

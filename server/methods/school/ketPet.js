@@ -7,7 +7,8 @@ Meteor.methods({
 
 	'KetPet.Upload':function(academicYear, grade, examPeriod, results) {
 
-        if (!Roles.userIsInRole(this.userId,"school"))
+				if(!Roles.userIsInRole(this.userId,'school') &&
+						!Roles.userIsInRole(this.userId,'schoolCoordinator'))
             throw new Meteor.Error('access-denied', 'Access denied!')
 
         let school = Schools.findOne({
@@ -64,7 +65,7 @@ Meteor.methods({
 								ratingRecord.sCount7Grade++;
 
 						}else if(record.grade == '8'){
-							
+
 								var studentLevel = record.level;
 
 								if(studentLevel == 'Pass with Distinction(B2)') ratingRecord.grade8DistB2++;

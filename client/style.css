@@ -1,3 +1,40 @@
+.color-green{
+  background-color: #b2fab4;
+  padding: 5px;
+}
+.color-yellow{
+  background-color: #ffff8b;
+  padding: 5px;
+}
+.color-red{
+  background-color: #ff867c;
+  padding: 5px;
+}
+
+.back-style{
+  background-color: #149ac7;
+}
+
+.back-style-divider{
+  background-color: #0e6380;
+}
+
+
+.jaksiClass{
+  white-space: nowrap;
+  background-color: #b2fab4;
+}
+
+.ortawaClass{
+  white-space: nowrap;
+  background-color: #ffff8b;
+}
+
+.nawarClass{
+  white-space: nowrap;
+  background-color: #ff867c;
+}
+
 .bts-header {
     font-size: 12px;
 }
@@ -90,7 +127,7 @@ span.drop-icon {
    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
      color: #333;
    }
-  
+
 
    .navbar-nav .open .dropdown-menu {
      border-bottom: 1px solid white;

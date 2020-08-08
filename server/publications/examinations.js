@@ -26,6 +26,7 @@ Meteor.publish('adminOpeResults',function(subjectId, grade) {
 Meteor.publish('opeResults',function(subjectId, grade) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = Students.find({olympiad:subjectId, grade:grade, schoolId:school.schoolId})
         // let cursor = OpeResults.find()
         return cursor
@@ -36,6 +37,7 @@ Meteor.publish('opeResults',function(subjectId, grade) {
 Meteor.publish('opeReports', function(academicYear, reportPeriod) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = OpeReports.find({academicYear:academicYear, reportPeriod:reportPeriod, schoolId:school.schoolId})
         // let cursor = OpeResults.find()
         return cursor
@@ -54,6 +56,7 @@ Meteor.publish('tatRating',function(academicYear,subjectId,tatNo) {
 Meteor.publish('btsResults',function(academicYear,grade,btsNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = BtsResults.find({academicYear:academicYear,grade:grade,btsNo:btsNo,schoolId:school.schoolId})
         return cursor
     }
@@ -71,6 +74,7 @@ Meteor.publish('ketPetResult',function() {
 Meteor.publish('ketPetResults',function(academicYear,grade,examPeriod) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = KetPetResults.find({academicYear:academicYear, schoolId:school.schoolId, grade:grade, examPeriod:examPeriod})
         return cursor
     }
@@ -105,6 +109,7 @@ Meteor.publish('ketPetRatings',function(academicYear, examPeriod) {
 Meteor.publish('turkishResults',function(academicYear,grade) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = TurkishResults.find({academicYear:academicYear,grade:grade,schoolId:school.schoolId})
         return cursor
     }
@@ -154,6 +159,7 @@ Meteor.publish('turkishRating',function(academicYear,grade) {
 Meteor.publish('btsObjectivesResults',function(academicYear,quarter) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = BtsObjectivesResults.find({academicYear:academicYear,quarter:quarter,schoolId:school.schoolId})
         return cursor
     }
@@ -177,6 +183,7 @@ Meteor.publish('btsObjectivesRatings',function(academicYear,quarter,grade) {
 Meteor.publish('btsObjectivesSchoolRatings',function(academicYear,quarter) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = BtsObjectivesRatings.find({academicYear:academicYear,quarter:quarter,schoolId:school.schoolId})
         return cursor
     }
@@ -194,6 +201,7 @@ Meteor.publish('kboRating',function(academicYear,grade,kboNo) {
 Meteor.publish('kboResults',function(academicYear,grade,subjectId,kboNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = KboResults.find({academicYear:academicYear,grade:RegExp(grade),subjectId:RegExp(subjectId),kboNo:kboNo,schoolId:school.schoolId})
         return cursor
     }
@@ -221,6 +229,7 @@ Meteor.publish('kboAllResults',function(academicYear,subjectId,grade) {
 Meteor.publish('tatResults',function(academicYear,subjectId,tatNo) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = TatResults.find({academicYear:academicYear,subjectId:RegExp(subjectId),tatNo:tatNo,schoolId:school.schoolId})
         return cursor
     } else {
@@ -230,7 +239,12 @@ Meteor.publish('tatResults',function(academicYear,subjectId,tatNo) {
 
 Meteor.publish('tatAllSeparateResults',function(academicYear,subjectId,tatNo) {
     if (this.userId) {
-        let cursor = TatResults.find({academicYear:academicYear,subjectId:RegExp(subjectId),tatNo:tatNo})
+        let cursor;
+        if(subjectId == 'all'){
+          cursor = TatResults.find({academicYear:academicYear,tatNo:tatNo})
+        }else{
+          cursor = TatResults.find({academicYear:academicYear,subjectId:RegExp(subjectId),tatNo:tatNo})
+        }
         return cursor
     } else {
         return this.ready()
@@ -249,6 +263,7 @@ Meteor.publish('tatAllResults',function(academicYear,subjectId) {
 Meteor.publish('uhdResults',function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = UhdResults.find({academicYear:academicYear,schoolId:school.schoolId})
         return cursor
     } else {
@@ -259,6 +274,7 @@ Meteor.publish('uhdResults',function(academicYear) {
 Meteor.publish('uhdStudentsRatings',function(academicYear) {
     if (this.userId) {
         let school = Schools.findOne({userId:this.userId})
+        if(!school) school = Schools.findOne({coordinatorId:this.userId})
         let cursor = UhdStudentRatings.find({academicYear:academicYear,schoolId:school.schoolId})
         return cursor
     }

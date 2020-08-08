@@ -311,11 +311,10 @@ export const recheck = (academicYear,btsNo,variant,day) => {
     }
 
     // let schools = Schools.find().fetch()
-    let schools = BtsRatings.find({academicYear:academicYear, btsNo:btsNo}).fetch()
-    // console.log(schools);
-    console.log("rerating: ");
-    _.each(schools,(school) => {
-        calculateReRating(academicYear,btsNo,school.schoolId,school.grade)
-
-    })
+    // let schools = BtsRatings.find({academicYear:academicYear, btsNo:btsNo}).fetch()
+    // console.log("rerating: ");
+    // _.each(schools,(school) => {
+    //     calculateReRating(academicYear,btsNo,school.schoolId,school.grade)
+    //
+    // })
 }

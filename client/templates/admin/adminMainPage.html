@@ -14,7 +14,6 @@
 
     <!-- Fixed navbar -->
     {{> adminMenu}}
-
     <div class="container" style="padding-top: 3em">
         {{#if Template.subscriptionsReady}}
         <div class="row">
@@ -39,7 +38,9 @@
                 </table>
             </div>
             <div class="col-md-10">
-            <h4 style="text-align: center; padding-bottom: 2em">Мектептер жалпы рейтингі </h4>
+            <h4 style="text-align: center; padding-bottom: 2em">Мектептер жалпы рейтингі
+            {{#if isEdlight}}<br>(Edlight){{/if}}
+            </h4>
                     <div class="form-inline">
                         <div class="form-group" style="margin-right: 15pt">
                             {{> academicYear}}
@@ -115,5 +116,12 @@
             <p>Loading...</p>
         {{/if}}
     </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </body>
 </template>

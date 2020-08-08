@@ -63,7 +63,9 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
           btsNo: btsNo,
           schoolId: schoolId,
           grade: grade,
-          total: res
+          total: res,
+          totalA: 0,
+          totalB: 0
       }
 
       var sameRating = BtsRatings.findOne({
@@ -72,7 +74,49 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
           btsNo: btsNo,
           grade: grade
       })
-      
+
+      if(grade == '7'){
+        totalRatingObj.totalA = (sameRating.mathematicA + sameRating.kazakh_langA + sameRating.turkish_langA) / 3;
+        totalRatingObj.totalB = (sameRating.mathematicB + sameRating.kazakh_langB + sameRating.turkish_langB) / 3;
+      }else if(grade == '8'){
+        totalRatingObj.totalA = (sameRating.mathematicA + sameRating.kazakh_langA + sameRating.turkish_langA +
+                                 sameRating.kazakh_historyA + sameRating.geographyA + sameRating.physicsA + sameRating.chemistryA + sameRating.biologyA) / 8;
+
+        totalRatingObj.totalB = (sameRating.mathematicB + sameRating.kazakh_langB + sameRating.turkish_langB +
+                                sameRating.kazakh_historyB + sameRating.geographyB + sameRating.physicsB + sameRating.chemistryB + sameRating.biologyB) / 8;
+
+      }else if(grade == '9'){
+        totalRatingObj.totalA = (sameRating.mathematicA + sameRating.kazakh_langA + sameRating.turkish_langA +
+                                 sameRating.kazakh_historyA + sameRating.geographyA + sameRating.physicsA + sameRating.chemistryA + sameRating.biologyA) / 8;
+
+       totalRatingObj.totalB = (sameRating.mathematicB + sameRating.kazakh_langB + sameRating.turkish_langB +
+              sameRating.kazakh_historyB + sameRating.geographyB + sameRating.physicsB + sameRating.chemistryB + sameRating.biologyB) / 8;
+
+      }else if(grade == '10'){
+        var countA = 3;
+        var sumA = 0;
+
+        if(sameRating.geographyA){ sumA += sameRating.geographyA; countA++; }
+        if(sameRating.physicsA) { sumA += sameRating.physicsA; countA++; }
+        if(sameRating.chemistryA) { sumA += sameRating.chemistryA; countA++; }
+        if(sameRating.biologyA) { sumA += sameRating.biologyA; countA++; }
+        if(sameRating.world_historyA) { sumA += sameRating.world_historyA; countA++; }
+
+        totalRatingObj.totalA = (sameRating.mathematicA + sameRating.kazakh_langA + sameRating.kazakh_historyA + sumA) / countA;
+
+
+        var countB = 3;
+        var sumB = 0;
+        if(sameRating.geographyB){ sumB+= sameRating.geographyB; countB++; }
+        if(sameRating.physicsB) { sumB += sameRating.physicsB; countB++; }
+        if(sameRating.chemistryB) { sumB += sameRating.chemistryB; countB++; }
+        if(sameRating.biologyB) { sumB += sameRating.biologyB; countB++; }
+        if(sameRating.world_historyB) { sumB += sameRating.world_historyB; countB++; }
+
+        totalRatingObj.totalB = (sameRating.mathematicB + sameRating.kazakh_langB + sameRating.kazakh_historyB + sumB) / countB;
+      }
+
+
       if (!sameRating){
           BtsRatings.insert(totalRatingObj)
       }else {
@@ -80,16 +124,6 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
       }
 
     })
-
-    console.log("schoolId: "+schoolId);
-    console.log("grade 7: ");
-    console.log(grade7AveAndStudentCount);
-    console.log("grade 8: ");
-    console.log(grade8AveAndStudentCount);
-    console.log("grade 9: ");
-    console.log(grade9AveAndStudentCount);
-    console.log("grade 10: ");
-    console.log(grade10AveAndStudentCount);
 
     let allStudentsCount = grade7AveAndStudentCount[0] + grade8AveAndStudentCount[0] + grade9AveAndStudentCount[0] + grade10AveAndStudentCount[0]
     let sumOfPoint = grade7AveAndStudentCount[0]*grade7AveAndStudentCount[1]+
@@ -106,12 +140,15 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
 
     totalOfSchool = totalOfSchool / 4;
 
+
     var totalRatingObj = {
         academicYear:academicYear,
         btsNo: btsNo,
         schoolId: schoolId,
         grade: "all",
-        total: totalOfSchool2
+        total: totalOfSchool2,
+        totalA: 0,
+        totalB: 0
     }
 
     var sameRating = BtsRatings.findOne({
@@ -120,6 +157,12 @@ export const calcTotalRating = (academicYear, schoolId, btsNo) => {
         btsNo: btsNo,
         grade: "all"
     })
+
+    totalRatingObj.totalA = (sameRating.mathematicA + sameRating.kazakh_langA + sameRating.turkish_langA + sameRating.turkish_langA +
+                            sameRating.kazakh_historyA + sameRating.geographyA + sameRating.physicsA + sameRating.biologyA) / 8
+
+    totalRatingObj.totalB = (sameRating.mathematicB + sameRating.kazakh_langB + sameRating.turkish_langB + sameRating.turkish_langB +
+                            sameRating.kazakh_historyB + sameRating.geographyB + sameRating.physicsB + sameRating.biologyB) / 8
 
     if (!sameRating){
         BtsRatings.insert(totalRatingObj)

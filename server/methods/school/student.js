@@ -3,7 +3,8 @@ import { uploadStudents } from "../../modules/student/uploadStudents";
 
 Meteor.methods({
     "Student.updateOlympiadSubject": function(student_id,subjectId) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             if (student) {
                 Students.update({_id:student._id},{$set:{olympiad:subjectId}})
@@ -14,7 +15,8 @@ Meteor.methods({
     },
 
     "Student.updateBtsElectiveGroup": function(student_id, electiveGroupId) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+          Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             if (student) {
                 Students.update({_id:student._id},{$set:{electiveGroup:electiveGroupId}})
@@ -25,7 +27,8 @@ Meteor.methods({
     },
   	"Student.Upload":function(academicYear,results) {
 
-          if (!Roles.userIsInRole(this.userId,"school"))
+      if(!Roles.userIsInRole(this.userId,'school') &&
+          !Roles.userIsInRole(this.userId,'schoolCoordinator'))
               throw new Meteor.Error('access-denied', 'Access denied!')
 
           let school = Schools.findOne({
@@ -39,7 +42,8 @@ Meteor.methods({
     },
 
     "Student.updateJobaSubject": function(student_id,subjectId) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             if (student) {
                 Students.update({_id:student._id},{$set:{joba:subjectId}})
@@ -49,7 +53,8 @@ Meteor.methods({
         }
     },
     "Student.insert": function(studentObject) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let school = Schools.findOne({userId:this.userId})
             if(school) {
                 let id = IdCounter.findOne()
@@ -71,7 +76,8 @@ Meteor.methods({
         }
     },
     "Student.update": function(studentObject,student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             if(student) {
                 Students.update({_id:student_id},{$set:studentObject})
@@ -81,7 +87,8 @@ Meteor.methods({
         }
     },
     "Student.transfer": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             if(student) {
                 Students.remove({_id:student_id})
@@ -92,7 +99,8 @@ Meteor.methods({
         }
     },
     "Student.acceptToSchool": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = StudentTransferList.findOne({_id:student_id})
             if(student) {
                 StudentTransferList.remove({_id:student_id})
@@ -105,7 +113,8 @@ Meteor.methods({
         }
     },
     "Student.upgrade": function(academicYear) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let school = Schools.findOne({userId:this.userId})
 
             let years = academicYear.split('-')
@@ -131,7 +140,8 @@ Meteor.methods({
     },
     // added this
     "Student.downgrade": function() {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let school = Schools.findOne({userId:this.userId})
             Students.remove({grade:"7",schoolId:school.schoolId})
             let students = Students.find({schoolId:school.schoolId}).fetch()
@@ -147,7 +157,8 @@ Meteor.methods({
         }
     },
     "Student.addUser": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
 
             let newUserData = {
@@ -165,7 +176,8 @@ Meteor.methods({
             }
     },
     "Student.addMultipleUsers": function() {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
 
             let school = Schools.findOne({userId:this.userId})
 
@@ -185,7 +197,8 @@ Meteor.methods({
         }
     },
     "Student.deleteMultipleUsers": function() {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
 
             let school = Schools.findOne({userId:this.userId})
 
@@ -199,7 +212,8 @@ Meteor.methods({
         }
     },
     "Student.deleteAccount": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             let student = Students.findOne({_id:student_id})
             Meteor.users.remove(student.userId)
             //Roles.removeUser(student.userId,[])
@@ -210,7 +224,8 @@ Meteor.methods({
           }
     },
     "Student.deleteStudent": function(student_id) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+      if(Roles.userIsInRole(this.userId,'school') ||
+        Roles.userIsInRole(this.userId,'schoolCoordinator')){
             Students.remove({_id:this._id});
         }
     }

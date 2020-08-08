@@ -14,13 +14,41 @@ Template.tatRating.onCreated(function(){
         template.subscribe('tatRating',academicYear.get(),template.subjectId.get(),FlowRouter.getParam('tatNo'))
     })
 })
+var schoolArray2 = [];
 Template.tatRating.helpers({
     tatNo() {
         return FlowRouter.getParam('tatNo')
     },
     results() {
+
+        var schoolStore = new Map();
+        var schoolArray = [];
+
+        let schools = Schools.find().fetch()
+        let cursorKboRatings = TatRating.find({},{sort:{total:-1}}).fetch()
+        console.log(schools);
+        // console.log();
+
+        schools.forEach(school =>{
+          schoolStore.set(school.schoolId, school.shortName);
+        });
+
+        for(var i = 0; i < cursorKboRatings.length; i++){
+            schoolStore.delete(cursorKboRatings[i].schoolId);
+        }
+
+        for (const [key, value] of schoolStore.entries()) {
+          schoolArray.push(value)
+        }
+
+        schoolArray2 = schoolArray;
+
         return TatRating.find({},{sort:{total:-1}})
-    }
+    },
+    
+    schoolNotUploaded(){
+      return schoolArray2;
+    },
 })
 
 Template.tatRating.events({

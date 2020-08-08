@@ -1,80 +1,121 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import './bts100Results.html';
-import { Meteor } from 'meteor/meteor';
-import XLSX from 'xlsx';
 Template.bts100Results.onCreated(function(){
     let template = this
     template.grade = new ReactiveVar("7")
-    //template.schoolId_select = new ReactiveVar("")
-    document.title = "БТС TOП-100 Оқушы";
+    document.title = "БТС ТОП-100 оқушы"
     template.subscribe("schools")
     template.autorun(()=>{
         template.subscribe("btsAllResults",academicYear.get(),template.grade.get(),FlowRouter.getParam("btsNo"))
     })
 })
+
+var points = new Set();
+var oryndar = [];
+var oryndar2 = [];
+
+Set.prototype.getByIdx = function(idx){
+  if(typeof idx !== 'number') throw new TypeError('Argument idx must be a Number. Got [${idx}]');
+
+  let i = 0;
+  for( let iter = this.keys(), curs = iter.next(); !curs.done; curs = iter.next(), i++ )
+    if(idx === i) return curs.value;
+
+  throw new RangeError('Index [${idx}] is out of range [0-${i-1}]');
+}
+
 Template.bts100Results.helpers({
     btsNo() {
         return FlowRouter.getParam("btsNo")
     },
+
     results() {
-        return BtsResults.find({},{sort:{total:-1}})
-    }
+      points.clear();
+      oryndar = [];
+      oryndar2 = [];
+
+      var btsResults = BtsResults.find({},{sort:{total:-1}});
+      /*
+      // Place calculate functions
+      var btsStore = btsResults.fetch();
+      btsStore.forEach(res =>{
+        points.add(res.total)
+      });
+
+      for(var i = 0; i < btsStore.length; i++){
+
+        var number = 0;
+        for(var index = 0; index < points.size; index++){
+          if(btsStore[i])
+            if(btsStore[i].total == points.getByIdx(index)){
+              number = index;
+            }
+        }
+        oryndar.push((number+1))
+      }
+
+      var previous = 0;
+      var count = 0;
+      for(var j = 0; j < oryndar.length; j++){
+        if(previous < oryndar[j]){
+          if(oryndar[j]!=1 && oryndar[j]!=2 && oryndar[j]!=3){
+              oryndar2.push(j+1);
+              count++;
+          }else{
+            oryndar2.push(oryndar[j]);
+            count++;
+          }
+        }else{
+          oryndar2.push(oryndar2[count-1]);
+          count++;
+        }
+
+        previous = oryndar[j];
+      }
+      */
+      return btsResults;
+    },
+    /*
+    // Place calculate functions
+    place(lvalue, operator, rvalue, options){
+        lvalue = parseFloat(lvalue);
+        rvalue = parseFloat(rvalue);
+
+        var index =  {
+            "+": lvalue + rvalue,
+            "-": lvalue - rvalue,
+            "*": lvalue * rvalue,
+            "/": lvalue / rvalue,
+            "%": lvalue % rvalue,
+            "<": lvalue < rvalue,
+            ">": lvalue > rvalue
+        }[operator];
+        return oryndar2[index-1];
+    },
+    */
+
 })
 
 Template.bts100Results.events({
     'change #grade'(event,template) {
         template.grade.set(event.target.value)
     },
-
-    "click #export"(event,template) {
-      document.getElementById('out').innerHTML;
-      var data = [];
-      let btsNo = FlowRouter.getParam('btsNo');
-      let okuJyly = academicYear.get();
-
-      let selectedGrade = "7 cынып";
-      let grades = ["7 cынып", "8 cынып", "9 cынып", "10 cынып"];
-      selectedGrade = grades[parseInt(template.grade.get()) - 7];
-
-      var btsStore = BtsResults.find({},{sort:{total:-1}}).fetch();
-      var headers = ["#", "Оқу жылы", "Мектеп", "Сынып", "Аты Жөні", "Жалпы"];
-
-      data.push(headers);
-      console.log(btsStore);
-      var totalAve = 0;
-
-      if(btsStore.length > 0){
-        for(var i = 0; i < 100; i++){
-          let idN = i+1;
-          let school_name = Schools.findOne({schoolId: btsStore[i].schoolId}) ? Schools.findOne({schoolId: btsStore[i].schoolId}).shortName : "no";
-          let studentInfo = btsStore[i].surname+" "+btsStore[i].name.trim();
-          let classN = btsStore[i].grade+" "+btsStore[i].division;
-
-          let total = btsStore[i].total;
-          totalAve += total;
-
-          let content = [idN, okuJyly, school_name, classN, studentInfo, total];
-          data.push(content);
-        }
-      }
-
-      if(data.length == 1){
-          alert("Keep calm, there is no data to export");
-      }else{
-
-        let averages = [" "," "," "," ","Орталама балы", Math.round(totalAve / 100)];
-
-        data.push(averages);
-        console.log(data);
-
-        Meteor.call('download', data, (err, wb) => {
-          if (err) throw err;
-          let sName = 'BTS-'+btsNo+' TOП-100 Оқушы '+selectedGrade+' '+okuJyly+'.xlsx';
-          XLSX.writeFile(wb, sName);
-        });
-
-      }
-
+    'click #calcPlaces'(event,template){
+      // Place calculate functions
+        // var btsResults = BtsResults.find({},{sort:{total:-1}}).fetch();
+        // var i = 0;
+        //
+        // btsResults.forEach(res =>{
+        // // console.log("studentId: "+res.studentId);
+        // console.log("place: "+oryndar2[i]);
+        //     Meteor.call("BtsResults.studentPlace",academicYear.get(),FlowRouter.getParam("btsNo"),res.studentId,oryndar2[i],function (err) {
+        //         if (err) {
+        //             alert(err.reason)
+        //         }
+        //     });
+        //
+        //     i++;
+        // });
     }
 })

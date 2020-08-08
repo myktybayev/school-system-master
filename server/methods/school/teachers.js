@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 Meteor.methods({
     "Teacher.insert": function(teacherObject) {
-        if(Roles.userIsInRole(this.userId,'school')) {
+        if(Roles.userIsInRole(this.userId,['school', 'schoolCoordinator'])) {
             let school = Schools.findOne({userId:this.userId})
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
             if(school) {
                 let id = IdCounter.findOne()
                 teacherId = id['teacherId']+1
@@ -56,6 +57,7 @@ Meteor.methods({
         if(Roles.userIsInRole(this.userId,'school')) {
 
             let school = Schools.findOne({userId: this.userId})
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
 
             if(school) {
                 teachers = Teachers.find({schoolId:school.schoolId,position:{$ne:"intern"}}).fetch()
@@ -69,12 +71,12 @@ Meteor.methods({
                         var counter;
 
                         if (quarter == '1' || quarter == '2' || quarter == '4') {
-                            counter = 8; 
+                            counter = 8;
                         }
                         if (quarter == '3') {
                             counter = 10;
                         }
-                        
+
                         for (var i = 1; i <= counter; i++) {
                             TeacherPerformaRating.insert({
                                 academicYear: academicYear,
@@ -129,9 +131,10 @@ Meteor.methods({
         if(Roles.userIsInRole(this.userId,'school')) {
 
             let school = Schools.findOne({userId: this.userId})
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
 
             if(school) {
-                TeacherPerformaRating.remove({schoolId:school.schoolId,quarter:quarter})                   
+                TeacherPerformaRating.remove({schoolId:school.schoolId,quarter:quarter})
             }
         }
             else {
@@ -141,14 +144,15 @@ Meteor.methods({
     "Teacher.addExtraLesson": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
                     teacher.extra_lesson++;
                     teacher.total++;
                     TeacherPerformaRating.update({_id:teacher_id},{$set:teacher})
-                
+
                     let teacherGeneral = TeacherPerformaRating.findOne({teacherId:parseInt(teacher.teacherId), academicYear:academicYear, quarter:quarter, week:'all'})
 
                     teacherGeneral.extra_lesson++;
@@ -163,7 +167,8 @@ Meteor.methods({
     "Teacher.reduceExtraLesson": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -185,7 +190,8 @@ Meteor.methods({
     "Teacher.addOlympiad": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -203,7 +209,7 @@ Meteor.methods({
                         else {
                             throw new Meteor.Error('limit-error','Артық ұпай берілмейді')
                         }
-                    
+
                     TeacherPerformaRating.update({_id:teacher_id},{$set:teacher})
                 }
 
@@ -214,7 +220,8 @@ Meteor.methods({
     "Teacher.reduceOlympiad": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -236,7 +243,8 @@ Meteor.methods({
     "Teacher.addUbt": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -258,7 +266,8 @@ Meteor.methods({
     "Teacher.reduceUbt": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -281,7 +290,8 @@ Meteor.methods({
     "Teacher.addAttend": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -303,7 +313,8 @@ Meteor.methods({
     "Teacher.reduceAttend": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -325,7 +336,8 @@ Meteor.methods({
     "Teacher.addSchoolEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -347,7 +359,8 @@ Meteor.methods({
     "Teacher.reduceSchoolEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -369,7 +382,8 @@ Meteor.methods({
     "Teacher.addCityEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -391,7 +405,8 @@ Meteor.methods({
     "Teacher.reduceCityEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -413,7 +428,8 @@ Meteor.methods({
     "Teacher.addRepEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -435,7 +451,8 @@ Meteor.methods({
     "Teacher.reduceRepEvent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -457,7 +474,8 @@ Meteor.methods({
     "Teacher.addPblPrepare": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -486,7 +504,8 @@ Meteor.methods({
     "Teacher.reducePblPrepare": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -508,7 +527,8 @@ Meteor.methods({
     "Teacher.addPblPresent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -530,7 +550,8 @@ Meteor.methods({
     "Teacher.reducePblPresent": function(teacher_id, academicYear, quarter, week) {
         if(Roles.userIsInRole(this.userId,['school'])) {
             let school = Schools.findOne({userId: this.userId})
-                
+            if(!school) school = Schools.findOne({coordinatorId:this.userId})
+
                 let teacher = TeacherPerformaRating.findOne({_id:teacher_id, academicYear:academicYear, quarter:quarter, week:week})
 
                 if (teacher) {
@@ -549,5 +570,5 @@ Meteor.methods({
             throw new Meteor.Error('auth-error','School rights required.')
         }
     },
-    
+
 })

@@ -18,7 +18,7 @@
 
             <li class="dropdown">
 
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                 <span class="glyphicon glyphicon-user">
                 </span>Оқушылар<span class="caret"></span></a>
 
@@ -31,7 +31,9 @@
               </ul>
 
             </li>
-            
+
+            {{#if isSchoolAccount}}
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-briefcase"></span> Мұғалім<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -46,6 +48,8 @@
                 <li><a href="/school/teachers/transfer">Трансфер тізімі</a></li>
               </ul>
             </li>
+
+
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">БТС<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -68,6 +72,8 @@
                   <ul class="dropdown-menu">
                     <li><a href="/school/bts/rating/2">Рейтинг</a></li>
                     <li><a href="/school/bts/ratingByCategory/2">Рейтинг категориямен</a></li>
+                    <li><a href="/school/bts/ratingByQuaility/2">Рейтинг сапамен</a></li>
+                    <li><a href="/school/bts/ratingByCount/2">Рейтинг санмен</a></li>
                     <li><a href="/school/bts/results/2">Мектеп Нәтижелері</a></li>
                     <li><a href="/school/bts/allResults/2">Жалпы Нәтижелері</a></li>
                     <li><a href="/school/bts/top100/2">ТОП-100</a></li>
@@ -79,6 +85,8 @@
                   <ul class="dropdown-menu">
                     <li><a href="/school/bts/rating/3">Рейтинг</a></li>
                     <li><a href="/school/bts/ratingByCategory/3">Рейтинг категориямен</a></li>
+                    <li><a href="/school/bts/ratingByQuaility/3">Рейтинг сапамен</a></li>
+                    <li><a href="/school/bts/ratingByCount/3">Рейтинг санмен</a></li>
                     <li><a href="/school/bts/results/3">Мектеп Нәтижелері</a></li>
                     <li><a href="/school/bts/allResults/3">Жалпы Нәтижелері</a></li>
                     <li><a href="/school/bts/top100/3">ТОП-100</a></li>
@@ -90,6 +98,8 @@
                   <ul class="dropdown-menu">
                     <li><a href="/school/bts/rating/4">Рейтинг</a></li>
                     <li><a href="/school/bts/ratingByCategory/4">Рейтинг категориямен</a></li>
+                    <li><a href="/school/bts/ratingByQuaility/4">Рейтинг сапамен</a></li>
+                    <li><a href="/school/bts/ratingByCount/4">Рейтинг санмен</a></li>]
                     <li><a href="/school/bts/results/4">Мектеп Нәтижелері</a></li>
                     <li><a href="/school/bts/allResults/4">Жалпы Нәтижелері</a></li>
                     <li><a href="/school/bts/top100/4">ТОП-100</a></li>
@@ -97,24 +107,6 @@
                     <li><a href="/school/bts/objectives/rating/4">Сабақ мақсаттар рейтинг</a></li>
                   </ul>
                 </li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">КБО<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/school/kbo/upload">Жүктеу</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Рейтинг</li>
-                <li><a href="/school/kbo/rating/1">КБО-1</a></li>
-                <li><a href="/school/kbo/rating/2">КБО-2</a></li>
-                <li><a href="/school/kbo/rating/3">КБО-3</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Нәтижелер</li>
-                <li><a href="/school/kbo/results/1">КБО-1</a></li>
-                <li><a href="/school/kbo/results/2">КБО-2</a></li>
-                <li><a href="/school/kbo/results/3">КБО-3</a></li>
-                <li><a href="/school/kbo/final">Финал</a></li>
               </ul>
             </li>
 
@@ -134,6 +126,43 @@
                 <li class="dropdown-header">ТОП-10</li>
                 <li><a href="/school/tat/top10/1">ТАТ-1</a></li>
                 <li><a href="/school/tat/top10/2">ТАТ-2</a></li>
+              </ul>
+            </li>
+
+            <!-- KET, PET -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">KET-PET<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/school/ketPet/upload">Жүктеу</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/school/ketPet/results">Нәтижелер</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/school/ketPet/rating">Рейтинг</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/school/ketPet/ratingByLevel">Деңгей бойынша бағалау</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/school/ketPet/top10">ТОП-10</a></li>
+
+              </ul>
+            </li>
+            
+            {{/if}}
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">КБО<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/school/kbo/upload">Жүктеу</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Рейтинг</li>
+                <li><a href="/school/kbo/rating/1">КБО-1</a></li>
+                <li><a href="/school/kbo/rating/2">КБО-2</a></li>
+                <li><a href="/school/kbo/rating/3">КБО-3</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Нәтижелер</li>
+                <li><a href="/school/kbo/results/1">КБО-1</a></li>
+                <li><a href="/school/kbo/results/2">КБО-2</a></li>
+                <li><a href="/school/kbo/results/3">КБО-3</a></li>
+                <li><a href="/school/kbo/final">Финал</a></li>
               </ul>
             </li>
 
@@ -164,22 +193,6 @@
               </ul>
             </li>
 
-            <!-- KET, PET -->
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">KET-PET<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/school/ketPet/upload">Жүктеу</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/school/ketPet/results">Нәтижелер</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/school/ketPet/rating">Рейтинг</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/school/ketPet/ratingByLevel">Деңгей бойынша бағалау</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/school/ketPet/top10">ТОП-10</a></li>
-
-              </ul>
-            </li>
 
             <!--
             Turkish
@@ -210,6 +223,21 @@
                 <li><a href="/school/olympiads/ratingInter">Рейтинг Халықаралық</a></li>
               </ul>
             </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-equalizer"></span> Архив<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">Документтер</li>
+                  <li><a href="/school/arhiv/bts">БТС</a></li>
+                  <li><a href="/school/arhiv/kbo">КБО сұрақтары</a></li>
+                  <li><a href="/school/arhiv/tat">ТАТ сұрақтары</a></li>
+                  <li><a href="/school/arhiv/ope">OPE сұрақтары</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/school/joba/rating">Рейтинг</a></li>
+                </ul>
+            </li>
+
+            <!-- Жобаа
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-equalizer"></span> Жоба<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -220,11 +248,16 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="/school/joba/rating">Рейтинг</a></li>
                 </ul>
-              </li>
+           </li>
+           -->
+
+
+
+
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/school/profile"><span class="glyphicon glyphicon-cog"></span> Баптаулар</a></li>
+            {{#if isSchoolAccount}} <li><a href="/school/profile"><span class="glyphicon glyphicon-cog"></span> Баптаулар</a></li> {{/if}}
             <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Шығу</a></li>
           </ul>
         </div>

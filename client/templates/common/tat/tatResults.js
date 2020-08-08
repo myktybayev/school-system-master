@@ -50,7 +50,7 @@ Template.tatResults.events({
       }
 
       var headers = ["#", "Оқу жылы", "Мектеп аты", "Пән", "Мұғалім ID",
-      "Аты	Жөні", "Лауазымы", "Нәтиже", "%"];
+      "Аты	Жөні", "Лауазымы", "Нәтиже", "Пән бойынша орташа ұпай", "Пән бойынша орны", "%"];
       data.push(headers);
 
       var resultStore = TatResults.find({},{sort:{percent:-1}}).fetch();
@@ -70,10 +70,12 @@ Template.tatResults.events({
         let mugalimInfo = resultStore[i].teacherSurname+" "+resultStore[i].teacherName;
         let lauazim = resultStore[i].position;
         let natizhe = resultStore[i].result;
+        let subjectAverage = resultStore[i].subjectAverage;
+        let place = resultStore[i].place;
         let procentN = resultStore[i].percent;
 
         let content = [idN, okuJyly, mektepAty, panAty, mugalimId, mugalimInfo,
-          lauazim, natizhe, procentN];
+          lauazim, natizhe, subjectAverage, place, procentN];
 
         data.push(content);
       }

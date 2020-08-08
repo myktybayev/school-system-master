@@ -56,7 +56,7 @@ Template.btsAllResults.events({
       var headers = [];
       let schoolId_select = new RegExp(Template.instance().schoolId_select.get())
       var btsStore = BtsResults.find({schoolId:schoolId_select},{sort:{total:-1}}).fetch();
-      console.log(btsStore);
+      // console.log(btsStore);
 
       if(btsStore.length != 0){
 

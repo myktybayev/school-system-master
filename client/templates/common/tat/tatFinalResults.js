@@ -5,6 +5,7 @@ import './tatFinalResults.html';
 Template.tatFinalResults.onCreated(function(){
     let template = this
     template.subjectId = new ReactiveVar('01')
+    document.title = 'ТАТ Жалпы';
     template.subscribe('schools')
     template.autorun(()=>{
         template.subscribe('tatAllResults',academicYear.get(),template.subjectId.get())

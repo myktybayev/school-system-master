@@ -1,10 +1,22 @@
 import { recheck } from "../../modules/bts/recheck";
 import { calculateObj } from "../../modules/bts/calculateObj"
 import { calcTotalRating } from "../../modules/bts/totalRating"
-import { calculateReRating } from "../../modules/bts/reRating"
+import { calculateRating } from "../../modules/bts/rating"
 
 
 Meteor.methods({
+
+    'BtsResults.studentPlace':function(academicYear, btsNo, studentId, place) {
+        // console.log("studentPlace: "+" btsNo: "+btsNo+" studentId: "+studentId+" place: "+place);
+          if (!this.userId || !Roles.userIsInRole(this.userId, ['admin']))
+              throw new Meteor.Error(401, 'Please login as administrator')
+
+          let studentResult = BtsResults.findOne({academicYear:academicYear, studentId:studentId, btsNo:btsNo})
+          studentResult.place = place;
+
+          BtsResults.update({_id:studentResult._id},{$set:studentResult})
+
+    },
 
     'BtsResults.calcTotalRating':function(academicYear, btsNo) {
         // let btsNo = "2"
@@ -17,10 +29,10 @@ Meteor.methods({
 
     'BtsResults.calcSubjectRating':function(academicYear, btsNo) {
         let schools = BtsRatings.find({academicYear:academicYear, btsNo:btsNo, grade: "all"}).fetch()
-        console.log('calculateReRating');
+        console.log("calcSubjectRating: "+btsNo);
         _.each(schools,(school) => {
-            calculateRating(academicYear,btsNo,school.schoolId,school.grade)
-
+           calculateRating(academicYear, btsNo, '1', school.schoolId)
+           calculateRating(academicYear, btsNo, '2', school.schoolId)
         })
     },
 

@@ -18,7 +18,7 @@ export const ubtResultsAverageCalc = (academicYear,schoolId) => {
         var totalPoints = 0;
         var totalAmount = 0;
 
-        for (var i = 1; i <= 34; i++) {
+        for (var i = 1; i <= 60; i++) {
             var n = 'ubt' + i;
 
             studentRecord[n] = studentObj[n] || 0;
