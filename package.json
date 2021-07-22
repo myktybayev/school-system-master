@@ -19,7 +19,7 @@
     "rc": "^1.2.8",
     "react": "^16.10.2",
     "sshpk": "^1.15.1",
-    "xlsx": "^0.11.19"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "webpack-command": "^0.4.1"
